@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";.sbHolder{background-color:rgb(56,18,0);background-image:linear-gradient(bottom, rgb(56,18,0) 16%, rgb(31,11,3) 52%, rgb(69,68,68) 93%);background-image:-o-linear-gradient(bottom, rgb(56,18,0) 16%, rgb(31,11,3) 52%, rgb(69,68,68) 93%);background-image:-moz-linear-gradient(bottom, rgb(56,18,0) 16%, rgb(31,11,3) 52%, rgb(69,68,68) 93%);background-image:-webkit-linear-gradient(bottom, rgb(56,18,0) 16%, rgb(31,11,3) 52%, rgb(69,68,68) 93%);background-image:-ms-linear-gradient(bottom, rgb(56,18,0) 16%, rgb(31,11,3) 52%, rgb(69,68,68) 93%);background-repeat:repeat-x;border:solid 1px #FBD0A6;font-size:12px;font-weight:normal;height:30px;position:relative;width:80px;float:left;}
+.sbHolder:focus .sbSelector{}
+.sbSelector{display:block;height:30px;left:0;line-height:30px;outline:none;overflow:hidden;position:absolute;text-indent:10px;top:0;width:100%;}
+.sbSelector:link, .sbSelector:visited, .sbSelector:hover{color:#FFFFFF;outline:none;text-decoration:none;}
+.sbToggle{display:block;height:30px;outline:none;position:absolute;right:0;top:0;width:30px;}
+.sbToggle:hover{}
+.sbToggleOpen{}
+.sbToggleOpen:hover{}
+.sbHolderDisabled{background-color:#3C3C3C;border:solid 1px #515151;}
+.sbHolderDisabled .sbHolder{}
+.sbHolderDisabled .sbToggle{}
+.sbOptions{background-color:#342417;border:solid 1px #FBD0A6;list-style:none;left:-1px;margin:0;padding:0;position:absolute;top:30px;width:80px;z-index:1;overflow-y:auto;}
+.sbOptions li{padding:0 7px;}
+.sbOptions a{border-bottom:dotted 1px #515151;display:block;outline:none;padding:7px 0 7px 3px;}
+.sbOptions a:link, .sbOptions a:visited{color:#ddd;text-decoration:none;}
+.sbOptions a:hover,
+.sbOptions a:focus,
+.sbOptions a.sbFocus{color:#EBB52D;}
+.sbOptions li.last a{border-bottom:none;}
+.sbOptions .sbDisabled{border-bottom:dotted 1px #515151;color:#999;display:block;padding:7px 0 7px 3px;}
+.sbOptions .sbGroup{border-bottom:dotted 1px #515151;color:#EBB52D;display:block;font-weight:bold;padding:7px 0 7px 3px;}
+.sbOptions .sbSub{padding-left:17px;}

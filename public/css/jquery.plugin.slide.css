@@ -1,0 +1,47 @@
+.MixbtnSlide {
+    width: 19px;
+    height: 40px;
+    z-index: 500;
+    cursor: pointer;
+    margin-top: 13%;
+    position: absolute
+}
+
+.MixBtnNext {
+    background-position: -907px -125px;
+    right: 0px
+}
+
+.MixBtnBack {
+    background-position: -888px -125px;
+    left: 0;
+}
+
+.btnSlidTagDesignIdea {
+    width: 39px;
+    height: 187px;
+    top: 15px;
+    left: -39px;
+    position: absolute;
+    cursor: pointer;
+    background: url('../images/icon.png');
+    background-position: 0 0
+}
+
+.tabPromotions {
+    background-position: 0 -190px
+}
+
+/*.btnSlidTagDesignIdea div{color: #FFFFFF;font-size: 100%;font-weight: 600;left: -68px;position: relative;top: 81px;width: 165px;text-align: center;writing-mode: tb-rl;filter: flipv fliph;-webkit-transform: rotate(-90deg);-moz-transform: rotate(-90deg);transform: rotate(-90deg); transform: rotate(-90deg);}*/
+.btnSlidTagDesignIdea div {
+    color: #FFFFFF;
+    font-size: 100%;
+    font-weight: 600;
+    left: -60px;
+    position: relative;
+    top: 88px;
+    width: 165px;
+    text-align: center;
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg);
+}

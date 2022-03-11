@@ -1,0 +1,99 @@
+#shoescare {
+    position: relative;
+    width: 100%;
+    margin-bottom: 5%;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+}
+
+header,
+article {
+    text-align: center;
+}
+
+header {
+    margin: 1% 0 4%;
+}
+
+header h2 {
+    font-family: "CenturyGothic";
+    font-size: 4em;
+    letter-spacing: 2px;
+}
+
+header p {
+    font-family: ProximaNovaLight;
+    font-size: 1em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+article {
+    margin: 0 5%;
+}
+
+article h1,
+article p {
+    position: relative;
+    z-index: 2;
+}
+
+article h1 {
+    margin-bottom: 20px;
+    font-family: ProximaNovaBold;
+    font-size: 2em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+article p {
+    margin: 15px 0;
+    font-family: "CenturyGothic";
+}
+
+article img {
+    width: 80%;
+    min-width: 288px;
+    max-width: 1024px;
+    margin: -5% auto 5%;
+}
+
+#shoescare a {
+    position: relative;
+    padding: 16px 50px;
+    margin: auto;
+    border: 1px solid #8edd4c;
+    outline: 0;
+    font-family: ProximaNovaRegular;
+    font-size: 1.25em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    background: #8edd4c;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    -webkit-transition: background .2s;
+    -moz-transition: background .2s;
+    transition: background .2s;
+}
+
+@media screen and (max-width: 640px) {
+    #shoescare {
+        font-size: 0.875em;
+    }
+
+    header {
+        margin-top: 0;
+    }
+
+    article h1 {
+        margin-bottom: 10px;
+        letter-spacing: 0;
+    }
+
+    article p {
+        margin: 10px 0;
+    }
+}

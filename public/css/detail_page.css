@@ -1,0 +1,152 @@
+#menuHead {
+    width: 300px;
+    margin: auto;
+    font-size: 14px;
+}
+
+#menuHead ul {
+    overflow: auto;
+}
+
+#menuHead ul li {
+    float: left;
+    margin: 0px;
+    cursor: pointer;
+    padding: 3px
+}
+
+body {
+    line-height: 1;
+    font-family: Century Gothic, Century;
+    overflow: hidden;
+}
+
+html {
+    background-color: #050304 !important;
+    background-image: none;
+}
+
+#content {
+    width: 100%;
+    background: url("../images/bg/bg-View-Details.jpg") no-repeat;
+    background-position: top center;
+}
+
+#content-layout {
+    height: 690px;
+}
+
+#productDetail * {
+    margin: 0px;
+    padding: 0px;
+    font-size: 11px !important;
+    color: #FFFFFF;
+}
+
+#productDetail #detail {
+    position: relative;
+    float: left;
+    margin: 0px 0px 0px 50px;
+    padding: 10px;
+    overflow: auto;
+    background-color: rgba(5, 10, 14, 0.5);
+    box-shadow: 5px 5px 10px #000000;
+}
+
+#productDetail #detail ul {
+    float: left;
+    width: 275px;
+    list-style: none;
+}
+
+#productDetail #detail ul li {
+    padding: 6px;
+}
+
+#productDetail .head {
+    font-size: 15px !important;
+    font-weight: bold;
+    color: #c8f2fb;
+}
+
+#productDetail .sp-title {
+    float: left;
+    padding-left: 10px;
+    width: 130px;
+    color: #8baab1;
+    font-size: 14px !important;
+}
+
+#productDetail .sp-detail {
+    padding-left: 7px;
+    color: #f8f9d9;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+#productDetail .design {
+    position: absolute;
+}
+
+#productDetail .design Canvas,
+#productDetail .design img {
+    position: absolute;
+    top: 80px;
+    right: -11px;
+}
+
+#productDetail .design img {
+    top: 160px;
+    max-width: 440px;
+}
+
+#productDetail .design .shoe-custom img,
+#productDetail .design .shoecream-designer img,
+#productDetail .design .shoetrees-designer img {
+    top: 80px;
+}
+
+#productDetail .block-symbolic {
+    text-align: center;
+}
+
+#productDetail a:link {
+    text-decoration: none;
+}
+
+#productDetail a:hover {
+    text-shadow: 0.1em 0.1em 0.2em #FFFFFF;
+}
+
+#productDetail #list-social {
+    margin: auto;
+    width: 135px;
+    text-align: center;
+}
+
+#productDetail #list-social li {
+    float: left;
+    margin-right: 5px;
+}
+
+#top-menu ul:first-child li:first-child {
+    background: none;
+}
+
+/*#menuHead .list{padding: 2px;color: #f9f8d9;font-weight: 600;width: 90px;height: 30px;text-align: center;background:url('../../webroot/img/bg/bg-MenuMain.png') no-repeat top;}*/
+
+#footerPage ul li {
+    float: left;
+    margin-right: 3px;
+    cursor: pointer;
+    padding-top: 3px;
+}
+
+#footerPage img {
+    margin: 0px 2px 0px;
+}
+
+#footerPage a {
+    text-decoration: none;
+    color: #53859F
+}

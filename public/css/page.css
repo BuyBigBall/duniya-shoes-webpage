@@ -1,0 +1,33 @@
+#menuHead {
+    width: 300px;
+    margin: auto;
+    font-size: 14px;
+}
+
+#menuHead ul {
+    overflow: auto;
+}
+
+#menuHead ul li {
+    float: left;
+    margin: 0px;
+    cursor: pointer;
+    padding: 3px
+}
+
+
+#footerPage ul li {
+    float: left;
+    margin-right: 3px;
+    cursor: pointer;
+    padding-top: 3px;
+}
+
+#footerPage img {
+    margin: 0px 2px 0px;
+}
+
+#footerPage a {
+    text-decoration: none;
+    color: #53859F
+}

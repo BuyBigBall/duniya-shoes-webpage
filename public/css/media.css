@@ -1,0 +1,76 @@
+@media only screen and (min-width: 1280px) and (max-width: 1359px) {
+    .header .header-description .soft-touch-idea{display: block;}
+}
+@media only screen and (min-width: 1360px) and (max-width: 1439px) {
+    .header .header-description .soft-touch-idea{display: block; width: 265px;}
+}
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+    .header .header-description .soft-touch-idea{display: block; width: 326px;}
+}
+@media only screen and (min-width: 1920px) {
+    .header .header-description .soft-touch-idea{display: block; top:10px; left: 165px; width: 326px;}
+}
+
+@media screen and (max-width:1480px) {
+    body{font-size: 90%}    
+}
+@media screen and (max-width:1345px) {
+    .contain{width: 100%}    
+}
+@media screen and (max-width:1190px) {
+    body{font-size: 80%}
+    .list-sty li{width: 29%;}
+}
+@media screen and (max-width:1080px) {
+    .container{width: 100%}
+
+    .menuMain{background:#332314;height: 100%;position: fixed;top: 0;width: 250px;margin:0;padding: 3%;z-index: 999}
+    .menuMain .icon-menu{display: block}
+    .list-sty li .btn-choose{visibility: hidden}
+}
+@media screen and (max-width:735px) {
+    .header .header-description{font-size: 75%}
+    .header .toolbar{font-size: 80%}
+    .container{margin-bottom: 10%}
+    .menuOption nav li{font-size: 85%}
+    .list-sty li{width: 46%}
+    .tab-more{font-size: 140%;padding: 2%}
+    
+     
+    #preload-content{width: 95%}
+    #preloading-text{font-size: 21px}
+    #preload-inner{margin: 45px auto}
+}
+@media screen and (max-width:630px) {
+    .menuOption{display: none}
+}
+@media screen and (max-width:570px) {
+    .header .header-description{font-size: 60%}
+    .list-sty li .promotion-sale{right: 1px;top:5px}
+    .list-sty li .promotion-new{display: none}
+}
+@media screen and (max-width:470px) {
+    .header .toolbar{display: none}
+    .menuMain .menu{display: block}
+
+    .header{background: none}
+    .header-description{display: none}
+    .header .logo{display: block}
+}
+@media screen and (max-width:370px) {
+}
+@media screen and (max-width:320px) {
+    body{font-size: 65%}
+    .refine-by{display: none}
+    .menuMain{font-size: 130%}
+    .copyright{display: block;padding: 3%}
+}
+
+
+/*backfriday*/
+@media screen and (max-width:970px) {
+   #backfriday{font-size: 80%;width: 100%}
+}
+@media screen and (max-width:480px) {
+   #backfriday{font-size: 70%;}
+}
