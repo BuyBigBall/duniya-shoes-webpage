@@ -44,19 +44,19 @@ class ModelSerial extends Model
     }
    
     public function maintbl() {
-        return $this->belongsTo(\App\Models\Leather::class, 'main');
+        return $this->belongsTo(\App\Models\Main::class, 'main');
     }
     public function backtbl() {
-        return $this->belongsTo(\App\Models\Leather::class,  'back');
+        return $this->belongsTo(\App\Models\Back::class,  'back');
     }
     public function soletbl() {
         return $this->belongsTo(\App\Models\Sole::class,  'sole');
     }
     public function fronttbl() {
-        return $this->belongsTo(\App\Models\Leather::class,  'front');
+        return $this->belongsTo(\App\Models\Front::class,  'front');
     }
     public function sidetbl() {
-        return $this->belongsTo(\App\Models\Leather::class,  'side');
+        return $this->belongsTo(\App\Models\Side::class,  'side');
     }
     public function accessorytbl() {
         return $this->belongsTo(\App\Models\Accessory::class,  'accessory');

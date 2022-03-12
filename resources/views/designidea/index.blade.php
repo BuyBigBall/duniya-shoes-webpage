@@ -134,7 +134,7 @@
                 </div>
             
                 @if($gender=='female')
-                <div id="first-sole" class="max-width-center">
+                <div id="first-back" class="max-width-center">
                     <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/back/{!! $shoes_data->defaults->back_name .'.png' !!}" alt="">
                 </div>
                 @endif
@@ -143,46 +143,63 @@
                     <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/Body.png" alt="">
                 </div>
                 <div id="selector" class="show">
-                    <!-- SIDE SELECTOR -->
-                        <!-- MAIN SELECTOR -->
-                        <div class="selector-main selector-target" data-target="main" style="top:117px; left:497px;">
-                            <div class="selector" style="background-image:url(/images/models/iShoes/Menu/Leather/M/Leather-Dye-LightBrown.png);"></div>
-                                <span data-lang="click-change-leather" class="text-top">CLICK TO CHANGE LEATHER</span>
+                    @if( !empty($shoes_data->selector[0] ) )
+                        @foreach($shoes_data->selector[0] as $key=>$selector)
+                            <?php $sel_bg = ''; ?>
+                            @if($key=='side') <!-- SIDE SELECTOR --> 
+                                <?php $sel_bg = $shoes_data->defaults->side; ?>
+                                    @endif
+                            @if($key=='main') <!-- MAIN SELECTOR --> 
+                                <?php $sel_bg = $shoes_data->defaults->main; ?>
+                                    @endif
+                            @if($key=='front') <!-- FRONT SELECTOR --> 
+                                <?php $sel_bg = $shoes_data->defaults->front; ?>
+                                    @endif
+                            @if($key=='back') <!-- BACK SELECTOR --> 
+                                <?php $sel_bg = $shoes_data->defaults->back; ?>
+                                    @endif
+                            @if($key=='accessory') <!-- ACCESSORY SELECTOR --> 
+                                <?php $sel_bg = $shoes_data->defaults->accessory; ?>
+                                    @endif
+
+
+                            <div class="selector-{!! $selector->style !!} selector-target" data-target="{!! $key !!}" style="top:{!! $selector->y !!}px; left:{!! $selector->x !!}px;">
+                                <div class="selector" style="background-image:url(/images/models/iShoes/Menu/Leather/M/{!! $sel_bg !!}.png);"></div>
+                                <span data-lang="click-change-leather" class="text-{!! $selector->pos !!}">CLICK TO CHANGE LEATHER</span>
                             </div>
-                            <!-- FRONT SELECTOR -->
-                            <!-- BACK SELECTOR -->
-                            <!-- ACCESSORY SELECTOR -->
-                        </div>
+                        @endforeach
+                    @endif
                 </div>
+            </div>
         <!-- VIEW 2 -->
         <div class="second view">
-                            <div id="second-sole" class="max-width-center">
-                    <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/sole/Sole-1BN.png" src="/images/misc/empty.png" alt="">
-                </div>
-            
-            
-            
-                            <div id="second-main" class="max-width-center anim">
-                    <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/main/Leather-Dye-LightBrown.png" src="/images/misc/empty.png" alt="">
-                </div>
-            
-            
-            
-                        <div id="second-body" class="max-width-center">
+            <div id="second-sole" class="max-width-center">
+                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/sole/Sole-1BN.png" src="/images/misc/empty.png" alt="">
+            </div>
+        
+            <div id="second-main" class="max-width-center anim">
+                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/main/Leather-Dye-LightBrown.png" src="/images/misc/empty.png" alt="">
+            </div>
+        
+            <div id="second-body" class="max-width-center">
                 <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/Body.png" src="/images/misc/empty.png" alt="">
             </div>
             <div class="makeup"></div>
             <div id="selector-view2" class="show">
-                <!-- SIDE SELECTOR -->
-                                <!-- MAIN SELECTOR -->
-                                                            <div class="selector-main selector-target" data-target="main" style="top:242px; left:201px;">
+                @if( !empty($shoes_data->selector[1] ) )
+                    @foreach($shoes_data->selector[1] as $key=>$selector)
+                        @if($key=='side')       <!-- SIDE SELECTOR --> @endif
+                        @if($key=='main')       <!-- MAIN SELECTOR --> @endif
+                        @if($key=='front')      <!-- FRONT SELECTOR --> @endif
+                        @if($key=='back')       <!-- BACK SELECTOR --> @endif
+                        @if($key=='accessory')  <!-- ACCESSORY SELECTOR --> @endif
+                        <div class="selector-{!! $selector->style !!} selector-target" data-target="{!! $key !!}" style="top:{!! $selector->y !!}px; left:{!! $selector->x !!}px;">
                             <div class="selector" style="background-image:url(/images/models/iShoes/Menu/Leather/M/Leather-Dye-LightBrown.png);"></div>
-                            <span data-lang="click-change-leather" class="text-bottom">CLICK TO CHANGE LEATHER</span>
+                            <span data-lang="click-change-leather" class="text-{!! $selector->pos !!}">CLICK TO CHANGE LEATHER</span>
                         </div>
-                                                    <!-- FRONT SELECTOR -->
-                                <!-- BACK SELECTOR -->
-                                <!-- ACCESSORY SELECTOR -->
-                            </div>
+                    @endforeach
+                @endif
+            </div>
         </div>
     </div>
 </section>
@@ -191,14 +208,14 @@
     <!-- VIEW 3 -->
     <div id="second-view">
         <div id="snds-sndv-use-backstitch">
-                <input type="checkbox" id="sole-backstitch" class="checklist">
-                <label id="use-sole-backstitch" for="sole-backstitch">
-                    <b></b>
-                    <span class="text">BLAKE STITCH</span>
-                </label>
-                <span class="price emphasize">+ <span id="backstitch-price">0</span> <span id="backstitch-currency">{!! setting('site.sign') !!}</span></span>
-            </div>
-                <div id="snds-sndv-main" class="max-width-center">
+            <input type="checkbox" id="sole-backstitch" class="checklist">
+            <label id="use-sole-backstitch" for="sole-backstitch">
+                <b></b>
+                <span class="text">BLAKE STITCH</span>
+            </label>
+            <span class="price emphasize">+ <span id="backstitch-price">0</span> <span id="backstitch-currency">{!! setting('site.sign') !!}</span></span>
+        </div>
+        <div id="snds-sndv-main" class="max-width-center">
             <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view3/sole/{!! $shoes_data->defaults->sole_name !!}.png" src="/images/misc/empty.png" alt="">
         </div>
         <div id="snds-sndv-sole" class="max-width-center anim">
@@ -216,7 +233,7 @@
 
 <section id="third-step" class="third step">
     <div id="third-view">
-                    <p class="title" data-lang="monogram-initials">MONOGRAM/INITIALS</p>
+            <p class="title" data-lang="monogram-initials">MONOGRAM/INITIALS</p>
             <ul id="monogram-initial">
                     <li>
                         <input type="checkbox" id="inside-lining" class="checklist">
@@ -327,21 +344,6 @@
     </div>
 </section>                           
  </div> 
-    <!-- @ if($gender=='female') -->
-        <!-- <div id="choose" class="sole">
-            <p id="choose-text" data-lang="choose-your-leather">CHOOSE YOUR SOLE</p>
-            <ul id="choose-items">
-                @foreach( $shoes_data->sole->item as $sole )
-                <li data-id="{!! $sole->id !!}" data-name="{!! $sole->name !!}" data-default-price="{!! $sole->price !!}">
-                    <img src="/images/models/iShoes/Menu/Sole/Sharp/{!! $sole->id !!}.png" alt="{!! $sole->name !!}" title="{!! $sole->name !!}">
-                    @if($sole->id==$shoes_data->defaults->sole)
-                    <img src="/images/misc/check2.png" class="leather-active">
-                    @endif
-                </li>
-                @endforeach
-            </ul>
-        </div> -->
-    <!-- @ else -->
         <div id="choose">
             <p id="choose-text" data-lang="choose-your-leather">CHOOSE YOUR LEATHER</p>
                 <ul id="choose-items" >
@@ -355,7 +357,6 @@
                     @endforeach                                 
                 </ul>
         </div>
-    <!-- @ endif                         -->
                             <div id="control">
                                 <div id="backstep" class="disable hide" data-lang="backstep">BACK STEP</div>
                                 <!--<div id="chooseLeather">CHANGE LEATHER</div>-->

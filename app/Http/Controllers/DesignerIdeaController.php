@@ -11,6 +11,7 @@ use App\Models\Sole;
 use App\Models\ModelSerial;
 use App\Models\OptionSele;
 use App\Models\MainCategory;
+use App\Models\Main;
 use App\Models\Leather;
 
 class DesignerIdeaController extends Controller
@@ -121,7 +122,7 @@ class DesignerIdeaController extends Controller
         $resultInfo['defaults']['side']         = !!empty($modelInfo->side) ? "false" : $modelInfo->sidetbl->name;
         $resultInfo['defaults']['front']        = !!empty($modelInfo->front) ? "false" : $modelInfo->fronttbl->name;
         $resultInfo['defaults']['back']         = !!empty($modelInfo->back) ? "false" : $modelInfo->backtbl->name;
-        $resultInfo['defaults']['sole']         = !!empty($modelInfo->sole) ? "false" : $modelInfo->soletbl->name;
+        $resultInfo['defaults']['sole']         = !!empty($modelInfo->sole) ? "false" : $modelInfo->soletbl->path;
         $resultInfo['defaults']['laces']        = !!empty($modelInfo->lace) ? "false" : $modelInfo->lacetbl->name;
         $resultInfo['defaults']['backstitch']   = $modelInfo->backstitch;
         $resultInfo['defaults']['lining']       = !!empty($modelInfo->lining) ? "false" : $modelInfo->liningtbl->name;
@@ -130,18 +131,31 @@ class DesignerIdeaController extends Controller
         $resultInfo['defaults']['selector']     = "main";
         $resultInfo['defaults']['backstitch_price'] = $modelInfo->backstitch_price ?? 0;
         $resultInfo['defaults']['main_name']    = !!empty($modelInfo->main) ? "false" : $modelInfo->maintbl->name;
-        $resultInfo['defaults']['sole_name']    = !!empty($modelInfo->sole) ? "false" : $modelInfo->soletbl->name;
+        $resultInfo['defaults']['sole_name']    = !!empty($modelInfo->sole) ? "false" : $modelInfo->soletbl->path;
         $resultInfo['defaults']['back_name']    = !!empty($modelInfo->back) ? "false" : $modelInfo->backtbl->name;
         $resultInfo['defaults']['lining_name']  = !!empty($modelInfo->lining) ? "false" : $modelInfo->liningtbl->name;
         $resultInfo['defaults']['product']      = "shoe";
 
+
+        //############## select gender
+        if(stripos(Route::currentRouteName(), 'women')!==false) 
+        {
+            $this->gender = 'female';
+            $sel_gender = 'W';
+        }
+        else
+        {
+            $this->gender = 'male';
+            $sel_gender = 'M';
+        }
+
         #######################  back ################
         $resultInfo['back']         = [];
         $item = [];
-        $backLeathers = Back::get();
+        $backLeathers = Back::where('gender', 'female')->get();
         foreach($backLeathers as $backs)
         {
-            $item[] = [ 'id'    => $backs->id,
+            $item[] = [ 'id'    => $backs->key,
                         'name'  => $backs->name,
                         'price' => $backs->price ?? 0
                     ];
@@ -152,8 +166,8 @@ class DesignerIdeaController extends Controller
         
         #######################  sole ################
         $resultInfo['sole']         = [];
-        $item = [];
-        $soles = Sole::where('shape', $modelInfo->shape)->get();
+        $item = []; //where('shape', $modelInfo->shape)->
+        $soles = Sole::where('gender', $this->gender)->get();
         foreach($soles as $sole)
         {
             $item[] = [ 'id'    => $sole->pkey,
@@ -163,24 +177,7 @@ class DesignerIdeaController extends Controller
         $resultInfo['sole']['type'] = 'leather';
         $resultInfo['sole']['item'] = $item;
 
-
-        //############## select gender
-        if(stripos(Route::currentRouteName(), 'women')!==false) 
-        {
-            $this->gender = 'female';
-            $sel_gender = 'W';
-            //$this->data = '{"modelpkey":"404","model":"DSW_004","model_style":"Monk","model_series":"","coupons":"Y","model_shape":"Sharp","model_sex":"Women","defaults":{"accessory":false,"main":"GOL-06","side":false,"front":false,"back":"GOL-01","sole":"Sole-1YN","laces":false,"backstitch":"Brown","lining":"SH-SW09","theme":false,"model_sex":"Women","selector":"main","backstitch_price":19,"main_name":"GOL-06","sole_name":"Sole-1YN","back_name":"GOL-01","lining_name":"","product":"shoe"},"back":{"item":[{"id":"GOL-01","name":"GOL-01","price":"89"},{"id":"GOL-02","name":"GOL-02","price":"89"},{"id":"GOL-03","name":"GOL-03","price":"89"},{"id":"GOL-05","name":"GOL-05","price":"89"},{"id":"GOL-06","name":"GOL-06","price":"89"},{"id":"GOL-07","name":"GOL-07","price":"89"},{"id":"GOL-08","name":"GOL-08","price":"89"},{"id":"GOL-10","name":"GOL-10","price":"89"},{"id":"GOL-11","name":"GOL-11","price":"89"},{"id":"GOL-12","name":"GOL-12","price":"89"}],"type":"leather"},"main":{"item":[{"id":"GOL-01","name":"GOL-01","price":"89"},{"id":"GOL-02","name":"GOL-02","price":"89"},{"id":"GOL-03","name":"GOL-03","price":"89"},{"id":"GOL-05","name":"GOL-05","price":"89"},{"id":"GOL-06","name":"GOL-06","price":"89"},{"id":"GOL-07","name":"GOL-07","price":"89"},{"id":"GOL-08","name":"GOL-08","price":"89"},{"id":"GOL-10","name":"GOL-10","price":"89"},{"id":"GOL-11","name":"GOL-11","price":"89"},{"id":"GOL-12","name":"GOL-12","price":"89"}],"type":"leather"},"sole":{"item":[{"id":"LT-N007","name":"LT-N007","price":""},{"id":"LT-LB02","name":"LT-LB02","price":""},{"id":"Sole-1YN","name":"Sole-1YN","price":""}],"type":"sole"},"monogram":{"inside":"Y","outside":"Y"},"selector":[{"back":{"location":"0","style":"back","x":"25","y":"605","pos":"top"},"main":{"location":"0","style":"main","x":"113","y":"44","pos":"top"}},{"back":{"location":"1","style":"back","x":"31","y":"234","pos":"top"},"main":{"location":"1","style":"main","x":"208","y":"100","pos":"bottom"}}]}';
-        }
-        else
-        {
-            $this->gender = 'male';
-            $sel_gender = 'M';
-            //$this->data = '{"modelpkey":"440","model":"DS_107","model_style":"Oxford","model_series":"","coupons":"Y","model_shape":"Sharp","on_sale":false,"defaults":{"accessory":false,"main":"Leather-Dye-LightBrown","side":false,"front":false,"back":false,"sole":"Sole-1BN","laces":false,"backstitch":"Brown","lining":"SH-SW08","theme":false,"selector":"main","backstitch_price":19,"main_name":"Leather-Dye-LightBrown","sole_name":"Sole-1BN","lining_name":"SH-SW08","product":"belt"},"main":{"item":[{"id":"Leather-Dye-Black","name":"Leather-Dye-Black","price":"259","regularPrice":"259","status_sale":false},{"id":"Leather-Dye-Chocolate","name":"Leather-Dye-Chocolate","price":"259","regularPrice":"259","status_sale":false},{"id":"Leather-Dye-Darkbrown","name":"Leather-Dye-Darkbrown","price":"259","regularPrice":"259","status_sale":false},{"id":"Leather-Dye-Green","name":"Leather-Dye-Green","price":"259","regularPrice":"259","status_sale":false},{"id":"Leather-Dye-LightBrown","name":"Leather-Dye-LightBrown","price":"259","regularPrice":"259","status_sale":false},{"id":"Leather-Dye-Navy","name":"Leather-Dye-Navy","price":"259","regularPrice":"259","status_sale":false},{"id":"Leather-Dye-Purple","name":"Leather-Dye-Purple","price":"259","regularPrice":"259","status_sale":false},{"id":"Leather-Dye-RED","name":"Leather-Dye-RED","price":"259","regularPrice":"259","status_sale":false},{"id":"Leather-Dye-Yellow","name":"Leather-Dye-Yellow","price":"259","regularPrice":"259","status_sale":false},{"id":"Leather-Dye-Orange","name":"Leather-Dye-Orange","price":"259","regularPrice":"259","status_sale":false}],"type":"leather"},"sole":{"item":[{"id":"LT-N007","name":"LT-N007","price":"","regularPrice":"259","status_sale":false},{"id":"LT-LB02","name":"LT-LB02","price":"","regularPrice":"259","status_sale":false},{"id":"LT-B01","name":"LT-B01","price":"","regularPrice":"259","status_sale":false},{"id":"LT-BB03","name":"LT-BB03","price":"","regularPrice":"259","status_sale":false},{"id":"Sole-1WN","name":"Sole-1WN","price":"","regularPrice":"259","status_sale":false},{"id":"Sole-1BN","name":"Sole-1BN","price":"","regularPrice":"259","status_sale":false},{"id":"Sole-1YN","name":"Sole-1YN","price":"","regularPrice":"259","status_sale":false},{"id":"Sole-1RN","name":"Sole-1RN","price":"","regularPrice":"259","status_sale":false},{"id":"RB-Pink","name":"RB-Pink","price":"","regularPrice":"259","status_sale":false},{"id":"RB-Yellow","name":"RB-Yellow","price":"","regularPrice":"259","status_sale":false},{"id":"RB-Blue","name":"RB-Blue","price":"","regularPrice":"259","status_sale":false}],"type":"sole"},"monogram":{"inside":"Y","outside":"Y"},"selector":[{"main":{"location":"0","style":"main","x":"117","y":"497","pos":"top"}},{"main":{"location":"1","style":"main","x":"242","y":"201","pos":"bottom"}}]}';
-        }
-
         #######################  leathers ################
-        #######################  main ################
-        $resultInfo['main']         = [];
         $resultInfo['leather']         = [];
         $item = [];
         $Leathers = Leather::where('gender', $sel_gender)->get();
@@ -191,43 +188,62 @@ class DesignerIdeaController extends Controller
                         'price' => $leather->price ?? 0];
         }
         $resultInfo['leather']['type'] = 'leather';
-        $resultInfo['leather']['item'] = $item;        
+        $resultInfo['leather']['item'] = $item;     
+
+
+        #######################  main ################
+        $resultInfo['main']         = [];
+        $item = [];
+        $Leathers = Main::where('gender', $sel_gender)->get();
+        foreach($Leathers as $leather)
+        {
+            $item[] = [ 'id'    => $leather->pkey,
+                        'name'  => $leather->name,
+                        'price' => $leather->price ?? 0];
+        }
         $resultInfo['main']['type'] = 'leather';
         $resultInfo['main']['item'] = $item;
-        
+
         #######################  monogram,selector  ################
         $resultInfo['monogram']     = ["inside"=>"Y", "outside"=>"Y"];
-        $resultInfo['selector']     = [[
-            "back"=>[
-                "location" => "0",
-                "style" => "back",
-                "x" => "25",
-                "y" => "605",
-                "pos" => "top",
-            ],
-            "main"=>[
-                "location" => "0",
-                "style" => "main",
-                "x" => "113",
-                "y" => "44",
-                "pos" => "top",
-            ],
-        ], [
-            "back"=>[
-                "location" => "0",
-                "style" => "back",
-                "x" => "31",
-                "y" => "234",
-                "pos" => "top",
-            ],
-            "main"=>[
-                "location" => "0",
-                "style" => "main",
-                "x" => "208",
-                "y" => "100",
-                "pos" => "top",
-            ],
-        ]];
+        if($this->gender=='female')
+            $resultInfo['selector']     = [[
+                "main"=>[
+                    "location" => "0",
+                    "style" => "main",
+                    "x" => "117",
+                    "y" => "184",
+                    "pos" => "bottom",
+                ],
+                "back"=>[
+                    "location" => "1",
+                    "style" => "back",
+                    "x" => "610",
+                    "y" => "42",
+                    "pos" => "top",
+                ],
+            ]    ];
+
+        else
+        {
+            $resultInfo['selector']     = [[
+                "main"=>[
+                    "location" => "0",
+                    "style" => "main",
+                    "x" => "117",
+                    "y" => "184",
+                    "pos" => "top",
+                ],
+                "back"=>[
+                    "location" => "1",
+                    "style" => "back",
+                    "x" => "610",
+                    "y" => "42",
+                    "pos" => "bottom",
+                ],
+            ]    ];
+
+        }
 
         //dd($resultInfo);
         $this->data = json_encode($resultInfo);
