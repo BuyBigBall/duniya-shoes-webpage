@@ -349,8 +349,8 @@
                 <ul id="choose-items" >
                     @foreach( $shoes_data->leather->item as $leather )
                     <li data-id="{!! $leather->id !!}" data-name="{!! $leather->name !!}" data-default-price="{!! $leather->price !!}">
-                        <img src="/images/models/iShoes/Menu/Leather/M/{!! $leather->id !!}.png" alt="{!! $leather->id !!}" title="{!! $leather->name !!}">
-                        @if($leather->id==$shoes_data->defaults->main)
+                        <img src="/images/models/iShoes/Menu/Leather/M/{!! $leather->path !!}.png" alt="{!! $leather->id !!}" title="{!! $leather->name !!}">
+                        @if($leather->pid==$shoes_data->defaults->main)
                             <img src="/images/misc/check2.png" class="leather-active">
                         @endif
                     </li>

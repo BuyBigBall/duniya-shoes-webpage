@@ -35,6 +35,7 @@ class ModelSerial extends Model
         'backstitch',        
         'backstitch_price',  
         'theme',             
+        'mixgroup',           
         'serials',           
         'sale_price',              
     ];
@@ -44,25 +45,25 @@ class ModelSerial extends Model
     }
    
     public function maintbl() {
-        return $this->belongsTo(\App\Models\Main::class, 'main');
+        return $this->belongsTo(\App\Models\Main::class, 'main_color');
     }
     public function backtbl() {
-        return $this->belongsTo(\App\Models\Back::class,  'back');
+        return $this->belongsTo(\App\Models\Back::class,  'back_color');
     }
     public function soletbl() {
-        return $this->belongsTo(\App\Models\Sole::class,  'sole');
+        return $this->belongsTo(\App\Models\Sole::class,  'sole_color');
     }
     public function fronttbl() {
-        return $this->belongsTo(\App\Models\Front::class,  'front');
+        return $this->belongsTo(\App\Models\Front::class,  'front_color');
     }
     public function sidetbl() {
-        return $this->belongsTo(\App\Models\Side::class,  'side');
+        return $this->belongsTo(\App\Models\Side::class,  'side_color');
     }
     public function accessorytbl() {
-        return $this->belongsTo(\App\Models\Accessory::class,  'accessory');
+        return $this->belongsTo(\App\Models\Accessory::class,  'accessory_color');
     }
     public function lacetbl() {
-        return $this->belongsTo(\App\Models\Lace::class,  'lace');
+        return $this->belongsTo(\App\Models\Lace::class,  'laces');
     }
     public function liningtbl() {
         return $this->belongsTo(\App\Models\Lining::class,  'lining');

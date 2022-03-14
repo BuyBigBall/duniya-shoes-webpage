@@ -449,12 +449,12 @@ function changVelLogin(data) {
         var user = data['USER'];
 
         var sumQty = listSum['QTY'];
-        var sumPrice = (listSum['PRICE']).toFixed(2);
+        var sumPrice = (listSum['PRICE']);//.toFixed(2);
 
-        var sumShipping = (listSum['SHIPPING']).toFixed(2);
-        var sumDiscount = (listSum['DISCOUNT']).toFixed(2);
-        var sumCCC = (listSum['CCC']).toFixed(2);
-        var sumTotal = (listSum['TOTAL']).toFixed(2);
+        var sumShipping = (listSum['SHIPPING']);//.toFixed(2);
+        var sumDiscount = (listSum['DISCOUNT']);//.toFixed(2);
+        var sumCCC = (listSum['CCC']);//.toFixed(2);
+        var sumTotal = (listSum['TOTAL']);//.toFixed(2);
         var sign = ' ' + listSum['SIGN'];
         if (user) {
             var sizeUnit = user['TYPE_SHOEMEASURE'];
@@ -476,9 +476,9 @@ function changVelLogin(data) {
             /*list-item product*/
             if (listSum) {
                 $('.list-hover').each(function (i) {
-                    var price = (listItem[i]['SUMPRICE']).toFixed(2);
-                    var shipping = (listItem[i]['SHIPPING']).toFixed(2);
-                    var total = (listItem[i]['TOTAL']).toFixed(2);
+                    var price = (listItem[i]['SUMPRICE']);//.toFixed(2);
+                    var shipping = (listItem[i]['SHIPPING']);//.toFixed(2);
+                    var total = (listItem[i]['TOTAL']);//.toFixed(2);
 
                     $(this).find('.price').html(price);
                     $(this).find('.shipping').html(shipping);

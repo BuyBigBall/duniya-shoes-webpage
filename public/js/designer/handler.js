@@ -198,7 +198,7 @@ initial = (function (fn) {
                     checkImage.src = "/images/misc/check2.png";
                     checkImage.className = "leather-active";
 
-                    if (choosing === value.id)
+                    if (choosing === value.pid)
                     {
                         list.appendChild(checkImage);
                     }

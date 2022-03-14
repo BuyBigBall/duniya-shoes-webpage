@@ -151,25 +151,48 @@ class elementsController extends Controller
     }
     public function delCart(Request $request)
     {
-        DB::table('carts')->where('id', $request->id)->delete();
+        $cart_item = Cart::find($request->id);
+
+        $Last_Items = Cart::where('token', $cart_item->token)->where('id', '<>',$cart_item->id);
+
+        $discount = 0;
+        $price = 0;
+        $qty = 0;
+        $shipping = 0;
+        $total = 0;
+        foreach($Last_Items as $leaved_item)
+        {
+            $json_description = $leaved_item->desc;
+            $obj_description = json_decode(base64_decode($json_description));
+            $discount += $obj_description->getShoeDiscountItem;
+            $price += $obj_description->getShoePrice;
+            $qty += $obj_description->getQty;
+            $shipping += $obj_description->getShoeShipping;
+            $total+= $obj_description->getShoePrice * $obj_description->getQty + $obj_description->getShoeShipping - $obj_description->getShoeDiscountItem;
+
+        }
+
+
         // 20220220
         $returnData = [
-            'TAGID' => 'list-hover tagProductList-' . $request->id,
+            'TAGID' => 'list-hover.tagProductList-' . $request->id,
             'PRODUCT' => [
                 'ITEM' => [],
-                'SUN' => [
+                'SUM' => [
                     "CURR" => "EUR",
-                    "DISCOUNT" => 0,
-                    "PRICE" => 0,
-                    "QTY" => 0,
-                    "SHIPPING" => 0,
-                    "SIGN" => setting('site.sign'),
+                    "DISCOUNT"  => $discount,
+                    "PRICE"     => $price,
+                    "QTY"       => $qty,
+                    "SHIPPING"  => $shipping,
+                    "SIGN"      => setting('site.sign'),
                     "SOLEMIXPRICE" => 0,
-                    "TOTAL" => 0
+                    "TOTAL"     => $total
                 ]
             ]
         ];
+        //dd($returnData);
 
+        DB::table('carts')->where('id', $request->id)->delete();
         return response()->json($returnData);
     }
 }

@@ -45,9 +45,9 @@ $(document).ready(function () {
                     var tr = "<tr><td> </td><td width='220'> </td><td  width='90'> </td><td width='50'> </td><td width='25'> </td><td  width='40'> </td><td> </td></tr>";
                     $(tr).appendTo($('#t-body tbody '));
                 }
-                if(data['PRODUCT'])
-                if(data['PRODUCT']['SUM'])
-                if(data['PRODUCT']['SUM']['QTY'])
+                if(data['PRODUCT']!==undefined)
+                if(data['PRODUCT']['SUM']!==undefined)
+                if(data['PRODUCT']['SUM']['QTY']!==undefined)
                 {
                     changVelLogin(data);
                 }
