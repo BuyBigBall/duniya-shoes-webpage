@@ -320,7 +320,7 @@ function checkFrmCheckout($Payment) {
     $('#buttonCheckPayPal').die('click');
     $.ajax({
         type: "POST",
-        url: "elements/checkout/add.php?paymentType=" + $Payment,
+        url: "elements/checkout/add?paymentType=" + $Payment,
         data: $data.replace("'", ''),
         success: function (data) {
             var sdata = JSON.parse(data);
@@ -332,13 +332,13 @@ function checkFrmCheckout($Payment) {
                     parent.document.location.href = sdata['URL'];
                 } else if (page === "paypal") {
                     if (ch == 'ec') {
-                        parent.document.location.href = "elements/checkout/paypal.php?ch=ec";
+                        parent.document.location.href = "elements/checkout/paypal?ch=ec";
                     }
                     else if (ch == 'inec') {
 
                     }
                     else {
-                        parent.document.location.href = "elements/checkout/paypal.php";
+                        parent.document.location.href = "elements/checkout/paypal";
                     }
                 } else {
                     /****/

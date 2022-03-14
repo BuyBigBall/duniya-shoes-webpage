@@ -70,15 +70,15 @@
                                                     <td width='265'>
                                                         <div style="float: left;max-width: 100px;padding: 10px;">
                                                             <div style="min-width: 100px;min-height: 100px">
-                                                                <span class="imgs{{$item->id}}"></span>
+                                                                <span class="imgs{{$key}}"></span>
                                                             </div>
                                                             <div class="viewLink">
                                                                 <a href="detail?id={{$item->id}}" class="view-detail" data-lang="view-detail">View Detail</a>
                                                             </div>
                                                         </div>
-                                                        <div style="float: left" id="productDetail">
+                                                        <div style="float: left; width:165px;" id="productDetail">
                                                             <p class="sp-orange">No. {{$item->MODELNO}}</p>
-                                                            <p>Style {{$item->DESIGN_TYPE}}</p>
+                                                            <p>Style {{$item->shoeType}}</p>
                                                             @if( !empty($item->getLeatherName))
                                                             <p>Leather {{ $item->getLeatherName }}</p>
                                                             @endif
@@ -156,6 +156,7 @@
                                 <p data-lang="str-customer-info" style="font-size: 16px!important;margin-bottom: 10px;margin-top: 5px;">Customer
                                     Information</p>
                                 <form action="paypal/paypalpayment.php" method="post" id="FrmCheckout">
+                                    @csrf
                                     <p><span class="sp-frm" data-lang="first-name">First Name*:</span><input type="text" name="fname" id="fname" data-validation="req" value=""></p>
                                     <p><span class="sp-frm" data-lang="last-name">Last Name*:</span><input type="text" name="lname" id="lname" data-validation="req" value=""></p>
                                     <p><span class="sp-frm" data-lang="address">Address*:</span><input type="text" name="address1" id="address1" data-validation="req" value=""></p>

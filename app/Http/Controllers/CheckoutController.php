@@ -42,7 +42,7 @@ class CheckoutController extends Controller
             } else {
                 $goodsLists[$i . ''] = empty($item->desc) ? "" : json_decode(base64_decode($item->desc));
                 $goodsLists[$i . '']->id = $item->id;
-                $goodsLists[$i . '']->DESIGN_TYPE = $item->style;
+                //$goodsLists[$i . '']->DESIGN_TYPE = $item->style;
                 $goodsLists[$i . '']->MODELNO = $item->key;
                 $goodsLists[$i . '']->productName = $item->name;
                 //dd($goodsLists[$i . '']->getLeatherName);               
@@ -54,7 +54,7 @@ class CheckoutController extends Controller
             'goodsLists' => $goodsLists
         ];
         //dd($goodsLists);
-        return view("checkout", $data);
+        return view("checkout.checkout", $data);
     }
 
     public function detail(Request $request)

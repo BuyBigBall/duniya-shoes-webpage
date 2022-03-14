@@ -10,6 +10,8 @@ use App\Http\Controllers\PatinaDetailController;
 use App\Http\Controllers\ShoescareController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\PaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,6 +72,9 @@ Route::post('/women-shoes/Designidea/json/json',                    [AjaxControl
 Route::post('/designershoes/Designidea/json/json',                  [AjaxController::class, 'getJson'])->name('filter.man.getjson');
 //Route::post('/Designidea/json/json',                                [AjaxController::class, 'getJson'])->name('filter.man.getjson');
 Route::get('/designshoes/elements/popUp/PopUpContinueShopping',     [AjaxController::class, 'PopUpContinueShopping'])->name('cart.continueshopping');
+Route::post('/designshoes/elements/checkout/add',                   [AjaxController::class, 'addPayment'])->name('checkout.addpayment');
+
+Route::get('/designshoes/elements/checkout/paypal',         [PaymentController::class, 'paypal'])->name('checkout.paypal');
 
 // Route::prefix('/women-shoes')->group(function () {
 //     Route::get('/designidea',           [DesignerIdeaController::class, 'index'])->name('woman.designidea');
