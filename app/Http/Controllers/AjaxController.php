@@ -47,7 +47,7 @@ class AjaxController extends Controller
         }
 
         // dd($request);
-        // dd($request->data->category);
+        //dd($request->data);
 
         $models_query = ModelSerial::where('sex', $gender);
         
@@ -93,7 +93,7 @@ class AjaxController extends Controller
         }
 
         
-        // dd($models_query->toSql());
+        //dd($models_query->toSql());
         $query_result = $models_query->get();
         $result = [
             'COUNT'     =>$query_result->count(),
@@ -101,15 +101,19 @@ class AjaxController extends Controller
             'ITEM'      => []
                 ];
 
-        $itemPage = $request->itemPage;
-        if(empty($itemPage))    $itemPage = 1;
-        $itemSize = $request->itemSize;
+        $itemPage = $request->data['itemPage'];
+        if(empty($itemPage) || $itemPage<=1)    $itemPage = 1;
+        $itemSize = $request->data['itemSize'];
         $idx = 0;
+
+        //dd($query_result);
         foreach($query_result as $item)
         {
             $idx++;
+
             if( ($idx-1)<($itemPage-1)*$itemSize ||
                 ($idx-1)>=($itemPage)*$itemSize )    continue;
+
             $result['ITEM'][] = [
                 'ID'  => $item->id,
                 'ROW' => $idx,
@@ -131,6 +135,8 @@ class AjaxController extends Controller
                 'SALE'          => $item->sale_price,
             ];
         }
+
+        // print_r($result['ITEM']); exit;
         return json_encode($result);
     }
 }

@@ -1,5 +1,5 @@
 /*
-SQLyog Community v13.1.6 (64 bit)
+SQLyog Ultimate v13.1.1 (64 bit)
 MySQL - 10.4.21-MariaDB : Database - shoescustom
 *********************************************************************
 */
@@ -154,125 +154,137 @@ CREATE TABLE `backs` (
   `key` varchar(80) CHARACTER SET ascii NOT NULL,
   `name` varchar(80) CHARACTER SET ascii NOT NULL,
   `path` varchar(80) CHARACTER SET ascii NOT NULL,
+  `gender` enum('male','female') DEFAULT 'male',
+  `price` float DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
 
 /*Data for the table `backs` */
 
-insert  into `backs`(`id`,`key`,`name`,`path`,`created_at`,`updated_at`) values 
-(1,'backFN9','FN9','FN9','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(2,'backLT-001','LT-001','LT-001','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(3,'backSH-SG013','SH-SG013','SH-SG013','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(4,'back1100-10','1100-10','1100-10','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(5,'back1100-2','1100-2','1100-2','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(6,'backSH-SG08','SH-SG08','SH-SG08','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(7,'backLT-002','LT-002','LT-002','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(8,'backFN10','FN10','FN10','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(9,'backFN4','FN4','FN4','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(10,'backLT-005','LT-005','LT-005','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(11,'backSH-SG06','SH-SG06','SH-SG06','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(12,'backSH-SG01','SH-SG01','SH-SG01','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(13,'backLT-006','LT-006','LT-006','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(14,'backFN2','FN2','FN2','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(15,'back1100-4','1100-4','1100-4','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(16,'back1100-5','1100-5','1100-5','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(17,'backLT-007','LT-007','LT-007','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(18,'backFN13','FN13','FN13','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(19,'backS012-05','S012-05','S012-05','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(20,'backS012-01','S012-01','S012-01','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(21,'backFN5','FN5','FN5','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(22,'backLT-014','LT-014','LT-014','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(23,'backLT-020','LT-020','LT-020','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(24,'backGOL-06','GOL-06','GOL-06','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(25,'backS012-08','S012-08','S012-08','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(26,'back1100-9','1100-9','1100-9','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(27,'back1104-1','1104-1','1104-1','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(28,'backSH-SW02','SH-SW02','SH-SW02','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(29,'backGOL-01','GOL-01','GOL-01','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(30,'backLT-015','LT-015','LT-015','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(31,'backLT-018','LT-018','LT-018','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(32,'backGOL-07','GOL-07','GOL-07','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(33,'backSH-SW06','SH-SW06','SH-SW06','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(34,'back1104-3','1104-3','1104-3','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(35,'backArmyC','ArmyC','ArmyC','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(36,'backSH-SW01','SH-SW01','SH-SW01','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(37,'backGOL-02','GOL-02','GOL-02','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(38,'backLT-030','LT-030','LT-030','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(39,'backLT-035','LT-035','LT-035','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(40,'backLT-024','LT-024','LT-024','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(41,'backGOL-03','GOL-03','GOL-03','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(42,'backSH-SW10','SH-SW10','SH-SW10','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(43,'backArmyT','ArmyT','ArmyT','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(44,'backGOL-05','GOL-05','GOL-05','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(45,'backLT-025','LT-025','LT-025','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(46,'backLT-028','LT-028','LT-028','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(47,'backSH-SW03','SH-SW03','SH-SW03','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(48,'backItaly1','Italy1','Italy1','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(49,'backItaly10','Italy10','Italy10','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(50,'backSH-SW05','SH-SW05','SH-SW05','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(51,'backLT-048','LT-048','LT-048','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(52,'backSH-SW04','SH-SW04','SH-SW04','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(53,'backLT-043','LT-043','LT-043','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(54,'backLT-041','LT-041','LT-041','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(55,'backFB01','FB01','FB01','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(56,'backFB02','FB02','FB02','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(57,'backItaly7','Italy7','Italy7','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(58,'backLT-040','LT-040','LT-040','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(59,'backSHMS02-SCM-Copper','SHMS02-SCM-Copper','SHMS02-SCM-Copper','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(60,'backSHMS02-SCM-DarkGold','SHMS02-SCM-DarkGold','SHMS02-SCM-DarkGold','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(61,'backItaly9','Italy9','Italy9','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(62,'backLT-047','LT-047','LT-047','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(63,'backFB03','FB03','FB03','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(64,'backFB04','FB04','FB04','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(65,'backItaly8','Italy8','Italy8','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(66,'backLT-045','LT-045','LT-045','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(67,'backSHMS02-SCM-Gold','SHMS02-SCM-Gold','SHMS02-SCM-Gold','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(68,'backLT-022','LT-022','LT-022','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(69,'backItaly6','Italy6','Italy6','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(70,'backFB05','FB05','FB05','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(71,'backFB06','FB06','FB06','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(72,'backBOF_1','BOF_1','BOF_1','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(73,'backItaly3','Italy3','Italy3','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(74,'backItaly4','Italy4','Italy4','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(75,'backBOF_2','BOF_2','BOF_2','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(76,'backFB07','FB07','FB07','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(77,'backFB08','FB08','FB08','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(78,'backBOF_3','BOF_3','BOF_3','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(79,'backItaly5','Italy5','Italy5','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(80,'backItaly2','Italy2','Italy2','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(81,'backsuede1','suede1','suede1','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(82,'backLT-SM11','LT-SM11','LT-SM11','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(83,'backsuede2','suede2','suede2','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(84,'backLT-SM20','LT-SM20','LT-SM20','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(85,'backLT-SM16','LT-SM16','LT-SM16','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(86,'backsuede3','suede3','suede3','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(87,'backsuede6','suede6','suede6','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(88,'backLT-013','LT-013','LT-013','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(89,'backsuede7','suede7','suede7','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(90,'backLT-SM19','LT-SM19','LT-SM19','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(91,'backsuede8','suede8','suede8','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(92,'backLT-SM10','LT-SM10','LT-SM10','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(93,'backLT-SM12','LT-SM12','LT-SM12','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(94,'backsuede9','suede9','suede9','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(95,'backsuede10','suede10','suede10','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(96,'backLT-SM14','LT-SM14','LT-SM14','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(97,'backsuede11','suede11','suede11','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(98,'backLT-SM03','LT-SM03','LT-SM03','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(99,'backsuede12','suede12','suede12','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(100,'backLT-SM21','LT-SM21','LT-SM21','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(101,'backsuede13','suede13','suede13','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(102,'backLT-SM02','LT-SM02','LT-SM02','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(103,'backLT-SM06','LT-SM06','LT-SM06','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(104,'backsuede15','suede15','suede15','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(105,'backsuede16','suede16','suede16','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(106,'backLT-SM07','LT-SM07','LT-SM07','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(107,'backLT-SM22','LT-SM22','LT-SM22','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(108,'backLT-SM15','LT-SM15','LT-SM15','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(109,'backLT-SM01','LT-SM01','LT-SM01','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(110,'backLT-SM18','LT-SM18','LT-SM18','2022-02-04 01:53:03','2022-02-04 01:53:03'),
-(111,'backLT-SM23','LT-SM23','LT-SM23','2022-02-04 01:53:03','2022-02-04 01:53:03');
+insert  into `backs`(`id`,`key`,`name`,`path`,`gender`,`price`,`created_at`,`updated_at`) values 
+(1,'backFN9','FN9','FN9','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(2,'backLT-001','LT-001','LT-001','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(3,'backSH-SG013','SH-SG013','SH-SG013','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(4,'back1100-10','1100-10','1100-10','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(5,'back1100-2','1100-2','1100-2','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(6,'backSH-SG08','SH-SG08','SH-SG08','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(7,'backLT-002','LT-002','LT-002','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(8,'backFN10','FN10','FN10','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(9,'backFN4','FN4','FN4','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(10,'backLT-005','LT-005','LT-005','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(11,'backSH-SG06','SH-SG06','SH-SG06','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(12,'backSH-SG01','SH-SG01','SH-SG01','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(13,'backLT-006','LT-006','LT-006','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(14,'backFN2','FN2','FN2','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(15,'back1100-4','1100-4','1100-4','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(16,'back1100-5','1100-5','1100-5','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(17,'backLT-007','LT-007','LT-007','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(18,'backFN13','FN13','FN13','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(19,'backS012-05','S012-05','S012-05','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(20,'backS012-01','S012-01','S012-01','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(21,'backFN5','FN5','FN5','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(22,'backLT-014','LT-014','LT-014','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(23,'backLT-020','LT-020','LT-020','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(24,'backGOL-06','GOL-06','GOL-06','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(25,'backS012-08','S012-08','S012-08','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(26,'back1100-9','1100-9','1100-9','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(27,'back1104-1','1104-1','1104-1','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(28,'backSH-SW02','SH-SW02','SH-SW02','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(29,'backGOL-01','GOL-01','GOL-01','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(30,'backLT-015','LT-015','LT-015','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(31,'backLT-018','LT-018','LT-018','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(32,'backGOL-07','GOL-07','GOL-07','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(33,'backSH-SW06','SH-SW06','SH-SW06','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(34,'back1104-3','1104-3','1104-3','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(35,'backArmyC','ArmyC','ArmyC','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(36,'backSH-SW01','SH-SW01','SH-SW01','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(37,'backGOL-02','GOL-02','GOL-02','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(38,'backLT-030','LT-030','LT-030','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(39,'backLT-035','LT-035','LT-035','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(40,'backLT-024','LT-024','LT-024','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(41,'backGOL-03','GOL-03','GOL-03','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(42,'backSH-SW10','SH-SW10','SH-SW10','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(43,'backArmyT','ArmyT','ArmyT','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(44,'backGOL-05','GOL-05','GOL-05','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(45,'backLT-025','LT-025','LT-025','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(46,'backLT-028','LT-028','LT-028','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(47,'backSH-SW03','SH-SW03','SH-SW03','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(48,'backItaly1','Italy1','Italy1','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(49,'backItaly10','Italy10','Italy10','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(50,'backSH-SW05','SH-SW05','SH-SW05','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(51,'backLT-048','LT-048','LT-048','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(52,'backSH-SW04','SH-SW04','SH-SW04','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(53,'backLT-043','LT-043','LT-043','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(54,'backLT-041','LT-041','LT-041','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(55,'backFB01','FB01','FB01','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(56,'backFB02','FB02','FB02','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(57,'backItaly7','Italy7','Italy7','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(58,'backLT-040','LT-040','LT-040','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(59,'backSHMS02-SCM-Copper','SHMS02-SCM-Copper','SHMS02-SCM-Copper','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(60,'backSHMS02-SCM-DarkGold','SHMS02-SCM-DarkGold','SHMS02-SCM-DarkGold','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(61,'backItaly9','Italy9','Italy9','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(62,'backLT-047','LT-047','LT-047','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(63,'backFB03','FB03','FB03','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(64,'backFB04','FB04','FB04','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(65,'backItaly8','Italy8','Italy8','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(66,'backLT-045','LT-045','LT-045','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(67,'backSHMS02-SCM-Gold','SHMS02-SCM-Gold','SHMS02-SCM-Gold','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(68,'backLT-022','LT-022','LT-022','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(69,'backItaly6','Italy6','Italy6','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(70,'backFB05','FB05','FB05','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(71,'backFB06','FB06','FB06','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(72,'backBOF_1','BOF_1','BOF_1','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(73,'backItaly3','Italy3','Italy3','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(74,'backItaly4','Italy4','Italy4','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(75,'backBOF_2','BOF_2','BOF_2','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(76,'backFB07','FB07','FB07','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(77,'backFB08','FB08','FB08','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(78,'backBOF_3','BOF_3','BOF_3','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(79,'backItaly5','Italy5','Italy5','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(80,'backItaly2','Italy2','Italy2','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(81,'backsuede1','suede1','suede1','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(82,'backLT-SM11','LT-SM11','LT-SM11','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(83,'backsuede2','suede2','suede2','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(84,'backLT-SM20','LT-SM20','LT-SM20','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(85,'backLT-SM16','LT-SM16','LT-SM16','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(86,'backsuede3','suede3','suede3','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(87,'backsuede6','suede6','suede6','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(88,'backLT-013','LT-013','LT-013','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(89,'backsuede7','suede7','suede7','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(90,'backLT-SM19','LT-SM19','LT-SM19','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(91,'backsuede8','suede8','suede8','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(92,'backLT-SM10','LT-SM10','LT-SM10','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(93,'backLT-SM12','LT-SM12','LT-SM12','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(94,'backsuede9','suede9','suede9','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(95,'backsuede10','suede10','suede10','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(96,'backLT-SM14','LT-SM14','LT-SM14','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(97,'backsuede11','suede11','suede11','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(98,'backLT-SM03','LT-SM03','LT-SM03','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(99,'backsuede12','suede12','suede12','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(100,'backLT-SM21','LT-SM21','LT-SM21','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(101,'backsuede13','suede13','suede13','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(102,'backLT-SM02','LT-SM02','LT-SM02','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(103,'backLT-SM06','LT-SM06','LT-SM06','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(104,'backsuede15','suede15','suede15','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(105,'backsuede16','suede16','suede16','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(106,'backLT-SM07','LT-SM07','LT-SM07','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(107,'backLT-SM22','LT-SM22','LT-SM22','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(108,'backLT-SM15','LT-SM15','LT-SM15','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(109,'backLT-SM01','LT-SM01','LT-SM01','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(110,'backLT-SM18','LT-SM18','LT-SM18','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(111,'backLT-SM23','LT-SM23','LT-SM23','male',NULL,'2022-02-04 01:53:03','2022-02-04 01:53:03'),
+(112,'GOL-01','GOL-01','GOL-01','female',11,'2022-03-12 11:33:51','2022-03-12 11:36:25'),
+(113,'GOL-02','GOL-02','GOL-02','female',12,'2022-03-12 11:33:53','2022-03-12 11:36:26'),
+(114,'GOL-03','GOL-03','GOL-03','female',13,'2022-03-12 11:33:54','2022-03-12 11:36:27'),
+(115,'GOL-05','GOL-05','GOL-05','female',14,'2022-03-12 11:33:55','2022-03-12 11:36:27'),
+(116,'GOL-06','GOL-06','GOL-06','female',15,'2022-03-12 11:33:55','2022-03-12 11:36:28'),
+(117,'GOL-07','GOL-07','GOL-07','female',16,'2022-03-12 11:33:56','2022-03-12 11:36:29'),
+(118,'GOL-08','GOL-08','GOL-08','female',17,'2022-03-12 11:33:56','2022-03-12 11:36:30'),
+(119,'GOL-10','GOL-10','GOL-10','female',18,'2022-03-12 11:33:57','2022-03-12 11:36:31'),
+(120,'GOL-11','GOL-11','GOL-11','female',19,'2022-03-12 11:33:58','2022-03-12 11:36:32'),
+(121,'GOL-12','GOL-12','GOL-12','female',20,'2022-03-12 11:34:01','2022-03-12 11:36:34');
 
 /*Table structure for table `carts` */
 
@@ -310,10 +322,10 @@ CREATE TABLE `carts` (
 /*Data for the table `carts` */
 
 insert  into `carts`(`id`,`key`,`name`,`gander`,`type`,`shape`,`style`,`desc`,`monoIn`,`monoOut`,`statusPreDesign`,`unit`,`length`,`width`,`quantity`,`coupon_status`,`size_type_name`,`size_type`,`size`,`lastitem`,`token`,`session`,`checkout`,`created_at`,`updated_at`) values 
-(1,'CR002','Model Title','M',NULL,'ShoeCare','ShoeCream',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,NULL,NULL,0,'2022-02-22 09:12:34','2022-02-22 09:12:34'),
+(1,'DS_107','Model Title','M',NULL,'ShoeCare','ShoeCream',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,NULL,NULL,0,'2022-02-22 09:12:34','2022-03-11 02:43:14'),
 (2,NULL,NULL,'M',NULL,'shoe','custom','eyJwcm9kdWN0VHlwZSI6InNob2UiLCJmb2xkZXJUeXBlIjoiT3hmb3JkU2hvZXMiLCJnZXRTaGFwZSI6IlJvdW5kIiwic2hvZVR5cGUiOiJveGZvcmQiLCJjdXJyZW50VmlldyI6IlJpZ2h0IiwiZ2V0TGVhdGhlck5vIjoiTFQtMDAxIiwiZ2V0TGVhdGhlciI6InByZW1pdW0iLCJnZXRMZWF0aGVyR3JvdXAiOiIxIiwiZ2V0U3R5bGUiOiJzaGFwZSIsImdldEZyb250Ijoibm9uZSIsImdldFNpZGUiOiJTRDEiLCJnZXRCYWNrIjoiQksxIiwiZ2V0U29sZSI6IkxULU4wMDciLCJnZXRBY2Nlc3NvcnkiOiJub25lIiwiZ2V0U3BlY2kiOiJtaXgtbWF0Y2giLCJnZXRTaWRlTm8iOiJub25lIiwiZ2V0RnJvbnRObyI6Im5vbmUiLCJnZXRMaW5pbmdObyI6IlNILVNXMDgiLCJnZXRTdGl0Y2hpbmdObyI6Im5vbmUiLCJnZXRMYWNlc05vIjoiSFQtQmxhY2siLCJnZXRCcm9ndWVObyI6Im5vbmUiLCJnZXRCYWNrTm8iOiJub25lIiwiZ2V0QWNjZXNzb3J5Tm8iOiJub25lIiwiZ2V0U29sZUJvcmRlciI6IkxFMiIsImdldE1vbm9JbiI6IiIsImdldE1vbm9PdXQiOiIiLCJnZXRTaXplVHlwZU5hbWUiOiJFVSIsImdldFNpemVUeXBlIjoiRVVSTyIsImdldFNpemVObyI6Im51bGwiLCJnZXRVbml0IjoibnVsbCIsImdldExlbmd0aCI6IjAiLCJnZXRXaWR0aCI6IjAiLCJnZXRRdHkiOiIxIiwiZ2V0U2hvZVByaWNlIjoiMTc5IiwiZ2V0TWl4UHJpY2UiOiI5LjkiLCJnZXRTaG9lRGlzY291bnRJdGVtIjoiMCIsIm1peFNvbGVQcmljZVN0YXR1cyI6Im5vIiwiZ2V0U2hvZVNoaXBwaW5nIjoiMCIsInNldFN0YXR1c01peCI6ImZhbHNlIiwicHJldkxlYXRoZXJObyI6Im5vbmUiLCJyZXNwb25zZSI6ImZhbHNlIiwic2hhcGUiOiJzaGFwZS1Sb3VuZCIsImZyb250Ijoibm9uZSIsInNpZGUiOiJTRDEiLCJiYWNrIjoiQksxIiwic29sZSI6IlNvbGUtMUwiLCJnZXRTaGFwZU5hbWUiOiJTaGFycCIsInNob2VUeXBlTmFtZSI6Im94Zm9yZCIsImdldExlYXRoZXJOb05hbWUiOiJub25lIiwiZ2V0TGVhdGhlck5hbWUiOiJ0aGUgcHJlbWl1bSIsImdldFN0eWxlTmFtZSI6Im5vbmUiLCJnZXRGcm9udE5hbWUiOiJub25lIiwiZ2V0U2lkZU5hbWUiOiJTRDEiLCJnZXRCYWNrTmFtZSI6IkJLMSIsImdldFNvbGVOYW1lIjoiTGVhdGhlciIsImdldEFjY2Vzc29yeU5hbWUiOiJub25lIiwiZ2V0U2lkZU5vTmFtZSI6Im5vbmUiLCJnZXRGcm9udE5vTmFtZSI6Im5vbmUiLCJnZXRMaW5pbmdOYW1lIjoiRGFyayBCcm93biIsImdldFN0aXRjaGluZ05hbWUiOiJub25lIiwiZ2V0TGFjZXNOYW1lIjoiSFQtQmxhY2siLCJnZXRCcm9ndWVOYW1lIjoibm9uZSIsImdldEJhY2tOb05hbWUiOiJub25lIiwib3B0aW9uQm9yZGVyU2xpbSI6Ik4iLCJzZXRNZW51THRoIjoicHJlbWl1bSIsImNvZGU2NCI6Im51bGwiLCJpbWciOiJudWxsIiwibWVhc3VyZU1lbnUiOiJib2R5U2l6ZSJ9',NULL,NULL,0,'cm',39,26,1,'null','EU','EURO',36,NULL,'j2gDAwdVod2AnUe6MMq7vVXlQBINISQlSw2DHzHL',NULL,0,'2022-02-22 09:12:56','2022-02-22 09:12:56'),
-(3,'CR003','Model Title','M',NULL,'ShoeCare','ShoeCream',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,NULL,NULL,0,'2022-02-22 09:14:24','2022-02-22 09:14:24'),
-(4,'CR004','Model Title','M',NULL,'ShoeCare','ShoeTrees',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,NULL,NULL,0,'2022-02-22 09:15:36','2022-02-22 09:15:36');
+(3,'DS_107','Model Title','M',NULL,'ShoeCare','ShoeCream',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,NULL,NULL,0,'2022-02-22 09:14:24','2022-03-11 02:46:06'),
+(4,'DS_107','Model Title','M',NULL,'ShoeCare','ShoeTrees',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,NULL,NULL,0,'2022-02-22 09:15:36','2022-03-11 02:46:11');
 
 /*Table structure for table `colors` */
 
@@ -414,11 +426,11 @@ insert  into `colors`(`id`,`key`,`name`,`group`,`group_name`,`leather_id`,`creat
 (95,'FB07','FB07',NULL,NULL,4,NULL,NULL),
 (96,'FB08','FB08',NULL,NULL,4,NULL,NULL);
 
-/*Table structure for table `colors_group` */
+/*Table structure for table `colors_groups` */
 
-DROP TABLE IF EXISTS `colors_group`;
+DROP TABLE IF EXISTS `colors_groups`;
 
-CREATE TABLE `colors_group` (
+CREATE TABLE `colors_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -426,9 +438,9 @@ CREATE TABLE `colors_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
-/*Data for the table `colors_group` */
+/*Data for the table `colors_groups` */
 
-insert  into `colors_group`(`id`,`name`,`created_at`,`updated_at`) values 
+insert  into `colors_groups`(`id`,`name`,`created_at`,`updated_at`) values 
 (4,'TAN BROWN','2022-02-11 09:47:03','2022-02-11 09:47:05'),
 (5,'WARM TONE','2022-02-11 09:47:14','2022-02-11 09:47:20'),
 (6,'Red-Pink TONE','2022-02-11 09:47:24','2022-02-11 09:47:32'),
@@ -1650,11 +1662,81 @@ insert  into `languages`(`id`,`texts`,`English`,`China`,`French`,`German`,`creat
 (281,'monk-desc','Our iShoes Monk is our own collection of Monk styled shoes - no laces, closed by a buckle and strap. Monks are smart, casual-wear shoes that can also be worn formally making it the most sought after category of shoes. The design options we provide are truly limitless - you can customise the upper, side, strab, back and sole features of the shoes, as well select contrasts from over 90 leather choices.',NULL,NULL,NULL,NULL,'2022-02-11 09:57:15'),
 (282,'boot-desc','Our iShoes Boot collection is our interpretation of the classic Boot design. Our boots mainly covers the foot and ankle areas. You can customise any part of the Boots with your choice of leather as well as other personalisation options.',NULL,NULL,NULL,NULL,'2022-02-11 09:57:15');
 
-/*Table structure for table `leathers` */
+/*Table structure for table `leather` */
 
-DROP TABLE IF EXISTS `leathers`;
+DROP TABLE IF EXISTS `leather`;
 
-CREATE TABLE `leathers` (
+CREATE TABLE `leather` (
+  `id` int(10) unsigned NOT NULL,
+  `pkey` varchar(40) CHARACTER SET ascii NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` enum('M','W') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'M',
+  `mixgroup` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `leather` */
+
+insert  into `leather`(`id`,`pkey`,`name`,`gender`,`mixgroup`,`price`,`created_at`,`updated_at`) values 
+(1,'ArmyC','ArmyC','M','1',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(3,'ArmyT','ArmyT','M','1',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(5,'BOF_1','BOF_1','M','1',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(7,'BOF_2','BOF_2','M','1',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(8,'BOF_2','BOF_2','M','1',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(9,'BOF_3','BOF_3','M','1',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(11,'BOF_4','BOF_4','M','1',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(13,'CJB','CJB','M','2',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(15,'CJG','CJG','M','2',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(17,'Jeans2','Jeans2','M','2',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(19,'Jeans3','Jeans3','M','2',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(21,'Jeans4','Jeans4','M','2',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(23,'Jeans5','Jeans5','M','2',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(25,'Leather-Dye-Black','Leather-Dye-Black','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(27,'Leather-Dye-Chocolate','Leather-Dye-Chocolate','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(29,'Leather-Dye-Darkbrown','Leather-Dye-Darkbrown','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(31,'Leather-Dye-Green','Leather-Dye-Green','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(33,'Leather-Dye-LightBrown','Leather-Dye-LightBrown','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(35,'Leather-Dye-Navy','Leather-Dye-Navy','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(37,'Leather-Dye-Orange','Leather-Dye-Orange','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(39,'Leather-Dye-Purple','Leather-Dye-Purple','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(41,'Leather-Dye-RED','Leather-Dye-RED','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(43,'Leather-Dye-Yellow','Leather-Dye-Yellow','M','3',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(45,'LT-001','LT-001','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(47,'LT-002','LT-002','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(49,'LT-005','LT-005','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(51,'LT-006','LT-006','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(53,'LT-007','LT-007','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(55,'LT-014','LT-014','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(57,'LT-015','LT-015','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(59,'LT-018','LT-018','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(61,'LT-020','LT-020','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(63,'LT-022','LT-022','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(65,'LT-024','LT-024','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(67,'LT-025','LT-025','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(69,'LT-028','LT-028','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(71,'LT-030','LT-030','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(73,'LT-040','LT-040','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(75,'LT-041','LT-041','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(77,'LT-043','LT-043','M','4',NULL,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(79,'GOL-01','GOL-01','W','2',21,'2022-03-12 01:01:42','2022-03-12 01:01:42'),
+(80,'GOL-02','GOL-02','W','2',22,'2022-03-12 01:01:46','2022-03-12 01:01:46'),
+(81,'GOL-03','GOL-03','W','2',23,'2022-03-12 01:01:48','2022-03-12 01:01:48'),
+(83,'GOL-05','GOL-05','W','2',24,'2022-03-12 01:01:53','2022-03-12 01:01:53'),
+(84,'GOL-06','GOL-06','W','2',25,'2022-03-12 01:01:56','2022-03-12 01:01:56'),
+(85,'GOL-07','GOL-07','W','2',26,'2022-03-12 01:01:58','2022-03-12 01:01:58'),
+(86,'GOL-08','GOL-08','W','2',27,'2022-03-12 01:02:03','2022-03-12 01:02:03'),
+(88,'GOL-10','GOL-10','W','2',28,'2022-03-12 01:02:10','2022-03-12 01:02:10'),
+(89,'GOL-11','GOL-11','W','2',29,'2022-03-12 01:02:14','2022-03-12 01:02:14'),
+(90,'GOL-12','GOL-12','W','2',30,'2022-03-12 01:02:19','2022-03-12 01:02:19');
+
+/*Table structure for table `leather_categories` */
+
+DROP TABLE IF EXISTS `leather_categories`;
+
+CREATE TABLE `leather_categories` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `key` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1665,9 +1747,9 @@ CREATE TABLE `leathers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-/*Data for the table `leathers` */
+/*Data for the table `leather_categories` */
 
-insert  into `leathers`(`id`,`key`,`name`,`gender`,`mixgroup`,`created_at`,`updated_at`) values 
+insert  into `leather_categories`(`id`,`key`,`name`,`gender`,`mixgroup`,`created_at`,`updated_at`) values 
 (1,4,'premium','M','1',NULL,NULL),
 (2,5,'fashion','M','1',NULL,NULL),
 (3,6,'sheep','M','2',NULL,NULL),
@@ -1696,6 +1778,103 @@ insert  into `linings`(`id`,`key`,`name`,`path`,`created_at`,`updated_at`) value
 (4,'liningSH-SW04','SH-SW04','Special/Lining/SH-SW04','2022-02-04 01:59:18','2022-02-04 01:59:18'),
 (5,'liningSH-SW13','SH-SW13','Special/Lining/SH-SW13','2022-02-04 01:59:18','2022-02-04 01:59:18'),
 (6,'liningSH-SW11','SH-SW11','Special/Lining/SH-SW11','2022-02-04 01:59:18','2022-02-04 01:59:18');
+
+/*Table structure for table `main_categories` */
+
+DROP TABLE IF EXISTS `main_categories`;
+
+CREATE TABLE `main_categories` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) CHARACTER SET ascii NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=dec8;
+
+/*Data for the table `main_categories` */
+
+insert  into `main_categories`(`id`,`name`,`created_at`,`updated_at`) values 
+(9,'PREMIUM LEATHER','2022-03-11 11:41:41','2022-03-11 11:41:41'),
+(10,'FASHION LEATHER','2022-03-11 11:41:51','2022-03-11 11:41:51'),
+(11,'SHEEPSKIN LEATHER','2022-03-11 11:41:56','2022-03-11 11:41:56'),
+(12,'BURNISHED LEATHER','2022-03-11 11:42:00','2022-03-11 11:42:00'),
+(13,'FABRIC','2022-03-11 11:42:04','2022-03-11 11:42:04'),
+(14,'Suede Leather','2022-03-11 11:42:10','2022-03-11 11:42:10'),
+(15,'Thread Accessory','2022-03-11 11:42:23','2022-03-11 11:42:23'),
+(16,'Leather Chamois','2022-03-11 11:42:27','2022-03-11 11:42:27'),
+(17,'SEAM EDGE','2022-03-11 11:42:31','2022-03-11 11:42:31'),
+(18,'Leather Dye','2022-03-11 11:42:35','2022-03-11 11:42:35'),
+(19,'Laces','2022-03-11 11:42:46','2022-03-11 11:42:46');
+
+/*Table structure for table `mains` */
+
+DROP TABLE IF EXISTS `mains`;
+
+CREATE TABLE `mains` (
+  `id` int(10) unsigned NOT NULL,
+  `pkey` varchar(40) CHARACTER SET ascii NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` enum('M','W') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'M',
+  `mixgroup` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `mains` */
+
+insert  into `mains`(`id`,`pkey`,`name`,`gender`,`mixgroup`,`price`,`created_at`,`updated_at`) values 
+(1,'ArmyC','ArmyC','M','1',81,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(3,'ArmyT','ArmyT','M','1',80,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(5,'BOF_1','BOF_1','M','1',79,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(7,'BOF_2','BOF_2','M','1',78,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(8,'BOF_2','BOF_2','M','1',77,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(9,'BOF_3','BOF_3','M','1',76,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(11,'BOF_4','BOF_4','M','1',79,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(13,'CJB','CJB','M','2',75,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(15,'CJG','CJG','M','2',74,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(17,'Jeans2','Jeans2','M','2',73,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(19,'Jeans3','Jeans3','M','2',72,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(21,'Jeans4','Jeans4','M','2',71,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(23,'Jeans5','Jeans5','M','2',70,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(25,'Leather-Dye-Black','Leather-Dye-Black','M','3',51,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(27,'Leather-Dye-Chocolate','Leather-Dye-Chocolate','M','3',52,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(29,'Leather-Dye-Darkbrown','Leather-Dye-Darkbrown','M','3',53,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(31,'Leather-Dye-Green','Leather-Dye-Green','M','3',54,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(33,'Leather-Dye-LightBrown','Leather-Dye-LightBrown','M','3',55,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(35,'Leather-Dye-Navy','Leather-Dye-Navy','M','3',56,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(37,'Leather-Dye-Orange','Leather-Dye-Orange','M','3',57,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(39,'Leather-Dye-Purple','Leather-Dye-Purple','M','3',58,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(41,'Leather-Dye-RED','Leather-Dye-RED','M','3',59,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(43,'Leather-Dye-Yellow','Leather-Dye-Yellow','M','3',60,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(45,'LT-001','LT-001','M','4',31,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(47,'LT-002','LT-002','M','4',32,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(49,'LT-005','LT-005','M','4',33,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(51,'LT-006','LT-006','M','4',34,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(53,'LT-007','LT-007','M','4',35,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(55,'LT-014','LT-014','M','4',36,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(57,'LT-015','LT-015','M','4',37,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(59,'LT-018','LT-018','M','4',8,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(61,'LT-020','LT-020','M','4',39,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(63,'LT-022','LT-022','M','4',40,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(65,'LT-024','LT-024','M','4',41,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(67,'LT-025','LT-025','M','4',42,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(69,'LT-028','LT-028','M','4',43,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(71,'LT-030','LT-030','M','4',44,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(73,'LT-040','LT-040','M','4',45,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(75,'LT-041','LT-041','M','4',46,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(77,'LT-043','LT-043','M','4',47,'2022-03-12 00:44:45','2022-03-12 00:44:45'),
+(79,'GOL-01','GOL-01','W','2',21,'2022-03-12 01:01:42','2022-03-12 01:01:42'),
+(80,'GOL-02','GOL-02','W','2',22,'2022-03-12 01:01:46','2022-03-12 01:01:46'),
+(81,'GOL-03','GOL-03','W','2',23,'2022-03-12 01:01:48','2022-03-12 01:01:48'),
+(83,'GOL-05','GOL-05','W','2',24,'2022-03-12 01:01:53','2022-03-12 01:01:53'),
+(84,'GOL-06','GOL-06','W','2',25,'2022-03-12 01:01:56','2022-03-12 01:01:56'),
+(85,'GOL-07','GOL-07','W','2',26,'2022-03-12 01:01:58','2022-03-12 01:01:58'),
+(86,'GOL-08','GOL-08','W','2',27,'2022-03-12 01:02:03','2022-03-12 01:02:03'),
+(88,'GOL-10','GOL-10','W','2',28,'2022-03-12 01:02:10','2022-03-12 01:02:10'),
+(89,'GOL-11','GOL-11','W','2',29,'2022-03-12 01:02:14','2022-03-12 01:02:14'),
+(90,'GOL-12','GOL-12','W','2',30,'2022-03-12 01:02:19','2022-03-12 01:02:19');
 
 /*Table structure for table `menu_items` */
 
@@ -1826,6 +2005,109 @@ insert  into `mixsoleprices`(`id`,`currency`,`price`,`created_at`,`updated_at`) 
 (15,'NOK',200,'2022-02-03 23:58:52',NULL),
 (16,'NZD',36,'2022-02-03 23:58:52',NULL),
 (17,'RUB',1480,'2022-02-03 23:58:52',NULL);
+
+/*Table structure for table `model_serials` */
+
+DROP TABLE IF EXISTS `model_serials`;
+
+CREATE TABLE `model_serials` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `modelno` varchar(40) DEFAULT NULL,
+  `style` varchar(40) CHARACTER SET ascii DEFAULT NULL,
+  `series` varchar(40) CHARACTER SET ascii DEFAULT NULL,
+  `coupons` enum('Y','N') DEFAULT 'N',
+  `shape` enum('sharp','round') DEFAULT 'round',
+  `sex` enum('women','man') DEFAULT NULL,
+  `price` float DEFAULT 0,
+  `sale_status` enum('Y','N') DEFAULT 'N',
+  `main` varchar(40) CHARACTER SET ascii NOT NULL,
+  `main_color` int(11) DEFAULT NULL,
+  `front` int(11) DEFAULT NULL,
+  `front_color` int(11) DEFAULT NULL,
+  `side` int(11) DEFAULT NULL,
+  `side_color` int(11) DEFAULT NULL,
+  `back` int(11) DEFAULT NULL,
+  `back_color` int(11) DEFAULT NULL,
+  `sole` int(11) DEFAULT NULL,
+  `sole_color` int(11) DEFAULT NULL,
+  `accessory` int(11) DEFAULT NULL,
+  `access_color` int(11) DEFAULT NULL,
+  `laces` int(11) DEFAULT NULL,
+  `lining` int(11) DEFAULT NULL,
+  `backstitch` varchar(40) CHARACTER SET ascii NOT NULL DEFAULT 'fasle',
+  `backstitch_price` float DEFAULT NULL,
+  `theme` varchar(40) CHARACTER SET ascii NOT NULL DEFAULT 'false',
+  `serials` varchar(40) DEFAULT NULL,
+  `sale_price` float DEFAULT NULL,
+  `options` varchar(250) CHARACTER SET ascii DEFAULT NULL COMMENT 'comma seperated options(ex: '',1,''  or '',1,3,'' )',
+  `model_id` int(40) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+
+/*Data for the table `model_serials` */
+
+insert  into `model_serials`(`id`,`modelno`,`style`,`series`,`coupons`,`shape`,`sex`,`price`,`sale_status`,`main`,`main_color`,`front`,`front_color`,`side`,`side_color`,`back`,`back_color`,`sole`,`sole_color`,`accessory`,`access_color`,`laces`,`lining`,`backstitch`,`backstitch_price`,`theme`,`serials`,`sale_price`,`options`,`model_id`) values 
+(1,'DSW_006','Oxford','','Y','sharp','women',159,'Y','79',6,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',159,NULL,1),
+(2,'DSW_004','Monk','','Y','sharp','women',159,'Y','84',5,0,0,0,0,112,9,6,1,0,0,NULL,NULL,'Brown',12,'false','',159,NULL,2),
+(3,'DSW_007','Loafers','Black','Y','sharp','women',159,'Y','81',10,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','Black',159,NULL,3),
+(4,'DSW_005','Boot','red','Y','sharp','women',259,'N','81',0,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','red',259,NULL,4),
+(5,'DSW_005','Boot','red','Y','sharp','women',259,'N','83',0,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',259,NULL,4),
+(6,'DSW_007','Loafers','Black','Y','sharp','women',159,'Y','83',6,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',159,NULL,3),
+(7,'DSW_009','Boot','','Y','sharp','women',159,'N','85',4,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',159,NULL,7),
+(8,'DSW_010','Derby','','Y','sharp','women',159,'N','85',0,0,0,0,0,0,0,NULL,NULL,15,0,NULL,NULL,'fasle',NULL,'false','',159,NULL,8),
+(9,'DSW_005','Boot','red','Y','sharp','women',259,'N','86',0,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','purple',259,NULL,4),
+(10,'DSW_004','Monk','','Y','sharp','women',159,'Y','84',84,0,0,0,0,113,9,4,2,0,0,NULL,NULL,'fasle',NULL,'false','Greay_Cream',159,NULL,2),
+(11,'DSW_003','Boot','','N','sharp','women',129,'N','84',10,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',129,NULL,11),
+(12,'DSW_003','Boot','','N','sharp','women',129,'N','84',4,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','brown',129,NULL,11),
+(13,'DSW_002','Loafers','','N','sharp','women',129,'N','88',6,0,0,0,0,0,0,NULL,NULL,16,6,NULL,NULL,'fasle',NULL,'false','',129,NULL,13),
+(14,'DSW_002','Loafers','','N','sharp','women',129,'N','89',5,0,0,0,0,0,0,NULL,NULL,16,4,NULL,NULL,'fasle',NULL,'false','purple',129,NULL,13),
+(15,'DSW_002','Loafers','','N','sharp','women',129,'N','90',6,0,0,0,0,0,0,NULL,NULL,16,6,NULL,NULL,'fasle',NULL,'false','pink',129,NULL,13),
+(16,'DSW_002','Loafers','','N','sharp','women',129,'N','90',8,0,0,0,0,0,0,NULL,NULL,16,8,NULL,NULL,'fasle',NULL,'false','Green',129,NULL,13),
+(17,'DSW_001','Oxford','Cream','N','sharp','women',159,'Y','88',5,12,4,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','Cream',159,NULL,17),
+(18,'DSW_002','Loafers','','N','sharp','women',129,'N','86',11,0,0,0,0,0,0,NULL,NULL,16,11,NULL,NULL,'fasle',NULL,'false','Yellow_green',129,NULL,13),
+(19,'DS_107','Oxford','','Y','sharp','man',259,'N','19',0,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'Brown',NULL,'false','',259,NULL,32),
+(20,'DS_114','Monk','black','Y','sharp','man',159,'Y','11',10,0,0,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','black',159,NULL,33),
+(21,'DS_042','Derby','','Y','sharp','man',269,'N','9',0,11,10,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',269,NULL,34),
+(22,'DS_018','Oxford','','N','sharp','man',219,'Y','13',0,12,4,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',219,NULL,35),
+(23,'DS_038','Derby','','N','sharp','man',269,'Y','15',4,12,4,12,4,12,4,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',269,NULL,36),
+(24,'DS_002','Oxford','','N','sharp','man',269,'Y','9',5,12,4,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',269,NULL,37),
+(25,'DS_046','Oxford','','N','sharp','man',129,'N','9',10,9,10,0,0,9,10,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',129,NULL,38),
+(26,'DS_030','Derby','grey_suede','N','sharp','man',159,'Y','17',10,0,0,9,5,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','grey_suede',159,NULL,39),
+(27,'DS_011','Derby','','N','sharp','man',169,'N','9',4,9,4,9,4,9,4,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',169,NULL,40),
+(28,'DS_032','Derby','','N','sharp','man',159,'N','9',10,0,0,11,10,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',159,NULL,41),
+(29,'DS_007','Fashion','','N','sharp','man',169,'Y','11',4,12,4,12,4,12,4,NULL,NULL,12,4,NULL,NULL,'fasle',NULL,'false','',169,NULL,42),
+(30,'DS_002','Oxford','','N','sharp','man',269,'Y','11',10,12,6,0,0,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','ItalyBlack-Red',269,NULL,37),
+(31,'DS_008','Monk','','N','sharp','man',159,'Y','13',10,12,10,12,10,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',159,NULL,44),
+(32,'DS_024','Oxford','BlackShoes','N','sharp','man',159,'Y','9',10,0,0,9,10,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','BlackShoes',159,NULL,45),
+(33,'DS_012','Loafers','','','sharp','man',129,'N','9',4,9,4,0,0,9,4,NULL,NULL,9,4,NULL,NULL,'fasle',NULL,'false','',129,NULL,46),
+(34,'DS_055','Boot','','N','sharp','man',269,'N','9',4,9,4,9,4,9,4,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','',269,NULL,47),
+(35,'DS_008','Monk','','N','sharp','man',159,'Y','17',4,12,4,12,6,0,0,NULL,NULL,0,0,NULL,NULL,'fasle',NULL,'false','Red',169,NULL,44),
+(36,'DS_019','Loafers','','N','sharp','man',159,'Y','21',12,0,0,0,0,0,0,NULL,NULL,9,4,NULL,NULL,'fasle',NULL,'false','',159,NULL,49),
+(37,'DS_004','Loafers','','','sharp','man',159,'Y','13',4,12,4,12,4,12,4,NULL,NULL,12,4,NULL,NULL,'fasle',NULL,'false','',159,NULL,50),
+(38,'DS_014','Loafers','Black_Black_SheepSkin','','sharp','man',269,'N','11',10,11,10,0,0,0,0,NULL,NULL,11,10,NULL,NULL,'fasle',NULL,'false','Black_Black_SheepSkin',269,NULL,51);
+
+/*Table structure for table `option_seles` */
+
+DROP TABLE IF EXISTS `option_seles`;
+
+CREATE TABLE `option_seles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) CHARACTER SET ascii DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+/*Data for the table `option_seles` */
+
+insert  into `option_seles`(`id`,`name`,`created_at`,`updated_at`) values 
+(1,'BEST SELLERS','2022-03-11 11:18:11','2022-03-11 11:18:11'),
+(2,'BUSINESS','2022-03-11 11:18:16','2022-03-11 11:18:16'),
+(3,'CASUAL','2022-03-11 11:18:21','2022-03-11 11:18:21'),
+(4,'LACE-UP','2022-03-11 11:18:28','2022-03-11 11:18:28'),
+(5,'SLIP-ONS','2022-03-11 11:18:34','2022-03-11 11:18:34'),
+(6,'CHELEA','2022-03-11 11:18:43','2022-03-11 11:18:43'),
+(7,'SALE','2022-03-11 11:18:46','2022-03-11 11:18:46');
 
 /*Table structure for table `password_resets` */
 
@@ -2283,6 +2565,42 @@ insert  into `size_shoes`(`id`,`size_country`,`size`,`create_at`,`updated_at`) v
 (4,4,'4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5',NULL,'2022-02-11 10:25:50'),
 (5,5,'22.5, 23, 23.5, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 29.5, 30, 30.5, 31, 31.5, 32, 32.5, 33',NULL,'2022-02-11 10:26:13');
 
+/*Table structure for table `soles` */
+
+DROP TABLE IF EXISTS `soles`;
+
+CREATE TABLE `soles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pkey` varchar(10) CHARACTER SET ascii NOT NULL,
+  `type_id` int(11) NOT NULL DEFAULT 1,
+  `shape` enum('sharp','round') DEFAULT NULL,
+  `name` varchar(40) CHARACTER SET ascii NOT NULL,
+  `path` varchar(100) CHARACTER SET ascii NOT NULL,
+  `gender` enum('male','female') DEFAULT 'male',
+  `price` float DEFAULT NULL,
+  `status` enum('Y','N') NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+/*Data for the table `soles` */
+
+insert  into `soles`(`id`,`pkey`,`type_id`,`shape`,`name`,`path`,`gender`,`price`,`status`,`created_at`,`updated_at`) values 
+(1,'Sole-1WN',1,'round','Wood Fiber','Sole-1WN','male',NULL,'Y','2022-02-04 02:37:14','2022-03-12 01:34:48'),
+(2,'Sole-1RN',1,'round','Red Rubber','Sole-1RN','male',NULL,'Y','2022-02-04 02:37:14','2022-03-12 01:34:50'),
+(3,'Sole-1BN',1,'round','Black Rubber','Sole-1BN','male',NULL,'Y','2022-02-04 02:37:14','2022-03-12 01:34:51'),
+(4,'LT-N007',1,'sharp','Cream Leather','LT-N007','female',19,'Y','2022-02-04 02:37:14','2022-03-12 11:44:13'),
+(5,'LT-LB02',1,'round','Brown Leather','LT-LB02','male',18,'Y','2022-02-04 02:37:14','2022-03-12 01:34:52'),
+(6,'LT-B01',1,'sharp','Dark Brown Leather','LT-B01','female',NULL,'Y','2022-02-04 02:37:14','2022-03-12 12:04:31'),
+(7,'LT-BB03',1,'round','Black Leather','LT-BB03','male',NULL,'Y','2022-02-04 02:37:14','2022-03-12 01:34:54'),
+(8,'Sole-OW1',1,'round','Cream Fiber','Sole-OW1','male',NULL,'Y','2022-02-04 02:37:14','2022-03-12 01:34:55'),
+(9,'RBB-22',1,'round','Honey Moccasin  Casual Sole no heels','RBB-22','male',NULL,'Y','2022-02-04 02:37:14','2022-03-12 01:34:56'),
+(10,'RBD',1,'round','Black Moccasin Casual Sole no heels ','RBD','male',NULL,'Y','2022-02-04 02:37:14','2022-03-12 01:34:58'),
+(11,'Sole-1YN',1,'sharp','Rubber','Sole-1YN','female',17,'Y','2022-02-04 02:37:14','2022-03-12 11:44:22'),
+(12,'Sole-SHBla',1,'round','Sole-SH Black','Sole-SHBlack','male',NULL,'Y','2022-02-04 02:37:14','2022-03-12 01:35:00'),
+(13,'Sole-1W',1,'round','Wood Brown Fiber','Sole-1W','male',NULL,'Y','2022-02-04 02:37:14','2022-03-12 01:35:15');
+
 /*Table structure for table `style_accessories` */
 
 DROP TABLE IF EXISTS `style_accessories`;
@@ -2476,6 +2794,106 @@ CREATE TABLE `styles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `styles` */
+
+/*Table structure for table `temperory_1` */
+
+DROP TABLE IF EXISTS `temperory_1`;
+
+CREATE TABLE `temperory_1` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `PKEY` varchar(40) DEFAULT NULL,
+  `ROW` varchar(40) DEFAULT NULL,
+  `NO` varchar(40) DEFAULT NULL,
+  `NEW_TAG` varchar(40) DEFAULT NULL,
+  `MODELSTYLE` varchar(40) DEFAULT NULL,
+  `FRONT_CATEGORY` varchar(40) DEFAULT NULL,
+  `FRONT_COLORGRP` varchar(40) NOT NULL,
+  `MAIN_CATEGORY` varchar(40) DEFAULT NULL,
+  `MAIN_COLORFRP` varchar(40) DEFAULT NULL,
+  `SIDE_CATEGORY` varchar(40) DEFAULT NULL,
+  `SIDE_COLORGRP` varchar(40) DEFAULT NULL,
+  `BACK_CATEGORY` varchar(40) DEFAULT NULL,
+  `BACK_COLORGRP` varchar(40) DEFAULT NULL,
+  `ACCESSORY_CATEGORY` varchar(40) DEFAULT NULL,
+  `ACCESSORY_COLORGRP` varchar(40) DEFAULT NULL,
+  `PRICE` varchar(40) DEFAULT NULL,
+  `SALE_STATUS` varchar(40) DEFAULT NULL,
+  `SERIES` varchar(40) DEFAULT NULL,
+  `SALE` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+
+/*Data for the table `temperory_1` */
+
+insert  into `temperory_1`(`id`,`PKEY`,`ROW`,`NO`,`NEW_TAG`,`MODELSTYLE`,`FRONT_CATEGORY`,`FRONT_COLORGRP`,`MAIN_CATEGORY`,`MAIN_COLORFRP`,`SIDE_CATEGORY`,`SIDE_COLORGRP`,`BACK_CATEGORY`,`BACK_COLORGRP`,`ACCESSORY_CATEGORY`,`ACCESSORY_COLORGRP`,`PRICE`,`SALE_STATUS`,`SERIES`,`SALE`) values 
+(1,'452','1','DSW_006','Y','Oxford','','','12','6','','','','','','','159','Y','','149'),
+(2,'404','2','DSW_004','Y','Monk','','','9','5','','','9','9','','','159','Y','','89'),
+(3,'457','3','DSW_007','Y','Loafers','','','12','10','','','','','','','159','Y','Black','149'),
+(4,'410','4','DSW_005','Y','Boot','','','18','','','','','','','','259','N','red','159'),
+(5,'408','5','DSW_005','Y','Boot','','','18','','','','','','','','259','N','','159'),
+(6,'453','6','DSW_007','Y','Loafers','','','12','6','','','','','','','159','Y','','149'),
+(7,'455','7','DSW_009','Y','Boot','','','10','4','','','','','','','159','N','','149'),
+(8,'456','8','DSW_010','Y','Derby','','','10','','','','','','15','','159','N','','149'),
+(9,'409','9','DSW_005','Y','Boot','','','18','','','','','','','','259','N','purple','159'),
+(10,'407','10','DSW_004','N','Monk','','','9','10','','','9','5','','','159','Y','Greay_Cream','89'),
+(11,'400','11','DSW_003','N','Boot','','','9','10','','','','','','','129','N','','0'),
+(12,'401','12','DSW_003','N','Boot','','','9','4','','','','','','','129','N','brown','0'),
+(13,'394','13','DSW_002','N','Loafers','','','16','6','','','','','16','6','129','N','','0'),
+(14,'396','14','DSW_002','N','Loafers','','','16','5','','','','','16','4','129','N','purple','0'),
+(15,'397','15','DSW_002','N','Loafers','','','16','6','','','','','16','6','129','N','pink','0'),
+(16,'398','16','DSW_002','N','Loafers','','','16','8','','','','','16','8','129','N','Green','0'),
+(17,'399','17','DSW_001','N','Oxford','12','4','10','5','','','','','','','159','Y','Cream','89'),
+(18,'395','18','DSW_002','N','Loafers','','','16','11','','','','','16','11','129','N','Yellow_green','0'),
+(19,'440','1','DS_107','Y','Oxford','','','18','','','','','','','','259','N','','159'),
+(20,'464','2','DS_114','Y','Monk','','','12','10','','','','','','','159','Y','black','149'),
+(21,'196','3','DS_042','Y','Derby','11','10','','','','','','','','','269','N','','179'),
+(22,'80','4','DS_018','N','Oxford','12','4','13','','','','','','','','219','Y','','149'),
+(23,'188','5','DS_038','N','Derby','12','4','12','4','12','4','12','4','','','269','Y','','179'),
+(24,'7','6','DS_002','N','Oxford','12','4','10','5','','','','','','','269','Y','','179'),
+(25,'201','7','DS_046','N','Oxford','9','10','9','10','','','9','10','','','129','N','','0'),
+(26,'170','8','DS_030','N','Derby','','','14','10','9','5','','','','','159','Y','grey_suede','149'),
+(27,'23','9','DS_011','N','Derby','9','4','9','4','9','4','9','4','','','169','N','','0'),
+(28,'177','10','DS_032','N','Derby','','','9','10','11','10','','','','','159','N','','149'),
+(29,'16','11','DS_007','N','Fashion','12','4','12','4','12','4','12','4','12','4','169','Y','','149'),
+(30,'29','12','DS_002','','Oxford','12','6','10','10','','','','','','','269','Y','ItalyBlack-Red','179'),
+(31,'18','13','DS_008','N','Monk','12','10','12','10','12','10','','','','','159','Y','','79'),
+(32,'152','14','DS_024','N','Oxford','','','9','10','9','10','','','','','159','Y','BlackShoes','89'),
+(33,'31','15','DS_012','','Loafers','9','4','9','4','','','9','4','9','4','129','N','','0'),
+(34,'228','16','DS_055','N','Boot','9','4','9','4','9','4','9','4','','','269','N','','179'),
+(35,'24','17','DS_008','','Monk','12','4','12','4','12','6','','','','','169','Y','Red','149'),
+(36,'81','18','DS_019','N','Loafers','','','13','12','','','','','9','4','159','Y','','79'),
+(37,'9','19','DS_004','','Loafers','12','4','12','4','12','4','12','4','12','4','159','Y','','149'),
+(38,'57','20','DS_014','','Loafers','11','10','11','10','','','','','11','10','269','N','Black_Black_SheepSkin','179');
+
+/*Table structure for table `temperory_2` */
+
+DROP TABLE IF EXISTS `temperory_2`;
+
+CREATE TABLE `temperory_2` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `PKEY` varchar(40) DEFAULT NULL,
+  `ROW` varchar(40) DEFAULT NULL,
+  `NO` varchar(40) DEFAULT NULL,
+  `NEW_TAG` varchar(40) DEFAULT NULL,
+  `MODELSTYLE` varchar(40) DEFAULT NULL,
+  `FRONT_CATEGORY` varchar(40) DEFAULT NULL,
+  `FRONT_COLORGRP` varchar(40) NOT NULL,
+  `MAIN_CATEGORY` varchar(40) DEFAULT NULL,
+  `MAIN_COLORFRP` varchar(40) DEFAULT NULL,
+  `SIDE_CATEGORY` varchar(40) DEFAULT NULL,
+  `SIDE_COLORGRP` varchar(40) DEFAULT NULL,
+  `BACK_CATEGORY` varchar(40) DEFAULT NULL,
+  `BACK_COLORGRP` varchar(40) DEFAULT NULL,
+  `ACCESSORY_CATEGORY` varchar(40) DEFAULT NULL,
+  `ACCESSORY_COLORGRP` varchar(40) DEFAULT NULL,
+  `PRICE` varchar(40) DEFAULT NULL,
+  `SALE_STATUS` varchar(40) DEFAULT NULL,
+  `SERIES` varchar(40) DEFAULT NULL,
+  `SALE` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+
+/*Data for the table `temperory_2` */
 
 /*Table structure for table `translations` */
 

@@ -152,7 +152,7 @@ class elementsController extends Controller
     public function delCart(Request $request)
     {
         DB::table('carts')->where('id', $request->id)->delete();
-        // 20210220
+        // 20220220
         $returnData = [
             'TAGID' => 'list-hover tagProductList-' . $request->id,
             'PRODUCT' => [

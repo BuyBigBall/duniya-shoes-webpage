@@ -35,8 +35,20 @@ class DesignerIdeaController extends Controller
         $data['style'] = $this->style;
         $data['colorGrp'] = $this->colorGrp;
         $data['optionSele'] = $this->optionSele;
+
+        if(stripos(Route::currentRouteName(), 'women')!==false) 
+        {
+            $selgender = 'W';
+            $categories = Main::where('gender', $selgender)->get();
+        }
+        else
+        {
+            $selgender = 'M';
+            //$categories = Main::where('gender', $selgender)->where('mixgroup', 3)->get();
+            $categories = Main::where('gender', $selgender)->get();
+        }
         
-        $categories = MainCategory::get();
+        
         $colorgroup = ColorsGroup::get();
         $styles = Type::get();
         $optionSeles = OptionSele::get();
@@ -102,6 +114,8 @@ class DesignerIdeaController extends Controller
                     ->with('colorgroup',$colorgroup)
                     ->with('gender', $this->gender);
     }
+
+
     public function designerShoes(Request $request)
     {
         $modelno = $request->model;
@@ -180,7 +194,12 @@ class DesignerIdeaController extends Controller
         #######################  leathers ################
         $resultInfo['leather']         = [];
         $item = [];
-        $Leathers = Leather::where('gender', $sel_gender)->get();
+
+        if($this->gender == 'female')
+            $Leathers = Leather::where('gender', $sel_gender)->get();
+        else
+            $Leathers = Leather::where('gender', $sel_gender)->where('mixgroup', 3)->get();
+
         foreach($Leathers as $leather)
         {
             $item[] = [ 'id'    => $leather->pkey,
@@ -194,7 +213,12 @@ class DesignerIdeaController extends Controller
         #######################  main ################
         $resultInfo['main']         = [];
         $item = [];
-        $Leathers = Main::where('gender', $sel_gender)->get();
+        
+        //$Leathers = Main::where('gender', $sel_gender)->get();
+        if($this->gender == 'female')
+            $Leathers = Main::where('gender', $sel_gender)->get();
+        else
+            $Leathers = Main::where('gender', $sel_gender)->where('mixgroup', 3)->get();
         foreach($Leathers as $leather)
         {
             $item[] = [ 'id'    => $leather->pkey,
@@ -226,22 +250,26 @@ class DesignerIdeaController extends Controller
 
         else
         {
-            $resultInfo['selector']     = [[
-                "main"=>[
-                    "location" => "0",
-                    "style" => "main",
-                    "x" => "117",
-                    "y" => "184",
-                    "pos" => "top",
+            $resultInfo['selector']     = [
+                [
+                    "main"=>[
+                        "location" => "0",
+                        "style" => "main",
+                        "x" => "517",
+                        "y" => "123",
+                        "pos" => "top",
+                    ],
                 ],
-                "back"=>[
-                    "location" => "1",
-                    "style" => "back",
-                    "x" => "610",
-                    "y" => "42",
-                    "pos" => "bottom",
-                ],
-            ]    ];
+                [
+                    "main"=>[
+                        "location" => "0",
+                        "style" => "main",
+                        "x" => "289",
+                        "y" => "237",
+                        "pos" => "bottom",
+                    ],
+                ]  
+                ];
 
         }
 

@@ -7,10 +7,13 @@ use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $tokenId = session()->get('_token');
+        // dd(session()->get('_token'));
         $lang = getLanguage();
-        $goods = DB::table('carts')->where('checkout', 0)->get();
+        $goods = DB::table('carts')->where('checkout', 0)->where('token', $tokenId)->get();
+        // 
         $goodsLists = [];
         $i = 0;
         foreach ($goods as $item) {
@@ -40,6 +43,9 @@ class CheckoutController extends Controller
                 $goodsLists[$i . ''] = empty($item->desc) ? "" : json_decode(base64_decode($item->desc));
                 $goodsLists[$i . '']->id = $item->id;
                 $goodsLists[$i . '']->DESIGN_TYPE = $item->style;
+                $goodsLists[$i . '']->MODELNO = $item->key;
+                $goodsLists[$i . '']->productName = $item->name;
+                //dd($goodsLists[$i . '']->getLeatherName);               
             }
         }
         $data = [
@@ -47,6 +53,7 @@ class CheckoutController extends Controller
             'goods' => json_encode($goodsLists),
             'goodsLists' => $goodsLists
         ];
+        //dd($goodsLists);
         return view("checkout", $data);
     }
 

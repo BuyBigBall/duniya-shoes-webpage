@@ -104,12 +104,15 @@
                     </ul>
                     <ul style="width: 80%;">
                         <li>
-                            <span class="go-to-custom" @if($gender=='male') style="color: rgba(92, 228, 255, 0.82);" @endif onclick="document.location = '/patina';">GO TO PATINA SHOES</span>
+                            <span class="go-to-custom" onclick="document.location = '/patina';">GO TO PATINA SHOES</span>
+                        </li>
+                        <li>
+                            <span class="go-to-custom" @if($gender=='male') style="color: rgba(92, 228, 255, 0.82);" @endif onclick="document.location = '/designidea';">MAN SHOES</span>
                         </li>
                         <li>
                             <span class="go-to-custom" @if($gender=='female') style="color: rgba(92, 228, 255, 0.82);" @endif onclick="document.location = '/women-shoes/designidea';">WOMEN SHOES</span>
                         </li>
-                        <li>
+                        <!-- <li>
                             <span class="go-to-custom" onclick="document.location = '#';">GO TO DESIGNER BELTS</span>
                         </li>
                         <li>
@@ -118,7 +121,7 @@
                         <li>
                             <span class="go-to-custom" onclick="document.location = '/';">GO TO 3D CUSTOM SHOES</span>
                             <span class="icon icon-arrow"></span>
-                        </li>
+                        </li> -->
                     </ul>
                 </nav>
             </section>
@@ -158,7 +161,7 @@
                             <?php $idx=0; ?>
                             @foreach($category as $item)
                             <li>
-                                <input id="checkbox-category-{!! $idx !!}" type="checkbox" name="category" value="{!! $idx !!}">
+                                <input id="checkbox-category-{!! $idx !!}" type="checkbox" name="category" value="{!! $item->id !!}">
                                 <label for="checkbox-category-{!! $idx !!}"><b></b><span>{!! $item->name !!}</span></label>
                             </li>
                             <?php $idx++ ?>

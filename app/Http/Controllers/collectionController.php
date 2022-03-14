@@ -16,11 +16,10 @@ class collectionController extends Controller
                 $price->currency => $price->price
             ];
         }
-        $leathers = DB::table('leathers')->get();
+        $leathers = DB::table('mains')->get();
         $arrLeathers = [];
         $iNum = 1;
         $colors = [];
-
         foreach ($leathers as $value) {
             $leather = "";
             $_colors = DB::table('colors')->select('key as ID', 'name as NAME', 'group as COLOR_GROUP')->where('leather_id', $value->id)->get();
@@ -37,7 +36,7 @@ class collectionController extends Controller
             ];
 
             $arrLeathers[$value->id] = [
-                "PKEY"      => $value->key,
+                "PKEY"      => $value->pkey,
                 "NAME"      => $value->name,
                 "MIXGROUP"  => $value->mixgroup,
                 "COLOR"     => $colors

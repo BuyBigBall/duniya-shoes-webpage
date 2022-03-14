@@ -63,23 +63,28 @@
                                     <div class="list-chkout" style="width:100%; max-height:380px; overflow:hidden;">
                                         <table id="t-body" cellspacing="0" cellpadding="1" border="1" width="630" height="380">
                                             <tbody style="margin-top: 10px;">
+                                                <?php $amt=0; $shp=0; ?>
                                                 @foreach($goodsLists as $key=>$item)
-                                                <tr class="list-hover tagProductList-{{$key}}">
+                                                <tr class="list-hover tagProductList-{{$item->id}}">
                                                     <td width='30' style="vertical-align: top!important;text-align: center;color: #FFFFFF;padding: 5px;" class="list-no">No.{{$key}}</td>
                                                     <td width='265'>
                                                         <div style="float: left;max-width: 100px;padding: 10px;">
                                                             <div style="min-width: 100px;min-height: 100px">
-                                                                <span class="imgs{{$key}}"></span>
+                                                                <span class="imgs{{$item->id}}"></span>
                                                             </div>
                                                             <div class="viewLink">
-                                                                <a href="detail?id={{$key}}" class="view-detail" data-lang="view-detail">View Detail</a>
+                                                                <a href="detail?id={{$item->id}}" class="view-detail" data-lang="view-detail">View Detail</a>
                                                             </div>
                                                         </div>
                                                         <div style="float: left" id="productDetail">
-                                                            <p class="sp-orange">ssssss</p>
-                                                            <p>Style SQUARED</p>
-                                                            <p>Leather the fabric</p>
-                                                            <p>U.S. Size 6</p>
+                                                            <p class="sp-orange">No. {{$item->MODELNO}}</p>
+                                                            <p>Style {{$item->DESIGN_TYPE}}</p>
+                                                            @if( !empty($item->getLeatherName))
+                                                            <p>Leather {{ $item->getLeatherName }}</p>
+                                                            @endif
+                                                            @if( !empty($item->getSizeTypeName) ) 
+                                                            <p> {{ $item->getSizeTypeName}}  {{ $item->getSizeType ?? ''}} </p>
+                                                            @endif
                                                             @if($item->productType == "shoe")
                                                             <p>
                                                                 <br><br>
@@ -90,11 +95,15 @@
                                                     </td>
 
 
-                                                    <td width='55' style="text-align: right;padding-top:7%;font-weight: 800;" class="price"></td>
-                                                    <td width='55' style="text-align: right;padding-top:7%" class="shipping"></td>
-                                                    <td width='25' style="text-align: center;padding-top:7%" class="qty"></td>
-                                                    <td width='35' style="text-align: center;padding-top:6%"><img class="deleteItem" id="{{$key}}" src="{{asset('images/icon/bin.png')}}" style="width: 18px;cursor: pointer"></td>
-                                                    <td width='60' style="text-align: right;padding-top:7%;font-weight: 800" class="total"></td>
+                                                    <td width='55' style="text-align: right;padding-top:7%;font-weight: 800;" class="price">{{ ($item->getShoePrice ?? 0) + ($item->getMixPrice ?? 0) }}</td>
+                                                    <td width='55' style="text-align: right;padding-top:7%" class="shipping">{{ $item->getShoeShipping ?? 0 }}</td>
+                                                    <td width='25' style="text-align: center;padding-top:7%" class="qty">{{ $item->getQty }}</td>
+                                                    <td width='35' style="text-align: center;padding-top:6%"><img class="deleteItem" id="{{$item->id}}" src="{{asset('images/icon/bin.png')}}" style="width: 18px;cursor: pointer"></td>
+                                                    <td width='60' style="text-align: right;padding-top:7%;font-weight: 800" class="total">{{ (($item->getShoePrice ?? 0) + ($item->getMixPrice ?? 0) ) * ($item->getQty ?? 0) + ($item->getShoeShipping ?? 0) }} </td>
+                                                    <?php 
+                                                        $amt+= (($item->getShoePrice ?? 0) + ($item->getMixPrice ?? 0)) * $item->getQty;
+                                                        $shp+= ($item->getShoeShipping ?? 0);
+                                                    ?>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
@@ -123,8 +132,8 @@
                             <button class="btnstep" id="continue-shopping" data-lang="btn-cont" style="position: absolute;bottom: 0px;">CONTINUE SHOPPING</button>
                         </div>
                         <div style="float: right;height: 210px;width: 285px;margin-top: 5px;margin-right:10px;">
-                            <p><span class="sp-detail"><span class="sum-qty">{!! count($goodsLists)!!} </span> <span data-lang="item-price-text"> item(s) Price :</span></span><span class="sp-value sum-price">147.00 {!!setting('site.sign')!!}</span></p>
-                            <p><span class="sp-detail" data-lang="shipping-text">Shipping : </span><span class="sp-value sum-shipping">49.95 {!!setting('site.sign')!!}</span></p>
+                            <p><span class="sp-detail"><span class="sum-qty">{!! count($goodsLists)!!} </span> <span data-lang="item-price-text"> item(s) Price :</span></span><span class="sp-value sum-price">{{ $amt }} {!!setting('site.sign')!!}</span></p>
+                            <p><span class="sp-detail" data-lang="shipping-text">Shipping : </span><span class="sp-value sum-shipping">{{ $shp }} {!!setting('site.sign')!!}</span></p>
                             <p class="in cou-toggle disBox">
                                 <span class="sp-detail" data-lang="coupon-dis-text" style="margin-right:22px">Coupon Discount : </span>
                                 <span class="sp-value sum-discount">0.00 {!!setting('site.sign')!!}</span>
@@ -134,7 +143,8 @@
                             <br>
                             <p><br>
                                 <span class="sp-orange sp-detail" data-lang="total-text" style="font-size: 16px!important;text-shadow: 5px 5px 5px #000;font-weight: bold">Total : </span>
-                                <span class="sp-value sp-orange sum-total" style="font-size: 15px!important;border-top: 1px solid #E5E5E5;text-shadow: 5px 5px 5px #000">196.95 {!!setting('site.sign')!!}</span>
+                                <span class="sp-value sp-orange sum-total" style="font-size: 15px!important;border-top: 1px solid #E5E5E5;text-shadow: 5px 5px 5px #000">
+                                        {{ $amt + $shp }} {!!setting('site.sign')!!}</span>
                             </p>
                         </div>
                     </div>

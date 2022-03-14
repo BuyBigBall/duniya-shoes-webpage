@@ -45,7 +45,13 @@ $(document).ready(function () {
                     var tr = "<tr><td> </td><td width='220'> </td><td  width='90'> </td><td width='50'> </td><td width='25'> </td><td  width='40'> </td><td> </td></tr>";
                     $(tr).appendTo($('#t-body tbody '));
                 }
-                changVelLogin(data);
+                if(data['PRODUCT'])
+                if(data['PRODUCT']['SUM'])
+                if(data['PRODUCT']['SUM']['QTY'])
+                {
+                    changVelLogin(data);
+                }
+
                 $('.Popup').fadeOut('slow', function () {
                     $('.Popup').remove();
                 });
