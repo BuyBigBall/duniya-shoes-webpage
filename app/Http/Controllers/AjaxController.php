@@ -52,11 +52,11 @@ class AjaxController extends Controller
                         ,"getMonoIn" =>         $request->monogram['insideLining']  //""
                         ,"getMonoOut" =>        $request->monogram['outsideSole']  
                         ,"getSizeTypeName" =>   $request->measurement['regularSize']    //"EU"
-                        ,"getSizeType" =>       $request->measurement['regularSize']  //"EURO"
-                        ,"getSizeNo" =>         $request->measurement['size']  //"null"
-                        ,"getUnit" =>           $request->measurement['unit']    //"null"
-                        ,"getLength" =>         $request->measurement['length']   //"0"
-                        ,"getWidth" =>          $request->measurement['width']     //"0"
+                        ,"getSizeType" =>       $request->measurement['regularSize']    //"EURO"
+                        ,"getSizeNo" =>         $request->measurement['size']           //"null"
+                        ,"getUnit" =>           $request->measurement['unit']           //"null"
+                        ,"getLength" =>         $request->measurement['length']         //"0"
+                        ,"getWidth" =>          $request->measurement['width']          //"0"
                         ,"getQty" =>            $request->measurement['quantity']
                         ,"getShoePrice" =>      $request->totalPrice
                         ,"getMixPrice" => 0                             //"9.9"
@@ -107,6 +107,11 @@ class AjaxController extends Controller
                 'monoIn'    => $request->monogram['insideLining'] ?? 'false',
                 'monoOut'   => $request->monogram['outsideSole'] ?? 'false',
                 'desc'      => $description_json,
+                'quantity'  => $request->measurement['quantity'],
+                'length'    => $request->measurement['length'],
+                'width'     => $request->measurement['width'],
+                'unit'      => $request->measurement['unit'],
+                'sizeType'  => $request->measurement['regularSize'],
 
                 'token'     => session()->get('_token'),
             ]);

@@ -42,7 +42,8 @@ var deesignProduct = {
             case "shoe":
                 switch (designType) {
                     case "custom":
-                        console.log("deesignProduct custom", data);
+                        
+                    //console.log("deesignProduct custom", data);
                         precessDesignShoes.callDesign({ objDesign: data, ele: main });
                         break;
                     case "designer":

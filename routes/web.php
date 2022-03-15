@@ -47,8 +47,8 @@ Route::get('/designshoes/elements/cart/del',        [elementsController::class, 
 Route::get('/designshoes/elements/loadDataLang',    [elementsController::class, 'loadDataLang']);
 
 // check out
-Route::get('/designshoes/checkout',                 [CheckoutController::class, 'index'])->name('checkout');
-Route::get('/designshoes/detail',                   [CheckoutController::class, 'detail'])->name('checkout');
+Route::get('/designshoes/checkout',                 [CheckoutController::class, 'index'])->name('checkout.main');
+Route::get('/designshoes/detail',                   [CheckoutController::class, 'detail'])->name('checkout.detail');
 
 Route::post('/lib/canvasImg',                           [libController::class, 'canvasImg']);
 
@@ -64,7 +64,7 @@ Route::get('/designidea',                                   [DesignerIdeaControl
 Route::get('/designershoes/index',                          [DesignerIdeaController::class, 'designerShoes'])->name('designerShoes');
 
 
-Route::get('/women-shoes/designidea',                       [DesignerIdeaController::class, 'index'])->name('women.designidea');
+Route::get('/women-shoes/designidea',                       [DesignerIdeaController::class, 'index'])->name('woman.designidea');
 Route::get('/women-shoes/designershoes/index',              [DesignerIdeaController::class, 'designerShoes'])->name('women.designershoes');
 
 Route::post('/designshoes/elements/cart/addDesignerShoes',          [AjaxController::class, 'addDesignerShoes'])->name('addcart.parameters');
@@ -74,7 +74,9 @@ Route::post('/designershoes/Designidea/json/json',                  [AjaxControl
 Route::get('/designshoes/elements/popUp/PopUpContinueShopping',     [AjaxController::class, 'PopUpContinueShopping'])->name('cart.continueshopping');
 Route::post('/designshoes/elements/checkout/add',                   [AjaxController::class, 'addPayment'])->name('checkout.addpayment');
 
-Route::get('/designshoes/elements/checkout/paypal',         [PaymentController::class, 'paypal'])->name('checkout.paypal');
+Route::get('/designshoes/elements/checkout/paypal',                     [PaymentController::class, 'paypal'])->name('checkout.paypal');
+Route::get('designshoes/elements/popUp/proDesign/checkSessionPreDesign',[DesignerIdeaController::class, 'savePreDesign'])->name('checkSessionPreDesign.save');
+
 
 // Route::prefix('/women-shoes')->group(function () {
 //     Route::get('/designidea',           [DesignerIdeaController::class, 'index'])->name('woman.designidea');

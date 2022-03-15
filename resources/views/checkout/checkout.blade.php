@@ -76,7 +76,7 @@
                                                                 <a href="detail?id={{$item->id}}" class="view-detail" data-lang="view-detail">View Detail</a>
                                                             </div>
                                                         </div>
-                                                        <div style="float: left; width:165px;" id="productDetail">
+                                                        <div style="float: left; width:140px;" id="productDetail">
                                                             <p class="sp-orange">No. {{$item->MODELNO}}</p>
                                                             <p>Style {{$item->shoeType}}</p>
                                                             @if( !empty($item->getLeatherName))
@@ -97,7 +97,7 @@
 
                                                     <td width='55' style="text-align: right;padding-top:7%;font-weight: 800;" class="price">{{ ($item->getShoePrice ?? 0) + ($item->getMixPrice ?? 0) }}</td>
                                                     <td width='55' style="text-align: right;padding-top:7%" class="shipping">{{ $item->getShoeShipping ?? 0 }}</td>
-                                                    <td width='25' style="text-align: center;padding-top:7%" class="qty">{{ $item->getQty }}</td>
+                                                    <td width='25' style="text-align: center;padding-top:7%" class="qty">{{ $item->getQty ?? 1 }}</td>
                                                     <td width='35' style="text-align: center;padding-top:6%"><img class="deleteItem" id="{{$item->id}}" src="{{asset('images/icon/bin.png')}}" style="width: 18px;cursor: pointer"></td>
                                                     <td width='60' style="text-align: right;padding-top:7%;font-weight: 800" class="total">{{ (($item->getShoePrice ?? 0) + ($item->getMixPrice ?? 0) ) * ($item->getQty ?? 0) + ($item->getShoeShipping ?? 0) }} </td>
                                                     <?php 

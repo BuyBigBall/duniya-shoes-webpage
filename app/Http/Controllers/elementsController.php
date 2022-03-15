@@ -153,13 +153,16 @@ class elementsController extends Controller
     {
         $cart_item = Cart::find($request->id);
 
-        $Last_Items = Cart::where('token', $cart_item->token)->where('id', '<>',$cart_item->id);
+        $Last_Items = Cart::where('token', $cart_item->token)->where('id', '<>',$cart_item->id)->get();
 
         $discount = 0;
         $price = 0;
+        $sumprice = 0;
         $qty = 0;
         $shipping = 0;
         $total = 0;
+
+        $items = [];
         foreach($Last_Items as $leaved_item)
         {
             $json_description = $leaved_item->desc;
@@ -168,8 +171,14 @@ class elementsController extends Controller
             $price += $obj_description->getShoePrice;
             $qty += $obj_description->getQty;
             $shipping += $obj_description->getShoeShipping;
-            $total+= $obj_description->getShoePrice * $obj_description->getQty + $obj_description->getShoeShipping - $obj_description->getShoeDiscountItem;
+            $sumprice += $obj_description->getShoePrice * $obj_description->getQty;
+            $total+= $sumprice + $obj_description->getShoeShipping - $obj_description->getShoeDiscountItem;
 
+            $items[] = [
+                'SUMPRICE'  =>  $obj_description->getShoePrice * $obj_description->getQty,
+                'SHIPPING'  =>  $obj_description->getShoeShipping,
+                'TOTAL'     =>  $obj_description->getShoePrice * $obj_description->getQty - $obj_description->getShoeDiscountItem + $obj_description->getShoeShipping,
+            ];
         }
 
 
@@ -177,7 +186,7 @@ class elementsController extends Controller
         $returnData = [
             'TAGID' => 'list-hover.tagProductList-' . $request->id,
             'PRODUCT' => [
-                'ITEM' => [],
+                'ITEM' => $items,
                 'SUM' => [
                     "CURR" => "EUR",
                     "DISCOUNT"  => $discount,

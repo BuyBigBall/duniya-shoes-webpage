@@ -19,7 +19,7 @@
     <div class="PopUpContinueShopping-box">
         <img src="webroot/img/icon/CloesButton.png" class="CloesButton closes"/>
         <h1>CONTINUE SHOPPING. DESIGN YOUR NEXT SHOES >></h1>
-        <div class="list" style="margin-right: 2%" onclick="window.location = '../designshoes/'">
+        <div class="list" style="margin-right: 2%" onclick="window.location = '{{ route('designerShoes') }}'">
             <div class="str-option">Option 1</div>
             <div class="list-box">
                 <h2>ADVANCED 3D DESIGNER</h2>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="list" onclick="window.location = '../designershoes/designidea.php'">
+        <div class="list" onclick="window.location = '{{ route('male.designidea') }}'">
             <div class="str-option">Option 2</div>
             <div class="list-box list-box-2">
                 <h2>LUXURY DESIGNER SHOES</h2>

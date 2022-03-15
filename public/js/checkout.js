@@ -70,7 +70,7 @@ function loadChkOutForm() {
     }
 }
 function saveDesign(i) {
-    $.getJSON('elements/popUp/proDesign/checkSessionPreDesign.php?id=' + i, function (d) {
+    $.getJSON('/designshoes/elements/popUp/proDesign/checkSessionPreDesign?id=' + i, function (d) {
         var ststus = d['STATUS'];
         var id = d['ID'];
         if (ststus === 'true') {

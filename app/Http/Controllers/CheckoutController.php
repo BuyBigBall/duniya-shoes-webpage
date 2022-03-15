@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Cart;
 
 class CheckoutController extends Controller
 {
@@ -45,6 +46,7 @@ class CheckoutController extends Controller
                 //$goodsLists[$i . '']->DESIGN_TYPE = $item->style;
                 $goodsLists[$i . '']->MODELNO = $item->key;
                 $goodsLists[$i . '']->productName = $item->name;
+                $goodsLists[$i . '']->getQty = $item->quantity;
                 //dd($goodsLists[$i . '']->getLeatherName);               
             }
         }
@@ -59,7 +61,50 @@ class CheckoutController extends Controller
 
     public function detail(Request $request)
     {
+        $modelno = [];
+        $cart_id = $request->id;
+        $cartItem = Cart::find($cart_id);
+        $token = $cartItem->token;
+        if(!empty($cartItem))
+        {
+            $shoeInfo = json_decode(base64_decode($cartItem->desc));
+            $modelno[] = $cartItem->key ?? '';
+            $shoeInfo->gander   = $cartItem->gander;
+            $shoeInfo->shape    = $cartItem->shape;
+            $shoeInfo->style    = $cartItem->style;
+            $shoeInfo->quantity = $cartItem->quantity;
+            $shoeInfo->length   = $cartItem->length;
+            $shoeInfo->width    = $cartItem->width;
+            $shoeInfo->unit     = $cartItem->unit;
+            $shoeInfo->sizeType = $cartItem->sizeType;
+        }
+        $cart_items = [$shoeInfo];
+        
+        $cartItemCollection = Cart::where('id', '<>', $cart_id)->where('token', $token)->get();
+        foreach($cartItemCollection as $cartItem)
+        {
+            $shoeInfo = json_decode(base64_decode($cartItem->desc));
+            if(!!empty($cartItem->desc) || !!empty($shoeInfo)) continue;
 
-        return view('pages.designshoes.detail');
+            $modelno[] = $cartItem->key ?? '';
+            $shoeInfo->gander   = $cartItem->gander;
+            $shoeInfo->shape    = $cartItem->shape;
+            $shoeInfo->style    = $cartItem->style;
+            $shoeInfo->quantity = $cartItem->quantity;
+            $shoeInfo->length   = $cartItem->length;
+            $shoeInfo->width    = $cartItem->width;
+            $shoeInfo->unit     = $cartItem->unit;
+            $shoeInfo->sizeType = $cartItem->sizeType;
+            $cart_items[] = $shoeInfo;
+        }
+        $imageArray = [];
+        foreach($cart_items as $item)
+        {
+            $imageArray[ (count($imageArray)+1) .''] = $item;
+        }
+        return view('pages.designshoes.detail')
+                ->with('cart_items', $cart_items)
+                ->with('json_items', json_encode($imageArray))
+                ->with('modelno', $modelno);
     }
 }

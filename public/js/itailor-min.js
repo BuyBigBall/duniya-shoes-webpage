@@ -98,7 +98,7 @@ $(document).ready(function () {
     });
     $('#linkStore').live('click', function (e) {
         e.preventDefault();
-        $.getJSON("elements/popUp/proDesign/checkSessionPreDesign.php?type=check", function (d) {
+        $.getJSON("/designshoes/elements/popUp/proDesign/checkSessionPreDesign?type=check", function (d) {
             var status = d['STATUS'];
             (status === 'true') ? loadPopUp('PopUpPreDesign', 'divPreDesign') : loadPopUp('PopUpEmtyPreDesign', 'divEmtyPreDesign');
         });

@@ -1,4 +1,4 @@
-@if (request()->routeIS('designershoes') || request()->routeIS('checkout'))
+@if (request()->routeIS('designershoes') || request()->routeIS('checkout.main') || request()->routeIS('checkout.detail'))
 @include('layouts.header.designshoes')
 @yield('content')
 @include('layouts.footer.designshoes')

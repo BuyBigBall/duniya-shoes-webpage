@@ -12,7 +12,8 @@ use App\Models\ModelSerial;
 use App\Models\OptionSele;
 use App\Models\MainCategory;
 use App\Models\Main;
-use App\Models\Leather;
+use App\Models\Cart;
+use App\Models\Selector;
 
 class DesignerIdeaController extends Controller
 {
@@ -22,6 +23,59 @@ class DesignerIdeaController extends Controller
     public $style;
     public $colorGrp;
     public $optionSele;
+
+    public function savePreDesign(Request $request)
+    {
+        if($request->type==='check')
+        {
+
+        }
+        # save design on cart
+        elseif(!empty($request->id))
+        {
+            $newModel   = new ModelSerial();
+            $cart_item = Cart::find($request->id);
+            // $shoeInfo = json_decode( base64_decode($cart_item->desc));
+            // $designInfo = [
+            //     'modelno',
+            //     'mixgroup',
+            //     'style',
+            //     'series',
+            //     'coupons',
+            //     'shape',
+            //     'sex',
+            //     'price',
+            //     'sale_status'   =>'N',
+            //     'main',
+            //     'main_color',
+            //     'front',
+            //     'front_color',
+            //     'side',
+            //     'side_color',
+            //     'back',
+            //     'back_color',
+            //     'sole',
+            //     'sole_color',
+            //     'accessory',
+            //     'access_color',
+            //     'laces',
+            //     'lining',
+            //     'backstitch',
+            //     'backstitch_price',
+            //     'theme',
+            //     'serials',
+            //     'sale_price',
+            //     'options'           => ''
+
+            //];
+            $newModel->save();
+        }
+        else{
+            return json_encode(['STATUS'=>'false']);
+        }
+        
+        return json_encode(['STATUS'=>'true']);
+    }
 
     public function index(Request $request)
     {
@@ -208,52 +262,71 @@ class DesignerIdeaController extends Controller
 
         #######################  monogram,selector  ################
         $resultInfo['monogram']     = ["inside"=>"Y", "outside"=>"Y"];
-        if($this->gender=='female')
-            $resultInfo['selector']     = [[
-                "main"=>[
-                    "location" => "0",
-                    "style" => "main",
-                    "x" => "117",
-                    "y" => "184",
-                    "pos" => "bottom",
-                ],
-                "back"=>[
-                    "location" => "1",
-                    "style" => "back",
-                    "x" => "610",
-                    "y" => "42",
-                    "pos" => "top",
-                ],
-            ]    ];
 
-        else
+        
+        $selectors = Selector::where('model_id', $modelInfo->id)->orderBy('pageno', 'ASC')->orderBy('id', 'ASC')->get();
+        $idx = 0;$last = -1;
+        foreach($selectors as $item)
         {
-            $resultInfo['selector']     = [
+            if($last!=-1 && $last != $item->pageno)  $idx++;
+            $last = $item->pageno;
+            $resultInfo['selector'][$idx][$item->posname] = 
                 [
-                    "main"=>[
-                        "location" => "0",
-                        "style" => "main",
-                        "x" => "517",
-                        "y" => "123",
-                        "pos" => "top",
-                    ],
-                ],
-                [
-                    "main"=>[
-                        "location" => "0",
-                        "style" => "main",
-                        "x" => "289",
-                        "y" => "237",
-                        "pos" => "bottom",
-                    ],
-                ]  
+                    "location"  => $item->location,
+                    "style"     => $item->style,
+                    "x"         => $item->x,
+                    "y"         => $item->y,
+                    "pos"       => $item->labelpos,
                 ];
-
         }
 
-        //dd($resultInfo);
+        // if($this->gender=='female')
+        //     $resultInfo['selector']     = [[
+        //         "main"=>[
+        //             "location" => "0",
+        //             "style" => "main",
+        //             "x" => "117",
+        //             "y" => "184",
+        //             "pos" => "bottom",
+        //         ],
+        //         "back"=>[
+        //             "location" => "1",
+        //             "style" => "back",
+        //             "x" => "610",
+        //             "y" => "42",
+        //             "pos" => "top",
+        //         ],
+        //     ]    ];
+
+        // else
+        // {
+        //     $resultInfo['selector']     = [
+        //         [
+        //             "main"=>[
+        //                 "location" => "0",
+        //                 "style" => "main",
+        //                 "x" => "517",
+        //                 "y" => "123",
+        //                 "pos" => "top",
+        //             ],
+        //         ],
+        //         [
+        //             "main"=>[
+        //                 "location" => "0",
+        //                 "style" => "main",
+        //                 "x" => "289",
+        //                 "y" => "237",
+        //                 "pos" => "bottom",
+        //             ],
+        //         ]  
+        //         ];
+
+        // }
+
         $this->data = json_encode($resultInfo);
         //print_r(json_decode($this->data));exit;
         return view('designidea.index')->with('gender', $this->gender)->with('data', $this->data);
     }
+
+
 }
