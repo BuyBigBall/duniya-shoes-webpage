@@ -1,10 +1,5 @@
-<div id="top-menu">
-    @if( !empty(auth()->user()) )
-        @include('layouts.topmenu_after_login')
-    @else
-        @include('layouts.topmenu_before_login')
-    @endif
-    <!-- <ul style="float: left;">
+
+    <ul style="float: left;">
         <li><a href="javascript:void(0)" class="linkProduct" data-lang="shop-by-product" style="text-transform: uppercase;font-weight: bold;padding: 0 30px">shop by product</a></li>
     </ul>
     <ul>
@@ -43,5 +38,4 @@
                 </select>
             </label>
         </li>
-    </ul> -->
-</div>
+    </ul>

@@ -13,7 +13,10 @@ class CheckoutController extends Controller
         $tokenId = session()->get('_token');
         // dd(session()->get('_token'));
         $lang = getLanguage();
-        $goods = DB::table('carts')->where('checkout', 0)->where('token', $tokenId)->get();
+        if( !empty(auth()->user()))
+            $goods = DB::table('carts')->where('checkout', 0)->where('session', auth()->user()->id)->get();
+        else
+            $goods = DB::table('carts')->where('checkout', 0)->where('token', $tokenId)->get();
         // 
         $goodsLists = [];
         $i = 0;
@@ -80,7 +83,11 @@ class CheckoutController extends Controller
         }
         $cart_items = [$shoeInfo];
         
-        $cartItemCollection = Cart::where('id', '<>', $cart_id)->where('token', $token)->get();
+        if( !empty(auth()->user()))
+            $cartItemCollection = Cart::where('id', '<>', $cart_id)->where('session', auth()->user()->id)->get();
+        else
+            $cartItemCollection = Cart::where('id', '<>', $cart_id)->where('token', $token)->get();
+            
         foreach($cartItemCollection as $cartItem)
         {
             $shoeInfo = json_decode(base64_decode($cartItem->desc));

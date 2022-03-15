@@ -11,19 +11,25 @@ class elementsController extends Controller
     public function __construct()
     {
     }
-    public function index()
+    public function topMenu(Request $request)
     {
-        // return view('designshoes');
+        if( !empty(auth()->user()) )
+        {
+            return view('layouts.topmenu_after_login');
+        }
+        else
+        {
+            return view('layouts.topmenu_before_login');
+        }
+        
     }
     public function loadPrice(Request $request)
     {
-        
-
         return response()->json([
             "list" => "<li id='premium' class='lthType'><span data-lang='cate-1'>PREMIUM LEATHER</span><span class='discount'>".setting('site.sign')."179</span></li><li id='fashion' class='lthType'><span data-lang='cate-2'>FASHION LEATHER</span><span class='discount'>".setting('site.sign')."179</span></li><li id='sheep' class='lthType'><span data-lang='cate-3'>SHEEPSKIN LEATHER</span><span class='discount'>".setting('site.sign')."199</span></li><li id='fabric' class='lthType'><span data-lang='cate-4'>FABRIC</span><span class='discount'>".setting('site.sign')."139</span></li>",
-            "mixprice" => ["premium" => "9.9", "fashion" => "9.9", "sheep" => "9.9", "fabric" => "0"],
-            "price" => ["premium" => "179", "fashion" => "179", "sheep" => "199", "fabric" => "139"],
-            "sign" => setting('site.sign')
+            "mixprice"  => ["premium" => "9.9", "fashion" => "9.9", "sheep" => "9.9", "fabric" => "0"],
+            "price"     => ["premium" => "179", "fashion" => "179", "sheep" => "199", "fabric" => "139"],
+            "sign"      => setting('site.sign')
         ]);
     }
     public function LoadPreDesignArr()
@@ -126,7 +132,7 @@ class elementsController extends Controller
         // dd(base64_decode($request->sobj));
         setcookie("_token", $request->_token, time() + 2 * 24 * 60 * 60);
         $cart = new Cart();
-        $cart->token = $request->_token;
+        
         $cart->monoIn = $request->monoIn;
         $cart->monoOut = $request->monoOut;
         $cart->statusPreDesign = $request->statusPreDesign;
@@ -141,6 +147,15 @@ class elementsController extends Controller
         $cart->desc = $request->sobj;
         $cart->shape = "shoe";
         $cart->style = "custom";
+
+        if( !empty(auth()->user()))
+        {
+            $cart->session = auth()->user()->id;
+        }
+        else
+        {
+            $cart->token = $request->_token;
+        }
         $cart->save();
 
         return redirect('/designshoes/checkout');

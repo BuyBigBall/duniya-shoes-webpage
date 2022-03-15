@@ -352,7 +352,7 @@ function checkFrmCheckout($Payment) {
 }
 
 function LoadTopMenu() {
-    $('#top-menu').load('elements/topMenu.php?load=true', function () {
+    $('#top-menu').load('elements/topMenu?load=true', function () {
         setLanguage();
     });
 }

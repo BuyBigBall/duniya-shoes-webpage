@@ -17,6 +17,7 @@
     <div id="login-box">
         <h2 data-lang="login">Login</h2>
         <form id="login-form" name="login-form" method="post" action="designshoes/">
+            @csrf
             <div><span data-lang="email">Email*:</span><input type="email" name="email"></div>
             <div><span data-lang="password">Password*:</span><input type="password" name="password"></div>
             <p class="p1"><a href="designshoes/#" class="forgetpass" data-lang="forgot-password" data-traffic="popup-forgot">Forgot your Password</a></p>

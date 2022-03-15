@@ -341,7 +341,7 @@ $('.link-login').live('click', function () {
     closeModal('login-box', 'modal');
 });
 $('.link-logout').live('click', function () {
-    $.get("elements/acc/logout.php", function () {
+    $.get("elements/acc/logout", function () {
         LoadTopMenu();
     });
 });
@@ -456,7 +456,7 @@ var listEle = { listLth: [], listSpe: [], item_count: 0, count: 1, page: 1, marg
 
 function loginSubmit() {
     var options = {
-        url: 'elements/acc/Login.php',
+        url: 'elements/acc/Login',
         dataType: 'json',
         success: function (formData) {
             changVelLogin(formData);

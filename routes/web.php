@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\PaymentController;
 
+use App\Http\Livewire\Auth\SignUp;
+use App\Http\Livewire\Auth\Login;
+use App\Http\Livewire\Auth\ForgotPassword;
+use App\Http\Livewire\Auth\ResetPassword;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,11 +79,13 @@ Route::post('/designershoes/Designidea/json/json',                  [AjaxControl
 Route::get('/designshoes/elements/popUp/PopUpContinueShopping',     [AjaxController::class, 'PopUpContinueShopping'])->name('cart.continueshopping');
 Route::post('/designshoes/elements/checkout/add',                   [AjaxController::class, 'addPayment'])->name('checkout.addpayment');
 
-Route::get('/designshoes/elements/checkout/paypal',                     [PaymentController::class, 'paypal'])->name('checkout.paypal');
-Route::get('designshoes/elements/popUp/proDesign/checkSessionPreDesign',[DesignerIdeaController::class, 'savePreDesign'])->name('checkSessionPreDesign.save');
+Route::post('elements/acc/Login',            [AjaxController::class, 'login'])->name('login.getjson');
+Route::get('elements/topMenu',               [elementsController::class, 'topMenu'])->name('element.topMenu');
 
-
-// Route::prefix('/women-shoes')->group(function () {
-//     Route::get('/designidea',           [DesignerIdeaController::class, 'index'])->name('woman.designidea');
-//     Route::get('/designershoes/index',  [DesignerIdeaController::class, 'designerShoes'])->name('woman.designerShoes');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/designshoes/elements/checkout/paypal',                     [PaymentController::class, 'paypal'])->name('checkout.paypal');
+    Route::get('designshoes/elements/popUp/proDesign/checkSessionPreDesign',[DesignerIdeaController::class, 'savePreDesign'])->name('checkSessionPreDesign.save');
+    
+    Route::get('elements/acc/logout',         [AjaxController::class, 'logout'])->name('logout.getjson');
+    
+});

@@ -6,15 +6,83 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\ModelSerial;
 use App\Models\Cart;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
 
 class AjaxController extends Controller
 {
     public $gender = 'male';
     public $data  = '';
-
-    public function index()
+    
+    public function logout(Request $request)
     {
+        auth()->logout();
+    }
+
+    public function login(Request $request)
+    {
+        //$request->password
+        $user = User::where(["email" => $request->email])->first();
+        auth()->login($user, $request->remember_me);
+
+        if( !empty($request->remember_me ))
+        {
+            Cookie::queue("cookieUserName", $this->email, env('COOKIE_EXPIRE_SECONDS'));
+            Cookie::queue("cookieUserPwd", $this->password, env('COOKIE_EXPIRE_SECONDS'));
+            Cookie::queue( cookie()->forever("cookieSetFlag", $this->remember_me) );
+        }
+
+        $now_token = session()->get('_token');
+        $discount = 0;
+        $price = 0;
+        $sumprice = 0;
+        $qty = 0;
+        $shipping = 0;
+        $total = 0;
+        
+        $auth_id = auth()->user()->id;
+        $Cart_Items = Cart::where('token', $now_token)->get();
+        Cart::where('token', $now_token)
+            ->update([
+                    'token'     => '', 
+                    'session'   => $auth_id, 
+                        ]);
+        $items = [];
+        foreach($Cart_Items as $leaved_item)
+        {
+            $json_description = $leaved_item->desc;
+            $obj_description = json_decode(base64_decode($json_description));
+            $discount += $obj_description->getShoeDiscountItem;
+            $price += $obj_description->getShoePrice;
+            $qty += $obj_description->getQty;
+            $shipping += $obj_description->getShoeShipping;
+            $sumprice += $obj_description->getShoePrice * $obj_description->getQty;
+            $total+= $sumprice + $obj_description->getShoeShipping - $obj_description->getShoeDiscountItem;
+
+            $items[] = [
+                'SUMPRICE'  =>  $obj_description->getShoePrice * $obj_description->getQty,
+                'SHIPPING'  =>  $obj_description->getShoeShipping,
+                'TOTAL'     =>  $obj_description->getShoePrice * $obj_description->getQty - $obj_description->getShoeDiscountItem + $obj_description->getShoeShipping,
+            ];
+        }
+
+        $returnData = [
+            'TAGID' => 'list-hover.tagProductList-0',
+            'PRODUCT' => [
+                'ITEM' => $items,
+                'SUM' => [
+                    "CURR" => "EUR",
+                    "DISCOUNT"  => $discount,
+                    "PRICE"     => $price,
+                    "QTY"       => $qty,
+                    "SHIPPING"  => $shipping,
+                    "SIGN"      => setting('site.sign'),
+                    "SOLEMIXPRICE" => 0,
+                    "TOTAL"     => $total
+                ]
+            ]
+        ];
+        return json_encode($returnData);
     }
     
     public function addDesignerShoes(Request $request)
@@ -112,12 +180,15 @@ class AjaxController extends Controller
                 'width'     => $request->measurement['width'],
                 'unit'      => $request->measurement['unit'],
                 'sizeType'  => $request->measurement['regularSize'],
-
-                'token'     => session()->get('_token'),
             ]);
-            $cart->save();
 
-            $result = [$description];
+            if( !empty(auth()->user() ) )
+                $cart->session = auth()->user()->id;
+            else
+                $cart->token = session()->get('_token');
+
+            $cart->save();
+            // $result = [$description];
 
         }
         return $description_json;
