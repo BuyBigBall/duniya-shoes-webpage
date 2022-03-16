@@ -157,7 +157,7 @@ function LoopMixColor(n) {
     var q = [];
     for (i in o) {
         var r = o[i]['MIXGROUP'];
-        if (shoeObject.getLeatherGroup === r) {
+        if (shoeObject.getLeatherGroup == r) {  //===
             for (var j in o[i]['COLOR']) {
                 var s = o[i]['COLOR'][j]['ID'];
                 if (n === 'front') {
@@ -174,7 +174,7 @@ function LoopMixColor(n) {
                         var u = p[k]['PATH'];
                         var v = p[k]['NAME'];
                         if (s === u) {
-                            q.push("<li id='" + n + s + "'><img data-tagid='" + s + "' title='" + v + "' src = '../images/Menu/Leather/S/" + u + ".png'></li>")
+                            q.push("<li id='" + n + s + "'><img data-tagid='" + s + "' title='" + v + "' src = '/images/Menu/Leather/S/" + u + ".png'></li>")
                         }
                     }
                 }
@@ -190,7 +190,7 @@ function LoopMixColor(n) {
                 for (j in x) {
                     var s = x[j]['ID'];
                     var v = x[j]['NAME'];
-                    q.push("<li id='" + s + "' class='" + w + "'><img title='" + v + "' src = '../images/Menu/Leather/S/" + s + ".png'></li>")
+                    q.push("<li id='" + s + "' class='" + w + "'><img title='" + v + "' src = '/images/Menu/Leather/S/" + s + ".png'></li>")
                 }
             }
         }
