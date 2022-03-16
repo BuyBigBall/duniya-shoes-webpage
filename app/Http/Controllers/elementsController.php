@@ -168,7 +168,10 @@ class elementsController extends Controller
     {
         $cart_item = Cart::find($request->id);
 
-        $Last_Items = Cart::where('token', $cart_item->token)->where('id', '<>',$cart_item->id)->get();
+        if( !empty(auth()->user()))
+            $Last_Items = Cart::where('session', auth()->user()->id)->where('id', '<>',$cart_item->id)->get();
+        else
+            $Last_Items = Cart::where('token', $cart_item->token)->where('id', '<>',$cart_item->id)->get();
 
         $discount = 0;
         $price = 0;

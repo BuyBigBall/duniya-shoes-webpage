@@ -304,7 +304,9 @@ $('#btn-cart').live('click', function (e) {
     if (($L.hasClass('invalid-box') || $W.hasClass('invalid-box')) || $this.find('#size_no').val() === 0 || $this.find('#size_no').val() === "--") {
         return false;
     } else {
+        
         /*condition check monogram select txt empty*/
+
         if ((($("#checkbox-2-1").attr('checked') === 'checked') && $('#input-inside').val() === '') || (($("#checkbox-2-2").attr('checked') === 'checked') && $('#input-outside').val() === '')) {
             $('#menu-main-special-design ul:first-child').trigger('click');
             loadPopUp('PopUpErrorMono', 'divErrorMono');
@@ -341,7 +343,7 @@ $('.link-login').live('click', function () {
     closeModal('login-box', 'modal');
 });
 $('.link-logout').live('click', function () {
-    $.get("elements/acc/logout", function () {
+    $.get("/designshoes/elements/acc/logout", function () {
         LoadTopMenu();
     });
 });
@@ -456,7 +458,7 @@ var listEle = { listLth: [], listSpe: [], item_count: 0, count: 1, page: 1, marg
 
 function loginSubmit() {
     var options = {
-        url: 'elements/acc/Login',
+        url: '/designshoes/elements/acc/Login',
         dataType: 'json',
         success: function (formData) {
             changVelLogin(formData);

@@ -3,6 +3,13 @@
 use Illuminate\Support\Facades\DB;
 
 use function PHPUnit\Framework\isNull;
+use App\Models\Main;
+use App\Models\Front;
+use App\Models\Sole;
+use App\Models\Accessory;
+use App\Models\MainCategory;
+use App\Models\Lace;
+use App\Models\Lining;
 
 function standardSize()
 {
@@ -30,4 +37,81 @@ function getLanguage($param = null)
         $returnLang[$lan->texts] = $lan->$language;
     }
     return json_encode($returnLang);
+}
+
+
+
+
+function getLaces($lthKey)
+{
+     $lth_color = Lace::where('name', $lthKey)->first();
+    if( !empty($lth_color) )  $lth_color = $lth_color->id;
+    else                      $lth_color = 0;
+    
+    return $lth_color;
+}
+function getLining($lthKey)
+{
+     $lth_color = Lining::where('name', $lthKey)->first();
+    if( !empty($lth_color) )  $lth_color = $lth_color->id;
+    else                      $lth_color = 0;
+    
+    return $lth_color;
+}
+
+function getAccessory($lthKey)
+{
+    $lth_color = Accessory::where('name', $lthKey)->first();
+    if( !empty($lth_color) )  $lth_color = $lth_color->id;
+    else                      $lth_color = 0;
+    
+    return [$lth_color , $lth_color];
+}
+
+
+function getSole($lthKey)
+{
+    $lth_color = Sole::where('pkey', $lthKey)->first();
+    if( !empty($lth_color) )  $lth_color = $lth_color->id;
+    else                      $lth_color = 0;
+    
+    return [$lth_color , $lth_color];
+}
+function getFront($lthCategoryName, $lthKey)
+{
+    return getLeather($lthCategoryName, $lthKey);
+}
+function getSide($lthCategoryName, $lthKey)
+{
+    return getLeather($lthCategoryName, $lthKey);
+}
+function getBack($lthCategoryName, $lthKey)
+{
+    return getLeather($lthCategoryName, $lthKey);
+}
+
+function getLeather($lthCategoryName, $lthKey)
+{
+    $lth = 0;
+    $lth_color = 0;
+    $lth = MainCategory::where('key', $lthCategoryName)->first();
+
+    if( !empty($lth) )  $lth = $lth->id;
+    else                $lth = 0;
+
+    $lth_color = Main::where('pkey', $lthKey)->first();
+    if( !empty($lth_color) )  $lth_color = $lth_color->id;
+    else                      $lth_color = 0;
+    
+    if( !!empty($lth_color)) $lth = 0;
+    return [$lth , $lth_color];
+}
+
+function getMixGroup($lthKey)
+{
+    $mixgroup = Main::where('pkey', $lthKey)->first();
+    if( !empty($mixgroup) )  $mixgroup = $mixgroup->mixgroup;
+    else                     $mixgroup = 0;
+    
+    return $mixgroup;
 }

@@ -222,6 +222,8 @@ function loadPopUp($a, $b, $c) {
             'background-repeat': 'no-repeat'
         });
     }
+    
+    // http://127.0.0.1:8000/designshoes/elements/popUp/PopUpCompleted
     console.log($a)
     $_this.load("elements/popUp/" + $a, function (data) {
         if ($_this.find('div:eq(0)').is('#divPreDesign') || $_this.find('div:eq(0)').is('#PopUpPreOrder')) {
@@ -352,7 +354,7 @@ function checkFrmCheckout($Payment) {
 }
 
 function LoadTopMenu() {
-    $('#top-menu').load('elements/topMenu?load=true', function () {
+    $('#top-menu').load('/designshoes/elements/topMenu?load=true', function () {
         setLanguage();
     });
 }
@@ -399,6 +401,7 @@ function slideMin() {
 
 //Modal
 function closeModal(ele, modal) {
+    if(modal==undefined)    modal='modal';
     var $this = $('#' + modal);
     var form = $('#' + ele);
     if ($this.is(':hidden')) {

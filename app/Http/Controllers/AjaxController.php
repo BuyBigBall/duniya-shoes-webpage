@@ -14,9 +14,24 @@ class AjaxController extends Controller
     public $gender = 'male';
     public $data  = '';
     
+
+    public function PopUpLimitProDesign(Request $request)
+    {
+        return view("ajax.PopUpMessageBox")->with('message', 'Limit Max Save Design 6 Item');
+    }    
+
+    public function PopUpCompleted(Request $request)
+    {
+        return view("ajax.PopUpMessageBox")->with('message', 'Save Completed.');
+    }
     public function logout(Request $request)
     {
         auth()->logout();
+    }
+    
+    public function loadPrice(Request $request)
+    {
+
     }
 
     public function login(Request $request)
@@ -168,7 +183,7 @@ class AjaxController extends Controller
             $cart = new Cart([
                 'key'       => $model,
                 'name'      => '',
-                'gander'    => $modelInfo->sex=='female' ? 'W' : 'M' ,
+                'gender'    => $modelInfo->sex=='female' ? 'W' : 'M' ,
                 'type'      => strtolower($modelInfo->style),
                 'shape'     => strtolower($modelInfo->shape),
                 'style'     => strtolower($modelInfo->style),

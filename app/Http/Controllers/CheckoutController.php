@@ -27,7 +27,7 @@ class CheckoutController extends Controller
                     [
                         "id" => $item->id,
                         "COUPON_STATUS" => $item->coupon_status,
-                        "SEX" => $item->gander,
+                        "SEX" => $item->gender,
                         "DESIGN_TYPE" => "designer",
                         "MODELNO" => $item->key,
                         "productType" => $item->style,
@@ -72,7 +72,7 @@ class CheckoutController extends Controller
         {
             $shoeInfo = json_decode(base64_decode($cartItem->desc));
             $modelno[] = $cartItem->key ?? '';
-            $shoeInfo->gander   = $cartItem->gander;
+            $shoeInfo->gender   = $cartItem->gender;
             $shoeInfo->shape    = $cartItem->shape;
             $shoeInfo->style    = $cartItem->style;
             $shoeInfo->quantity = $cartItem->quantity;
@@ -94,7 +94,7 @@ class CheckoutController extends Controller
             if(!!empty($cartItem->desc) || !!empty($shoeInfo)) continue;
 
             $modelno[] = $cartItem->key ?? '';
-            $shoeInfo->gander   = $cartItem->gander;
+            $shoeInfo->gender   = $cartItem->gender;
             $shoeInfo->shape    = $cartItem->shape;
             $shoeInfo->style    = $cartItem->style;
             $shoeInfo->quantity = $cartItem->quantity;

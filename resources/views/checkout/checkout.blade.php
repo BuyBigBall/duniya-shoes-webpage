@@ -86,10 +86,12 @@
                                                             <p> {{ $item->getSizeTypeName}}  {{ $item->getSizeType ?? ''}} </p>
                                                             @endif
                                                             @if($item->productType == "shoe")
-                                                            <p>
-                                                                <br><br>
-                                                                <a href="#" id="1" class="save-design" data-lang="save-design">Save Design</a>
-                                                            </p>
+                                                                @if( !!empty($item->MODELNO) )
+                                                                <p>
+                                                                    <br><br>
+                                                                    <a href="#" id="{{ $item->id }}" class="save-design" data-lang="save-design">Save Design</a>
+                                                                </p>
+                                                                @endif
                                                             @endif
                                                         </div>
                                                     </td>

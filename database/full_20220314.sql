@@ -295,7 +295,7 @@ CREATE TABLE `carts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(50) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
-  `gander` enum('M','W') DEFAULT 'M',
+  `gender` enum('M','W') DEFAULT 'M',
   `type` varchar(50) DEFAULT NULL,
   `shape` varchar(50) DEFAULT NULL,
   `style` varchar(50) DEFAULT NULL,
@@ -322,7 +322,7 @@ CREATE TABLE `carts` (
 
 /*Data for the table `carts` */
 
-insert  into `carts`(`id`,`key`,`name`,`gander`,`type`,`shape`,`style`,`desc`,`monoIn`,`monoOut`,`statusPreDesign`,`unit`,`length`,`width`,`quantity`,`coupon_status`,`size_type_name`,`size_type`,`size`,`lastitem`,`token`,`session`,`checkout`,`created_at`,`updated_at`) values 
+insert  into `carts`(`id`,`key`,`name`,`gender`,`type`,`shape`,`style`,`desc`,`monoIn`,`monoOut`,`statusPreDesign`,`unit`,`length`,`width`,`quantity`,`coupon_status`,`size_type_name`,`size_type`,`size`,`lastitem`,`token`,`session`,`checkout`,`created_at`,`updated_at`) values 
 (4,'DS_107','Model Title2','M',NULL,'ShoeCare','ShoeTrees',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,'',NULL,0,'2022-02-22 09:15:36','2022-03-14 16:22:35'),
 (30,'DS_107','','M','oxford','sharp','oxford','eyJwcm9kdWN0VHlwZSI6InNob2UiLCJmb2xkZXJUeXBlIjoiT3hmb3JkU2hvZXMiLCJnZXRTaGFwZSI6InNoYXJwIiwic2hvZVR5cGUiOiJveGZvcmQiLCJjdXJyZW50VmlldyI6IlJpZ2h0IiwiZ2V0TGVhdGhlck5vIjoiTGVhdGhlci1EeWUtTGlnaHRCcm93biIsImdldExlYXRoZXIiOiJMZWF0aGVyLUR5ZS1MaWdodEJyb3duIiwiZ2V0TGVhdGhlckdyb3VwIjoiMSIsImdldFN0eWxlIjoic2hhcGUiLCJnZXRGcm9udCI6Im5vbmUiLCJnZXRTaWRlIjoibm9uZSIsImdldEJhY2siOiJub25lIiwiZ2V0U29sZSI6IkRhcmsgQnJvd24gTGVhdGhlciIsImdldEFjY2Vzc29yeSI6Im5vbmUiLCJnZXRTcGVjaSI6Im1peC1tYXRjaCIsImdldFNpZGVObyI6Im5vbmUiLCJnZXRGcm9udE5vIjoibm9uZSIsImdldExpbmluZ05vIjoibm9uZSIsImdldFN0aXRjaGluZ05vIjoiZmFsc2UiLCJnZXRMYWNlc05vIjoibm9uZSIsImdldEJyb2d1ZU5vIjoibm9uZSIsImdldEJhY2tObyI6Im5vbmUiLCJnZXRBY2Nlc3NvcnlObyI6Im5vbmUiLCJnZXRTb2xlQm9yZGVyIjoiTEUyIiwiZ2V0TW9ub0luIjoiZmFsc2UiLCJnZXRNb25vT3V0IjoiZmFsc2UiLCJnZXRTaXplVHlwZU5hbWUiOiJFVVJPIiwiZ2V0U2l6ZVR5cGUiOiJFVVJPIiwiZ2V0U2l6ZU5vIjoiMzguNyIsImdldFVuaXQiOiJjbSIsImdldExlbmd0aCI6IjI1MCIsImdldFdpZHRoIjoiMTYwIiwiZ2V0UXR5IjoiMyIsImdldFNob2VQcmljZSI6IjYwIiwiZ2V0TWl4UHJpY2UiOjAsImdldFNob2VEaXNjb3VudEl0ZW0iOiIwIiwibWl4U29sZVByaWNlU3RhdHVzIjoibm8iLCJnZXRTaG9lU2hpcHBpbmciOiIwIiwic2V0U3RhdHVzTWl4IjoiZmFsc2UiLCJwcmV2TGVhdGhlck5vIjoibm9uZSIsInJlc3BvbnNlIjoiZmFsc2UiLCJzaGFwZSI6InNoYXBlLXNoYXJwIiwiZnJvbnQiOiIwIiwic2lkZSI6IjAiLCJiYWNrIjoiMCIsInNvbGUiOiI2IiwiZ2V0U2hhcGVOYW1lIjoic2hhcnAiLCJzaG9lVHlwZU5hbWUiOiJPeGZvcmQiLCJnZXRMZWF0aGVyTm9OYW1lIjoibm9uZSIsImdldExlYXRoZXJOYW1lIjoiTGVhdGhlci1EeWUtTGlnaHRCcm93biIsImdldFN0eWxlTmFtZSI6Im5vbmUiLCJnZXRGcm9udE5hbWUiOm51bGwsImdldFNpZGVOYW1lIjpudWxsLCJnZXRCYWNrTmFtZSI6ImZhbHNlIiwiZ2V0U29sZU5hbWUiOiJMVC1CMDEiLCJnZXRBY2Nlc3NvcnlOYW1lIjpudWxsLCJnZXRTaWRlTm9OYW1lIjoibm9uZSIsImdldEZyb250Tm9OYW1lIjoibm9uZSIsImdldExpbmluZ05hbWUiOiJmYWxzZSIsImdldFN0aXRjaGluZ05hbWUiOiJmYWxzZSIsImdldExhY2VzTmFtZSI6bnVsbCwiZ2V0QnJvZ3VlTmFtZSI6Im5vbmUiLCJnZXRCYWNrTm9OYW1lIjoibm9uZSIsIm9wdGlvbkJvcmRlclNsaW0iOiJOIiwic2V0TWVudUx0aCI6InByZW1pdW0iLCJjb2RlNjQiOiJudWxsIiwiaW1nIjoibnVsbCIsIm1lYXN1cmVNZW51IjoiYm9keVNpemUiLCJpZCI6MTksIkRFU0lHTl9UWVBFIjoiY3VzdG9tIn0=','false','false',NULL,NULL,NULL,NULL,NULL,'null','EU','EU',NULL,NULL,'0Ekt86qF8nlswXL1CE8ahNhQMypoTNe0cqWz4fWQ',NULL,0,'2022-03-14 16:50:21','2022-03-14 16:50:21');
 
@@ -334,7 +334,7 @@ CREATE TABLE `carts_1` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(50) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
-  `gander` enum('M','W') DEFAULT 'M',
+  `gender` enum('M','W') DEFAULT 'M',
   `type` varchar(50) DEFAULT NULL,
   `shape` varchar(50) DEFAULT NULL,
   `style` varchar(50) DEFAULT NULL,
@@ -361,7 +361,7 @@ CREATE TABLE `carts_1` (
 
 /*Data for the table `carts_1` */
 
-insert  into `carts_1`(`id`,`key`,`name`,`gander`,`type`,`shape`,`style`,`desc`,`monoIn`,`monoOut`,`statusPreDesign`,`unit`,`length`,`width`,`quantity`,`coupon_status`,`size_type_name`,`size_type`,`size`,`lastitem`,`token`,`session`,`checkout`,`created_at`,`updated_at`) values 
+insert  into `carts_1`(`id`,`key`,`name`,`gender`,`type`,`shape`,`style`,`desc`,`monoIn`,`monoOut`,`statusPreDesign`,`unit`,`length`,`width`,`quantity`,`coupon_status`,`size_type_name`,`size_type`,`size`,`lastitem`,`token`,`session`,`checkout`,`created_at`,`updated_at`) values 
 (3,'DS_107','Model Title1','M',NULL,'ShoeCare','ShoeCream',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,'2DPb3cz3G8R1dJ379bAekOM0ZYQsz5uKw4DQDWoD',NULL,0,'2022-02-22 09:14:24','2022-03-14 10:23:59'),
 (4,'DS_107','Model Title2','M',NULL,'ShoeCare','ShoeTrees',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,NULL,NULL,0,'2022-02-22 09:15:36','2022-03-12 17:53:43');
 

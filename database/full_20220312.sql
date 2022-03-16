@@ -294,7 +294,7 @@ CREATE TABLE `carts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(50) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
-  `gander` enum('M','Y') DEFAULT 'M',
+  `gender` enum('M','Y') DEFAULT 'M',
   `type` varchar(50) DEFAULT NULL,
   `shape` varchar(50) DEFAULT NULL,
   `style` varchar(50) DEFAULT NULL,
@@ -321,7 +321,7 @@ CREATE TABLE `carts` (
 
 /*Data for the table `carts` */
 
-insert  into `carts`(`id`,`key`,`name`,`gander`,`type`,`shape`,`style`,`desc`,`monoIn`,`monoOut`,`statusPreDesign`,`unit`,`length`,`width`,`quantity`,`coupon_status`,`size_type_name`,`size_type`,`size`,`lastitem`,`token`,`session`,`checkout`,`created_at`,`updated_at`) values 
+insert  into `carts`(`id`,`key`,`name`,`gender`,`type`,`shape`,`style`,`desc`,`monoIn`,`monoOut`,`statusPreDesign`,`unit`,`length`,`width`,`quantity`,`coupon_status`,`size_type_name`,`size_type`,`size`,`lastitem`,`token`,`session`,`checkout`,`created_at`,`updated_at`) values 
 (1,'DS_107','Model Title','M',NULL,'ShoeCare','ShoeCream',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,NULL,NULL,0,'2022-02-22 09:12:34','2022-03-11 02:43:14'),
 (2,NULL,NULL,'M',NULL,'shoe','custom','eyJwcm9kdWN0VHlwZSI6InNob2UiLCJmb2xkZXJUeXBlIjoiT3hmb3JkU2hvZXMiLCJnZXRTaGFwZSI6IlJvdW5kIiwic2hvZVR5cGUiOiJveGZvcmQiLCJjdXJyZW50VmlldyI6IlJpZ2h0IiwiZ2V0TGVhdGhlck5vIjoiTFQtMDAxIiwiZ2V0TGVhdGhlciI6InByZW1pdW0iLCJnZXRMZWF0aGVyR3JvdXAiOiIxIiwiZ2V0U3R5bGUiOiJzaGFwZSIsImdldEZyb250Ijoibm9uZSIsImdldFNpZGUiOiJTRDEiLCJnZXRCYWNrIjoiQksxIiwiZ2V0U29sZSI6IkxULU4wMDciLCJnZXRBY2Nlc3NvcnkiOiJub25lIiwiZ2V0U3BlY2kiOiJtaXgtbWF0Y2giLCJnZXRTaWRlTm8iOiJub25lIiwiZ2V0RnJvbnRObyI6Im5vbmUiLCJnZXRMaW5pbmdObyI6IlNILVNXMDgiLCJnZXRTdGl0Y2hpbmdObyI6Im5vbmUiLCJnZXRMYWNlc05vIjoiSFQtQmxhY2siLCJnZXRCcm9ndWVObyI6Im5vbmUiLCJnZXRCYWNrTm8iOiJub25lIiwiZ2V0QWNjZXNzb3J5Tm8iOiJub25lIiwiZ2V0U29sZUJvcmRlciI6IkxFMiIsImdldE1vbm9JbiI6IiIsImdldE1vbm9PdXQiOiIiLCJnZXRTaXplVHlwZU5hbWUiOiJFVSIsImdldFNpemVUeXBlIjoiRVVSTyIsImdldFNpemVObyI6Im51bGwiLCJnZXRVbml0IjoibnVsbCIsImdldExlbmd0aCI6IjAiLCJnZXRXaWR0aCI6IjAiLCJnZXRRdHkiOiIxIiwiZ2V0U2hvZVByaWNlIjoiMTc5IiwiZ2V0TWl4UHJpY2UiOiI5LjkiLCJnZXRTaG9lRGlzY291bnRJdGVtIjoiMCIsIm1peFNvbGVQcmljZVN0YXR1cyI6Im5vIiwiZ2V0U2hvZVNoaXBwaW5nIjoiMCIsInNldFN0YXR1c01peCI6ImZhbHNlIiwicHJldkxlYXRoZXJObyI6Im5vbmUiLCJyZXNwb25zZSI6ImZhbHNlIiwic2hhcGUiOiJzaGFwZS1Sb3VuZCIsImZyb250Ijoibm9uZSIsInNpZGUiOiJTRDEiLCJiYWNrIjoiQksxIiwic29sZSI6IlNvbGUtMUwiLCJnZXRTaGFwZU5hbWUiOiJTaGFycCIsInNob2VUeXBlTmFtZSI6Im94Zm9yZCIsImdldExlYXRoZXJOb05hbWUiOiJub25lIiwiZ2V0TGVhdGhlck5hbWUiOiJ0aGUgcHJlbWl1bSIsImdldFN0eWxlTmFtZSI6Im5vbmUiLCJnZXRGcm9udE5hbWUiOiJub25lIiwiZ2V0U2lkZU5hbWUiOiJTRDEiLCJnZXRCYWNrTmFtZSI6IkJLMSIsImdldFNvbGVOYW1lIjoiTGVhdGhlciIsImdldEFjY2Vzc29yeU5hbWUiOiJub25lIiwiZ2V0U2lkZU5vTmFtZSI6Im5vbmUiLCJnZXRGcm9udE5vTmFtZSI6Im5vbmUiLCJnZXRMaW5pbmdOYW1lIjoiRGFyayBCcm93biIsImdldFN0aXRjaGluZ05hbWUiOiJub25lIiwiZ2V0TGFjZXNOYW1lIjoiSFQtQmxhY2siLCJnZXRCcm9ndWVOYW1lIjoibm9uZSIsImdldEJhY2tOb05hbWUiOiJub25lIiwib3B0aW9uQm9yZGVyU2xpbSI6Ik4iLCJzZXRNZW51THRoIjoicHJlbWl1bSIsImNvZGU2NCI6Im51bGwiLCJpbWciOiJudWxsIiwibWVhc3VyZU1lbnUiOiJib2R5U2l6ZSJ9',NULL,NULL,0,'cm',39,26,1,'null','EU','EURO',36,NULL,'j2gDAwdVod2AnUe6MMq7vVXlQBINISQlSw2DHzHL',NULL,0,'2022-02-22 09:12:56','2022-02-22 09:12:56'),
 (3,'DS_107','Model Title','M',NULL,'ShoeCare','ShoeCream',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'null','EU','EU',NULL,NULL,NULL,NULL,0,'2022-02-22 09:14:24','2022-03-11 02:46:06'),

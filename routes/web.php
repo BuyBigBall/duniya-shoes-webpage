@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\PaymentController;
 
-use App\Http\Livewire\Auth\SignUp;
-use App\Http\Livewire\Auth\Login;
-use App\Http\Livewire\Auth\ForgotPassword;
-use App\Http\Livewire\Auth\ResetPassword;
+// use App\Http\Livewire\Auth\SignUp;
+// use App\Http\Livewire\Auth\Login;
+// use App\Http\Livewire\Auth\ForgotPassword;
+// use App\Http\Livewire\Auth\ResetPassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,14 +78,17 @@ Route::post('/designershoes/Designidea/json/json',                  [AjaxControl
 //Route::post('/Designidea/json/json',                                [AjaxController::class, 'getJson'])->name('filter.man.getjson');
 Route::get('/designshoes/elements/popUp/PopUpContinueShopping',     [AjaxController::class, 'PopUpContinueShopping'])->name('cart.continueshopping');
 Route::post('/designshoes/elements/checkout/add',                   [AjaxController::class, 'addPayment'])->name('checkout.addpayment');
+Route::get('/designshoes/elements/popUp/PopUpCompleted',            [AjaxController::class, 'PopUpCompleted'])->name('elements.popup.completed');    
+Route::get('/designshoes/elements/popUp/PopUpLimitProDesign',       [AjaxController::class, 'PopUpLimitProDesign'])->name('elements.popup.limited');    
 
-Route::post('elements/acc/Login',            [AjaxController::class, 'login'])->name('login.getjson');
-Route::get('elements/topMenu',               [elementsController::class, 'topMenu'])->name('element.topMenu');
+Route::post('/designshoes/elements/acc/Login',            [AjaxController::class, 'login'])->name('login.getjson');
+Route::get('/designshoes/elements/topMenu',               [elementsController::class, 'topMenu'])->name('element.topMenu');
+Route::get('designshoes/elements/loadPrice',              [AjaxController::class, 'loadPrice'])->name('loadPrice.getjson');
+Route::get('/designshoes/elements/popUp/proDesign/checkSessionPreDesign',[DesignerIdeaController::class, 'savePreDesign'])->name('checkSessionPreDesign.save');
 
 Route::middleware('auth')->group(function () {
     Route::get('/designshoes/elements/checkout/paypal',                     [PaymentController::class, 'paypal'])->name('checkout.paypal');
-    Route::get('designshoes/elements/popUp/proDesign/checkSessionPreDesign',[DesignerIdeaController::class, 'savePreDesign'])->name('checkSessionPreDesign.save');
     
-    Route::get('elements/acc/logout',         [AjaxController::class, 'logout'])->name('logout.getjson');
+    Route::get('/designshoes/elements/acc/logout',         [AjaxController::class, 'logout'])->name('logout.getjson');
     
 });

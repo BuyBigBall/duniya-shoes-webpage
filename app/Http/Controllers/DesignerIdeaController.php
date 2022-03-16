@@ -33,42 +33,69 @@ class DesignerIdeaController extends Controller
         # save design on cart
         elseif(!empty($request->id))
         {
-            $newModel   = new ModelSerial();
+            if( !! empty(auth()->user() ) )
+            {
+                return json_encode(['STATUS'=>'login']);
+            }
+            //$newModel   = new ModelSerial();
             $cart_item = Cart::find($request->id);
-            // $shoeInfo = json_decode( base64_decode($cart_item->desc));
-            // $designInfo = [
-            //     'modelno',
-            //     'mixgroup',
-            //     'style',
-            //     'series',
-            //     'coupons',
-            //     'shape',
-            //     'sex',
-            //     'price',
-            //     'sale_status'   =>'N',
-            //     'main',
-            //     'main_color',
-            //     'front',
-            //     'front_color',
-            //     'side',
-            //     'side_color',
-            //     'back',
-            //     'back_color',
-            //     'sole',
-            //     'sole_color',
-            //     'accessory',
-            //     'access_color',
-            //     'laces',
-            //     'lining',
-            //     'backstitch',
-            //     'backstitch_price',
-            //     'theme',
-            //     'serials',
-            //     'sale_price',
-            //     'options'           => ''
+            
+            // dd($request->id);
+            // dd($cart_item);
 
-            //];
-            $newModel->save();
+            if( !empty($cart_item) )
+            {
+                $prefix = ( $cart_item->gender=="M" ) ? "DS_" : "DSW_";
+                $gender = ( $cart_item->gender=="M" ) ? "man" : "women";
+                $max_model = ModelSerial::where('sex', $gender)->orderBy('modelno', 'DESC')->first();
+
+                // dd($max_model);
+
+                $max_num        = intval(substr($max_model->modelno, strlen($prefix)));
+                $new_model_no   = sprintf($prefix . "%03d", $max_num + 1 );
+                $shoeDesignInfo = json_decode(base64_decode($cart_item->desc));
+                
+                [$main,$main_color]     = getLeather($shoeDesignInfo->getLeather, $shoeDesignInfo->getLeatherNo );
+                $getLeatherGroup        = getMixGroup($shoeDesignInfo->getLeatherNo );
+                [$front,$front_color]   = getFront($shoeDesignInfo->getLeather,  $shoeDesignInfo->getFront );
+                [$side,$side_color]     = getSide($shoeDesignInfo->getLeather,  $shoeDesignInfo->getSide );
+                [$back,$back_color]     = getBack($shoeDesignInfo->getLeather,  $shoeDesignInfo->getBack );
+                [$sole,$sole_color]     = getSole($shoeDesignInfo->getSole );
+                [$accessory,$access_color]= getAccessory($shoeDesignInfo->getAccessory);
+                $laces                  = getLaces($shoeDesignInfo->getLacesNo);
+                $lining                 = getLining($shoeDesignInfo->getLiningNo);
+                $sale_price             = $shoeDesignInfo->getShoePrice;
+               
+                $newModel = ModelSerial::create(
+                            [
+                                'modelno'   => $new_model_no,               
+                                'mixgroup'  => $getLeatherGroup,       ###
+                                'style'     => ucfirst($shoeDesignInfo->shoeType),       
+                                'shape'     => $shoeDesignInfo->getShape,       
+                                'sex'       => $cart_item->gender =="M" ? "man" : "women",       
+                                'price'     => $shoeDesignInfo->getShoePrice,
+                                'main'      => $main,
+                                'main_color'=> $main_color,
+                                'front'      =>$front,
+                                'front_color'=>$front_color,
+                                'side'      => $side,
+                                'side_color'=> $side_color,
+                                'back'      => $back,
+                                'back_color'=> $back_color,
+                                'sole'      => $sole,
+                                'sole_color'=> $sole_color,
+                                'accessory'   => $accessory,
+                                'access_color'=> $access_color,
+                                'laces'     => $laces,
+                                'lining'    => $lining,
+                                'sale_price'=> $sale_price,
+                            ]);
+                
+                //dd($newModel);
+                Cart::where('id', $request->id)
+                    ->update(['key'   => $new_model_no]);
+            }
+
         }
         else{
             return json_encode(['STATUS'=>'false']);
@@ -279,49 +306,6 @@ class DesignerIdeaController extends Controller
                     "pos"       => $item->labelpos,
                 ];
         }
-
-        // if($this->gender=='female')
-        //     $resultInfo['selector']     = [[
-        //         "main"=>[
-        //             "location" => "0",
-        //             "style" => "main",
-        //             "x" => "117",
-        //             "y" => "184",
-        //             "pos" => "bottom",
-        //         ],
-        //         "back"=>[
-        //             "location" => "1",
-        //             "style" => "back",
-        //             "x" => "610",
-        //             "y" => "42",
-        //             "pos" => "top",
-        //         ],
-        //     ]    ];
-
-        // else
-        // {
-        //     $resultInfo['selector']     = [
-        //         [
-        //             "main"=>[
-        //                 "location" => "0",
-        //                 "style" => "main",
-        //                 "x" => "517",
-        //                 "y" => "123",
-        //                 "pos" => "top",
-        //             ],
-        //         ],
-        //         [
-        //             "main"=>[
-        //                 "location" => "0",
-        //                 "style" => "main",
-        //                 "x" => "289",
-        //                 "y" => "237",
-        //                 "pos" => "bottom",
-        //             ],
-        //         ]  
-        //         ];
-
-        // }
 
         $this->data = json_encode($resultInfo);
         //print_r(json_decode($this->data));exit;

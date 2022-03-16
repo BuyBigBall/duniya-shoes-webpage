@@ -11,7 +11,7 @@ class Cart extends Model
     protected $fillable = [
         'key',
         'name',            
-        'gander',          
+        'gender',          
         'type',            
         'shape',           
         'style',           
