@@ -75,23 +75,23 @@
                         <div id="overview">
                             <ul>
                                 <li data-view="0" class="active">
-                                    <img src="../images/models/iShoes/designershoes/PT031/view/view1.jpg" alt="">
+                                    <img src="/images/models/iShoes/designershoes/PT031/view/view1.jpg" alt="">
                                     <div class="overview-bg"></div>
                                 </li>
                                 <li data-view="1">
-                                    <img src="../images/models/iShoes/designershoes/PT031/view/view2.jpg" alt="">
+                                    <img src="/images/models/iShoes/designershoes/PT031/view/view2.jpg" alt="">
                                     <div class="overview-bg"></div>
                                 </li>
                                 <li data-view="3">
-                                    <img src="../images/models/iShoes/designershoes/PT031/view/view4.jpg" alt="">
+                                    <img src="/images/models/iShoes/designershoes/PT031/view/view4.jpg" alt="">
                                     <div class="overview-bg"></div>
                                 </li>
                                 <li data-view="4">
-                                    <img src="../images/models/iShoes/designershoes/PT031/view/view5.jpg" alt="">
+                                    <img src="/images/models/iShoes/designershoes/PT031/view/view5.jpg" alt="">
                                     <div class="overview-bg"></div>
                                 </li>
                                 <li data-view="2">
-                                    <img src="../images/models/iShoes/designershoes/PT031/view/view3.jpg" alt="">
+                                    <img src="/images/models/iShoes/designershoes/PT031/view/view3.jpg" alt="">
                                     <div class="overview-bg"></div>
                                 </li>
                             </ul>
@@ -103,11 +103,11 @@
                                     <!-- VIEW 1 -->
                                     <div class="first view active">
                                         <div id="first-main" class="max-width-center anim">
-                                            <img data-source="../images/models/iShoes/designershoes/PT031/view1/main/LT-002.png"
+                                            <img data-source="/images/models/iShoes/designershoes/PT031/view1/main/LT-002.png"
                                                 alt="" src="../images/misc/empty.png">
                                         </div>
                                         <div id="first-body" class="max-width-center">
-                                            <img src="../images/models/iShoes/designershoes/PT031/view1/Body.png"
+                                            <img src="/images/models/iShoes/designershoes/PT031/view1/Body.png"
                                                 alt="">
                                         </div>
                                     </div>
@@ -122,30 +122,30 @@
                                             <img src="../images/misc/empty.png" alt="">
                                         </div>
                                         <div id="second-main" class="max-width-center anim">
-                                            <img data-source="../images/models/iShoes/designershoes/PT031/view2/main/LT-002.png"
+                                            <img data-source="/images/models/iShoes/designershoes/PT031/view2/main/LT-002.png"
                                                 src="../images/misc/empty.png" alt="">
                                         </div>
                                         <div id="second-body" class="max-width-center">
-                                            <img src="../images/models/iShoes/designershoes/PT031/view2/Body.png"
+                                            <img src="/images/models/iShoes/designershoes/PT031/view2/Body.png"
                                                 alt="">
                                         </div>
                                         <div class="makeup"></div>
                                     </div>
                                     <div class="view">
                                         <div class="max-width-center anim">
-                                            <img src="../images/models/iShoes/designershoes/PT031/view4/Body.png"
+                                            <img src="/images/models/iShoes/designershoes/PT031/view4/Body.png"
                                                 src="../images/misc/empty.png" alt="">
                                         </div>
                                     </div>
                                     <div class="view">
                                         <div class="max-width-center anim">
-                                            <img src="../images/models/iShoes/designershoes/PT031/view5/Body.png"
+                                            <img src="/images/models/iShoes/designershoes/PT031/view5/Body.png"
                                                 src="../images/misc/empty.png" alt="">
                                         </div>
                                     </div>
                                     <div class="view">
                                         <div class="max-width-center anim">
-                                            <img src="../images/models/iShoes/designershoes/PT031/view6/Body.png"
+                                            <img src="/images/models/iShoes/designershoes/PT031/view6/Body.png"
                                                 src="../images/misc/empty.png" alt="">
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@
                                                 id="backstitch-currency">{{setting('site.sign')}}</span></span>
                                     </div>
                                     <div id="snds-sndv-main" class="max-width-center">
-                                        <img src="../images/models/iShoes/designershoes/PT031/view3/sole/LT-N007.png"
+                                        <img src="/images/models/iShoes/designershoes/PT031/view3/sole/LT-N007.png"
                                             alt="">
                                     </div>
                                     <div id="snds-sndv-sole" class="max-width-center anim">
@@ -406,7 +406,7 @@
     </div>
     <!-- MAIN BACKGROUND -->
     <div id="mastbackground">
-        <!--<img src="../images/models/iShoes/designershoes/PT031/background.jpg" alt="">-->
+        <!--<img src="/images/models/iShoes/designershoes/PT031/background.jpg" alt="">-->
     </div>
     <!-- FACEBOOK -->
     <div id="fb-root"></div>

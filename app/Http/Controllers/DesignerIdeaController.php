@@ -40,8 +40,8 @@ class DesignerIdeaController extends Controller
             //$newModel   = new ModelSerial();
             $cart_item = Cart::find($request->id);
             
-            // dd($request->id);
-            // dd($cart_item);
+            //  dd($request->img);
+            
 
             if( !empty($cart_item) )
             {
@@ -55,6 +55,11 @@ class DesignerIdeaController extends Controller
                 $new_model_no   = sprintf($prefix . "%03d", $max_num + 1 );
                 $shoeDesignInfo = json_decode(base64_decode($cart_item->desc));
                 
+                if( !empty($cart_item->key) )
+                {
+                    $new_model_no = $cart_item->key;
+                }
+
                 [$main,$main_color]     = getLeather($shoeDesignInfo->getLeather, $shoeDesignInfo->getLeatherNo );
                 $getLeatherGroup        = getMixGroup($shoeDesignInfo->getLeatherNo );
                 [$front,$front_color]   = getFront($shoeDesignInfo->getLeather,  $shoeDesignInfo->getFront );
@@ -66,10 +71,13 @@ class DesignerIdeaController extends Controller
                 $lining                 = getLining($shoeDesignInfo->getLiningNo);
                 $sale_price             = $shoeDesignInfo->getShoePrice;
                
-                $newModel = ModelSerial::create(
+                $newModel = ModelSerial::updateOrCreate(
                             [
-                                'modelno'   => $new_model_no,               
-                                'mixgroup'  => $getLeatherGroup,       ###
+                                    'modelno'   => $new_model_no,           
+                            ]
+                            ,
+                            [
+                                'mixgroup'  => $getLeatherGroup,      
                                 'style'     => ucfirst($shoeDesignInfo->shoeType),       
                                 'shape'     => $shoeDesignInfo->getShape,       
                                 'sex'       => $cart_item->gender =="M" ? "man" : "women",       
@@ -91,17 +99,25 @@ class DesignerIdeaController extends Controller
                                 'sale_price'=> $sale_price,
                             ]);
                 
-                //dd($newModel);
+
                 Cart::where('id', $request->id)
                     ->update(['key'   => $new_model_no]);
+
+                $imgpath = "\\images\\models\\iShoes\\designershoes\\modelStyles\\" . $new_model_no . ".jpg";
+                $path = public_path();
+                $img_src_content = str_replace('data:image/png;base64,','', $request->img);
+                $data   = base64_decode($img_src_content);
+                $file1  = $path.$imgpath;
+                //dd($file1);
+                $success = file_put_contents($file1, $data);
             }
 
         }
         else{
-            return json_encode(['STATUS'=>'false']);
+            return json_encode(['STATUS'=>'false', 'ID'=>$request->id]);
         }
         
-        return json_encode(['STATUS'=>'true']);
+        return json_encode(['STATUS'=>'true', 'ID'=>$request->id]);
     }
 
     public function index(Request $request)

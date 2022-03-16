@@ -84,7 +84,7 @@ Route::get('/designshoes/elements/popUp/PopUpLimitProDesign',       [AjaxControl
 Route::post('/designshoes/elements/acc/Login',            [AjaxController::class, 'login'])->name('login.getjson');
 Route::get('/designshoes/elements/topMenu',               [elementsController::class, 'topMenu'])->name('element.topMenu');
 Route::get('designshoes/elements/loadPrice',              [AjaxController::class, 'loadPrice'])->name('loadPrice.getjson');
-Route::get('/designshoes/elements/popUp/proDesign/checkSessionPreDesign',[DesignerIdeaController::class, 'savePreDesign'])->name('checkSessionPreDesign.save');
+Route::post('/designshoes/elements/popUp/proDesign/checkSessionPreDesign',[DesignerIdeaController::class, 'savePreDesign'])->name('checkSessionPreDesign.save');
 
 Route::middleware('auth')->group(function () {
     Route::get('/designshoes/elements/checkout/paypal',                     [PaymentController::class, 'paypal'])->name('checkout.paypal');

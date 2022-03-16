@@ -85,6 +85,7 @@
                         <span class="btnSlide" id="btnBack" style="width: 20px;overflow: auto;z-index: 999"><img src="{{asset('images/icon/btn-back.png') }}" alt=""></span>
                         <span class="btnSlide" id="btnNext" style="min-width: 50px;overflow: auto;z-index: 999"><img src="{{asset('images/icon/btn-next.png') }}" alt=""></span>
 <?php $idx=1; ?>                        
+<?php // dd($cart_items); ?>
 @foreach( $cart_items as $shoeInfo )
                         <div class="list-slide">
                             <div style="float: left">
@@ -151,7 +152,7 @@
                             </div>
                             <div style="float: right;">
                                 <div class="design">
-                                    <span class="imgs{!! $idx-1 !!} shoe-designer"></span>
+                                    <span class="imgs{!! $idx-1 !!} shoe-{!! $shoeInfo->style !!}"></span>
                                 </div>
                             </div>
                         </div>

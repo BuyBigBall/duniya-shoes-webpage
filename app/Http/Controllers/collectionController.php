@@ -27,6 +27,7 @@ class collectionController extends Controller
                 })
                 ->where('main_categories.status', 1)
                 ->orderBy('main_categories.key')
+                ->orderBy('mains.pkey')
                 ->get();
         // dd($leathers);
 

@@ -46,7 +46,7 @@ class CheckoutController extends Controller
             } else {
                 $goodsLists[$i . ''] = empty($item->desc) ? "" : json_decode(base64_decode($item->desc));
                 $goodsLists[$i . '']->id = $item->id;
-                //$goodsLists[$i . '']->DESIGN_TYPE = $item->style;
+                $goodsLists[$i . '']->DESIGN_TYPE = 'custom';           //<===  from designer page to carts for new model designing
                 $goodsLists[$i . '']->MODELNO = $item->key;
                 $goodsLists[$i . '']->productName = $item->name;
                 $goodsLists[$i . '']->getQty = $item->quantity;
@@ -80,6 +80,7 @@ class CheckoutController extends Controller
             $shoeInfo->width    = $cartItem->width;
             $shoeInfo->unit     = $cartItem->unit;
             $shoeInfo->sizeType = $cartItem->sizeType;
+            $shoeInfo->DESIGN_TYPE = $cartItem->style;
         }
         $cart_items = [$shoeInfo];
         
@@ -102,6 +103,7 @@ class CheckoutController extends Controller
             $shoeInfo->width    = $cartItem->width;
             $shoeInfo->unit     = $cartItem->unit;
             $shoeInfo->sizeType = $cartItem->sizeType;
+            $shoeInfo->DESIGN_TYPE = $cartItem->style;
             $cart_items[] = $shoeInfo;
         }
         $imageArray = [];

@@ -25,8 +25,14 @@ $(document).ready(function () {
     }
 
     $('.save-design').click(function () {
+        var img_src = '';
         i = $(this).attr('id');
-        saveDesign(i);
+        var imgArray = $(this).parent().parent().parent().find('img');
+        if(imgArray.length>0)
+        {
+            img_src = $(imgArray).attr("src");
+        }
+        saveDesign(i, img_src);
     });
 
     $('.deleteItem').click(function () {
@@ -69,19 +75,32 @@ function loadChkOutForm() {
         });
     }
 }
-function saveDesign(i) {
-    $.getJSON('/designshoes/elements/popUp/proDesign/checkSessionPreDesign?id=' + i, function (d) {
-        var ststus = d['STATUS'];
-        var id = d['ID'];
-        if (ststus === 'true') {
-            loadPopUp('PopUpCompleted', 'divPopUpCompleted');
-            $('#' + id).attr('data-lang', 'save');
-            setLanguage();
-        } else if (ststus === 'login') {
-            $('.link-login').trigger('click');
-        } else if (ststus === 'count') {
-            loadPopUp('PopUpLimitProDesign', 'divPopUpLimit');
-        }
+function saveDesign(i, img_src) {
+
+
+    
+    //$.getJSON('/designshoes/elements/popUp/proDesign/checkSessionPreDesign?id=' + i,  function (d) {
+    //$.post('/designshoes/elements/popUp/proDesign/checkSessionPreDesign?id=' + i, {img: img_src} , function (d) {
+
+    $.ajax({
+        type: 'POST',
+        headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+        data: {img: img_src},
+        url: '/designshoes/elements/popUp/proDesign/checkSessionPreDesign?id=' + i,
+        success: function (d) {
+                d = JSON.parse(d);
+                var status = d['STATUS'];
+                var id = d['ID'];
+                if (status === 'true') {
+                    loadPopUp('PopUpCompleted', 'divPopUpCompleted');
+                    $('#' + id).attr('data-lang', 'save');
+                    setLanguage();
+                } else if (status === 'login') {
+                    $('.link-login').trigger('click');
+                } else if (status === 'count') {
+                    loadPopUp('PopUpLimitProDesign', 'divPopUpLimit');
+                }
+            }
     });
 }
 function Scrollbar() {

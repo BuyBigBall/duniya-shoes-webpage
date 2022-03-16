@@ -3,10 +3,10 @@ var initial, ready_made, init, parameter, symbolicPath, route, style,
     frontPrice, mainPrice, itemList, listPrice,
     leatherPath, solePath, btn_change_leather, setRegularPrice, listPriceRegular;
 
-symbolicPath = "../images/models/iShoes/symbolic/";
-route = "../images/models/iShoes/designershoes/";
-leatherPath = "../images/models/iShoes/Menu/Leather/M/";
-solePath = "../images/models/iShoes/Menu/Sole/" + data.model_shape + "/";
+symbolicPath = "/images/models/iShoes/symbolic/";
+route = "/images/models/iShoes/designershoes/";
+leatherPath = "/images/models/iShoes/Menu/Leather/M/";
+solePath = "/images/models/iShoes/Menu/Sole/" + data.model_shape + "/";
 btn_change_leather = true;
 all_step = 3;
 cache = [];
