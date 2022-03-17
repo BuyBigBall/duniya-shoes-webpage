@@ -37,7 +37,7 @@ class DesignerIdeaController extends Controller
         {
             
             # for image creating test
-            ModelCreateController::createNewModelImages(ModelSerial::find(54), $request->img);
+            ModelCreateController::createNewModelImages(ModelSerial::find(53), $request->img);
             return json_encode(['STATUS'=>'false', 'ID'=>$request->id]);
             # <--------------
 

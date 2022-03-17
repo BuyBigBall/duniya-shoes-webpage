@@ -9,7 +9,7 @@ use App\Models\Type;
 use App\Models\Back;
 use App\Models\Sole;
 use App\Models\ModelSerial;
-use App\Models\Cart;
+use App\Models\Accessory;
 use App\Models\Lining;
 use App\Models\Lace;
 use App\Models\Color;
@@ -19,6 +19,7 @@ class ModelCreateController
 {
     public static function createNewModelImages($newModel, $base64_img)
     {
+        ini_set('max_execution_time', 1200);
         $new_model_no   = $newModel->modelno;
 
         #1. creating list page image
@@ -52,9 +53,10 @@ class ModelCreateController
         $srcFile = $Mase_Image_Dir."\\samples\\view3.jpg";
         File::copy($srcFile, $Main_Model_Dir . '\\view\\view3.jpg');
         $srcFile = $Mase_Image_Dir."\\samples\\bg_m.jpg";
-        File::copy($srcFile, $Main_Model_Dir . '\\view\\background.jpg');
+        File::copy($srcFile, $Main_Model_Dir . '\\background.jpg');
 
         #4. creating detail page special images
+        //return;
         ModelCreateController::createMainImages($newModel, $Main_Model_Dir);
         ModelCreateController::createBackImages($newModel, $Main_Model_Dir);
         ModelCreateController::createFrontImages($newModel, $Main_Model_Dir);
@@ -62,45 +64,85 @@ class ModelCreateController
         ModelCreateController::createLaceImages($newModel, $Main_Model_Dir);
         ModelCreateController::createLiningImages($newModel, $Main_Model_Dir);
         ModelCreateController::createSoleImages($newModel, $Main_Model_Dir);
-
+        ModelCreateController::createAccessoryImages($newModel, $Main_Model_Dir);
 
     }
-    private static function createSoleImages($newModel, $Main_Model_Dir)
+
+
+    private static function createAccessoryImages($newModel, $Main_Model_Dir)
     {
         $viewFolder = 'Right';  // ?? Left
-
-        if( !empty( $newModel->sole ) )
+        //dd($newModel);
+        if( !empty( $newModel->accessory ) )
         {
-            $mainFolder = $Main_Model_Dir.'\\view1\\sole';
+            $mainFolder = $Main_Model_Dir.'\\view1\\accessory';
             if( !File::exists( $mainFolder ))
             {
                 File::makeDirectory($mainFolder);
             }
 
             $srcPath = public_path() . "\\images\\MainBody\\" 
-                        . StyleFolder($newModel->style) . '\\'
+                        . StyleFolder($newModel->style) . "\\"
+                        . ucfirst($newModel->shape);
+            $_colors = Accessory::get();
+            
+            foreach($_colors as $item)
+            {
+                $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Accessory\\' . $item->path . '.png';
+                if( file_exists($srcFile) )
+                {
+                    File::copy($srcFile, $mainFolder . "\\" . $item->path . '.png');
+                }
+            }
+            
+        }
+        return true;    
+    }
+
+    private static function createSoleImages($newModel, $Main_Model_Dir)
+    {
+        $viewFolder = 'Right';  // ?? Left
+
+        if( !empty( $newModel->sole ) )
+        {
+            # View1 Folder
+            $mainFolder = $Main_Model_Dir.'\\view1\\sole';
+            if( !File::exists( $mainFolder ))
+            {
+                File::makeDirectory($mainFolder);
+            }
+            $srcPath = public_path() . "\\images\\MainBody\\" 
+                        . StyleFolder($newModel->style) . "\\"
                         . ucfirst($newModel->shape);
             $_colors = Sole::get();
             foreach($_colors as $item)
             {
-                $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Sole\\' . $item->name . '.png';
-                if( !file_exists($srcFile) )
+                $srcFile = public_path() . "\\images\\MainBody\\samples\\Sole\\". $newModel->shape."\\". $item->path . ".png";
+                if( file_exists($srcFile) )
                 {
-                        //dd(setting('site.original_path'));
-                        $srcFile1 = setting('site.original_path') 
-                                    . '/' . StyleFolder($newModel->style)
-                                    . '/' . ucfirst($newModel->style)
-                                    . '/' . $viewFolder
-                                    . '/Sole/' .$item->name . '.png';
-                        if( does_url_exists($srcFile1) ) 
-                        {
-                            $srcFile = $srcFile1;
-                            File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
-                        }
+                    File::copy($srcFile, $mainFolder . "\\" . $item->path . '.png');
                 }
-                else
-                    File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
             }
+
+            # View3 Folder
+            $mainFolder = $Main_Model_Dir.'\\view3\\sole';
+            if( !File::exists( $mainFolder ))
+            {
+                File::makeDirectory($mainFolder);
+            }
+            $srcPath = public_path() . "\\images\\MainBody\\" 
+                        . StyleFolder($newModel->style) . "\\Sole\\"
+                        . ucfirst($newModel->shape);
+            $_colors = Sole::get();
+            foreach($_colors as $item)
+            {
+                $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Sole\\' . $item->path . '.png';
+                
+                if( file_exists($srcFile) )
+                {
+                    File::copy($srcFile, $mainFolder . "\\" . $item->path . '.png');
+                }
+            }            
             
         }
         return true;    
@@ -118,27 +160,16 @@ class ModelCreateController
             }
 
             $srcPath = public_path() . "\\images\\MainBody\\" 
-                        . StyleFolder($newModel->style) . '\\'
+                        . StyleFolder($newModel->style) . "\\"
                         . ucfirst($newModel->shape);
             $_colors = Lace::get();
             foreach($_colors as $item)
             {
                 $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\ShoesLace\\' . $item->name . '.png';
-                if( !file_exists($srcFile) )
+                if( file_exists($srcFile) )
                 {
-                    $srcFile1 = setting('site.original_path') 
-                                . '/' . StyleFolder($newModel->style)
-                                . '/' . ucfirst($newModel->style)
-                                . '/' . $viewFolder
-                                . '/ShoesLace/' .$item->name . '.png';
-                        if( does_url_exists($srcFile1) ) 
-                        {
-                            $srcFile = $srcFile1;
-                            File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
-                        }
+                    File::copy($srcFile, $mainFolder . "\\" . $item->name . '.png');
                 }
-                else
-                    File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
         
             }
             
@@ -159,7 +190,7 @@ class ModelCreateController
             }
 
             $srcPath = public_path() . "\\images\\MainBody\\" 
-                        . StyleFolder($newModel->style) . '\\'
+                        . StyleFolder($newModel->style) . "\\"
                         . ucfirst($newModel->shape);
             $_colors = Lining::get();
             foreach($_colors as $item)
@@ -167,19 +198,8 @@ class ModelCreateController
                 $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Lining\\' . $item->name . '.png';
                 if( !file_exists($srcFile) )
                 {
-                    $srcFile1 = setting('site.original_path') 
-                                . '/' . StyleFolder($newModel->style)
-                                . '/' . ucfirst($newModel->style)
-                                . '/' . $viewFolder
-                                . '/Lining/' .$item->name . '.png';
-                        if( does_url_exists($srcFile1) ) 
-                        {
-                            $srcFile = $srcFile1;
-                            File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
-                        }
+                    File::copy($srcFile, $mainFolder . "\\" . $item->name . '.png');
                 }
-                else
-                    File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
         
             }
             
@@ -199,14 +219,14 @@ class ModelCreateController
             }
 
             $srcPath = public_path() . "\\images\\MainBody\\" 
-                        . StyleFolder($newModel->style) . '\\'
+                        . StyleFolder($newModel->style) . "\\"
                         . ucfirst($newModel->shape);
-            $_colors = Color::where('leather_id', $newModel->main)->get;
+            $_colors = Color::where('leather_id', $newModel->main)->get();
             foreach($_colors as $item)
             {
                 $group = 'FT' . $newModel->front; //~ BK9
 
-                $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Front\\'. $group.'\\' .$item->key . '.png';
+                $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Front\\'. $group."\\" .$item->key . '.png';
                 if( !file_exists($srcFile) )
                 {
                     $srcFile1 = setting('site.original_path') 
@@ -217,11 +237,11 @@ class ModelCreateController
                         if( does_url_exists($srcFile1) ) 
                         {
                             $srcFile = $srcFile1;
-                            File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
+                            File::copy($srcFile, $mainFolder . "\\" . $item->key . '.png');
                         }
                 }
                 else
-                    File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
+                    File::copy($srcFile, $mainFolder . "\\" . $item->key . '.png');
         
             }
             
@@ -243,14 +263,14 @@ class ModelCreateController
             }
 
             $srcPath = public_path() . "\\images\\MainBody\\" 
-                        . StyleFolder($newModel->style) . '\\'
+                        . StyleFolder($newModel->style) . "\\"
                         . ucfirst($newModel->shape);
-            $_colors = Color::where('leather_id', $newModel->main);
+            $_colors = Color::where('leather_id', $newModel->main)->get();
             foreach($_colors as $item)
             {
                 $group = 'SD' . $newModel->side; //~ BK9
 
-                $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Side\\'. $group.'\\' .$item->key . '.png';
+                $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Side\\'. $group."\\" .$item->key . '.png';
                 if( !file_exists($srcFile) )
                 {
                     $srcFile1 = setting('site.original_path') 
@@ -261,11 +281,11 @@ class ModelCreateController
                         if( does_url_exists($srcFile1) ) 
                         {
                             $srcFile = $srcFile1;
-                            File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
+                            File::copy($srcFile, $mainFolder . "\\" . $item->key . '.png');
                         }
                 }
                 else
-                    File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
+                    File::copy($srcFile, $mainFolder . "\\" . $item->key . '.png');
             }
             
         }
@@ -286,14 +306,14 @@ class ModelCreateController
             }
 
             $srcPath = public_path() . "\\images\\MainBody\\" 
-                        . StyleFolder($newModel->style) . '\\'
+                        . StyleFolder($newModel->style) . "\\"
                         . ucfirst($newModel->shape);
-            $_colors = Color::where('leather_id', $newModel->main);
+            $_colors = Color::where('leather_id', $newModel->main)->get();
             foreach($_colors as $item)
             {
                 $group = 'BK' . $newModel->back; //~ BK9
 
-                $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Back\\'. $group.'\\' .$item->key . '.png';
+                $srcFile = $srcPath . '\\MainMix\\'.$viewFolder.'\\Back\\'. $group."\\" .$item->key . '.png';
                 if( !file_exists($srcFile) )
                 {
                     $srcFile1 = setting('site.original_path') 
@@ -304,11 +324,11 @@ class ModelCreateController
                         if( does_url_exists($srcFile1) ) 
                         {
                             $srcFile = $srcFile1;
-                            File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
+                            File::copy($srcFile, $mainFolder . "\\" . $item->key . '.png');
                         }
                 }
                 else
-                    File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
+                    File::copy($srcFile, $mainFolder . "\\" . $item->key . '.png');
             }
             
         }
@@ -327,12 +347,15 @@ class ModelCreateController
             }
 
             $srcPath = public_path() . "\\images\\MainBody\\" 
-                        . StyleFolder($newModel->style) . '\\'
+                        . StyleFolder($newModel->style) . "\\"
                         . ucfirst($newModel->shape);
-            $_colors = Color::where('leather_id', $newModel->main);
+            $_colors = Color::where('leather_id', $newModel->main)->get();
+            //dd($_colors);
             foreach($_colors as $item)
             {
-                $srcFile = $srcPath . '\\'.$viewFolder.'\\' .$item->key . '.png';
+                $srcFile = $srcPath . "\\".$viewFolder."\\" .$item->key . '.png';
+
+                //var_dump($srcFile);
                 if( !file_exists($srcFile) )
                 {
                     $srcFile1 = setting('site.original_path') 
@@ -343,11 +366,11 @@ class ModelCreateController
                         if( does_url_exists($srcFile1) ) 
                         {
                             $srcFile = $srcFile1;
-                            File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
+                            File::copy($srcFile, $mainFolder . "\\" . $item->key . '.png');
                         }
                 }
                 else
-                    File::copy($srcFile, $mainFolder . '\\' . $item->name . '.png');
+                    File::copy($srcFile, $mainFolder . "\\" . $item->key . '.png');
             }
             
         }
