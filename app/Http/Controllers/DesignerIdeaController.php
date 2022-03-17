@@ -13,7 +13,9 @@ use App\Models\OptionSele;
 use App\Models\MainCategory;
 use App\Models\Main;
 use App\Models\Cart;
+use App\Models\Color;
 use App\Models\Selector;
+use File;
 
 class DesignerIdeaController extends Controller
 {
@@ -33,6 +35,13 @@ class DesignerIdeaController extends Controller
         # save design on cart
         elseif(!empty($request->id))
         {
+            
+            # for image creating test
+            ModelCreateController::createNewModelImages(ModelSerial::find(54), $request->img);
+            return json_encode(['STATUS'=>'false', 'ID'=>$request->id]);
+            # <--------------
+
+
             if( !! empty(auth()->user() ) )
             {
                 return json_encode(['STATUS'=>'login']);
@@ -103,13 +112,8 @@ class DesignerIdeaController extends Controller
                 Cart::where('id', $request->id)
                     ->update(['key'   => $new_model_no]);
 
-                $imgpath = "\\images\\models\\iShoes\\designershoes\\modelStyles\\" . $new_model_no . ".jpg";
-                $path = public_path();
-                $img_src_content = str_replace('data:image/png;base64,','', $request->img);
-                $data   = base64_decode($img_src_content);
-                $file1  = $path.$imgpath;
-                //dd($file1);
-                $success = file_put_contents($file1, $data);
+                //$success = $this->createNewModelImages($newModel, $request->img); 
+                ModelCreateController::createNewModelImages($newModel, $request->img);
             }
 
         }
@@ -119,6 +123,7 @@ class DesignerIdeaController extends Controller
         
         return json_encode(['STATUS'=>'true', 'ID'=>$request->id]);
     }
+    
 
     public function index(Request $request)
     {
@@ -158,11 +163,16 @@ class DesignerIdeaController extends Controller
             $models = ModelSerial::where('sex', 'man')->get();  $this->gender = 'male';
             //$json = '{"category":"","style":"","colorGrp":"","optionSele":"","menuObject":{"CATEGORY":[{"ID":"9","NAME":"PREMIUMLEATHER"},{"ID":"10","NAME":"FASHIONLEATHER"},{"ID":"11","NAME":"SHEEPSKINLEATHER"},{"ID":"12","NAME":"BURNISHEDLEATHER"},{"ID":"13","NAME":"FABRIC"},{"ID":"14","NAME":"SuedeLeather"},{"ID":"15","NAME":"ThreadAccessory"},{"ID":"16","NAME":"LeatherChamois"},{"ID":"17","NAME":"SEAMEDGE"},{"ID":"18","NAME":"LeatherDye"},{"ID":"19","NAME":"Laces"}],"STYLE":[{"ID":"Boot","NAME":"Boot"},{"ID":"Derby","NAME":"Derby"},{"ID":"Fashion","NAME":"Fashion"},{"ID":"Loafers","NAME":"Loafers"},{"ID":"Monk","NAME":"Monk"},{"ID":"Oxford","NAME":"Oxford"},{"ID":"Sneaker","NAME":"Sneaker"}],"COLORGRP":[{"ID":"4","NAME":"TANBROWN"},{"ID":"5","NAME":"WARMTONE"},{"ID":"6","NAME":"Red-PinkTONE"},{"ID":"7","NAME":"NAVYVioletTONE"},{"ID":"8","NAME":"GREENTONE"},{"ID":"9","NAME":"ORANGE-YTONE"},{"ID":"10","NAME":"BLACK-GREYTONE"},{"ID":"11","NAME":"YELLOWTONE"},{"ID":"12","NAME":"BLUETONE"}]},"designObject":[{"ID":"440","ROW":"1","NO":"DS_107","NEW_TAG":"Y","MODELSTYLE":"Oxford","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"18","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"259","SALE_STATUS":"N","SERIES":"","SALE":"159"},{"ID":"464","ROW":"2","NO":"DS_114","NEW_TAG":"Y","MODELSTYLE":"Monk","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"12","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"black","SALE":"149"},{"ID":"196","ROW":"3","NO":"DS_042","NEW_TAG":"Y","MODELSTYLE":"Derby","FRONT_CATEGORY":"11","FRONT_COLORGRP":"10","MAIN_CATEGORY":"","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"N","SERIES":"","SALE":"179"},{"ID":"80","ROW":"4","NO":"DS_018","NEW_TAG":"N","MODELSTYLE":"Oxford","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"13","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"219","SALE_STATUS":"Y","SERIES":"","SALE":"149"},{"ID":"188","ROW":"5","NO":"DS_038","NEW_TAG":"N","MODELSTYLE":"Derby","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"12","MAIN_COLORFRP":"4","SIDE_CATEGORY":"12","SIDE_COLORGRP":"4","BACK_CATEGORY":"12","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"Y","SERIES":"","SALE":"179"},{"ID":"7","ROW":"6","NO":"DS_002","NEW_TAG":"N","MODELSTYLE":"Oxford","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"10","MAIN_COLORFRP":"5","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"Y","SERIES":"","SALE":"179"},{"ID":"201","ROW":"7","NO":"DS_046","NEW_TAG":"N","MODELSTYLE":"Oxford","FRONT_CATEGORY":"9","FRONT_COLORGRP":"10","MAIN_CATEGORY":"9","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"9","BACK_COLORGRP":"10","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"129","SALE_STATUS":"N","SERIES":"","SALE":"0"},{"ID":"170","ROW":"8","NO":"DS_030","NEW_TAG":"N","MODELSTYLE":"Derby","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"14","MAIN_COLORFRP":"10","SIDE_CATEGORY":"9","SIDE_COLORGRP":"5","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"grey_suede","SALE":"149"},{"ID":"23","ROW":"9","NO":"DS_011","NEW_TAG":"N","MODELSTYLE":"Derby","FRONT_CATEGORY":"9","FRONT_COLORGRP":"4","MAIN_CATEGORY":"9","MAIN_COLORFRP":"4","SIDE_CATEGORY":"9","SIDE_COLORGRP":"4","BACK_CATEGORY":"9","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"169","SALE_STATUS":"N","SERIES":"","SALE":"0"},{"ID":"177","ROW":"10","NO":"DS_032","NEW_TAG":"N","MODELSTYLE":"Derby","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"9","MAIN_COLORFRP":"10","SIDE_CATEGORY":"11","SIDE_COLORGRP":"10","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"N","SERIES":"","SALE":"149"},{"ID":"16","ROW":"11","NO":"DS_007","NEW_TAG":"N","MODELSTYLE":"Fashion","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"12","MAIN_COLORFRP":"4","SIDE_CATEGORY":"12","SIDE_COLORGRP":"4","BACK_CATEGORY":"12","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"12","ACCESSORY_COLORGRP":"4","PRICE":"169","SALE_STATUS":"Y","SERIES":"","SALE":"149"},{"ID":"29","ROW":"12","NO":"DS_002","NEW_TAG":"","MODELSTYLE":"Oxford","FRONT_CATEGORY":"12","FRONT_COLORGRP":"6","MAIN_CATEGORY":"10","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"Y","SERIES":"ItalyBlack-Red","SALE":"179"},{"ID":"18","ROW":"13","NO":"DS_008","NEW_TAG":"N","MODELSTYLE":"Monk","FRONT_CATEGORY":"12","FRONT_COLORGRP":"10","MAIN_CATEGORY":"12","MAIN_COLORFRP":"10","SIDE_CATEGORY":"12","SIDE_COLORGRP":"10","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"","SALE":"79"},{"ID":"152","ROW":"14","NO":"DS_024","NEW_TAG":"N","MODELSTYLE":"Oxford","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"9","MAIN_COLORFRP":"10","SIDE_CATEGORY":"9","SIDE_COLORGRP":"10","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"BlackShoes","SALE":"89"},{"ID":"31","ROW":"15","NO":"DS_012","NEW_TAG":"","MODELSTYLE":"Loafers","FRONT_CATEGORY":"9","FRONT_COLORGRP":"4","MAIN_CATEGORY":"9","MAIN_COLORFRP":"4","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"9","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"9","ACCESSORY_COLORGRP":"4","PRICE":"129","SALE_STATUS":"N","SERIES":"","SALE":"0"},{"ID":"228","ROW":"16","NO":"DS_055","NEW_TAG":"N","MODELSTYLE":"Boot","FRONT_CATEGORY":"9","FRONT_COLORGRP":"4","MAIN_CATEGORY":"9","MAIN_COLORFRP":"4","SIDE_CATEGORY":"9","SIDE_COLORGRP":"4","BACK_CATEGORY":"9","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"N","SERIES":"","SALE":"179"},{"ID":"24","ROW":"17","NO":"DS_008","NEW_TAG":"","MODELSTYLE":"Monk","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"12","MAIN_COLORFRP":"4","SIDE_CATEGORY":"12","SIDE_COLORGRP":"6","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"169","SALE_STATUS":"Y","SERIES":"Red","SALE":"149"},{"ID":"81","ROW":"18","NO":"DS_019","NEW_TAG":"N","MODELSTYLE":"Loafers","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"13","MAIN_COLORFRP":"12","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"9","ACCESSORY_COLORGRP":"4","PRICE":"159","SALE_STATUS":"Y","SERIES":"","SALE":"79"},{"ID":"9","ROW":"19","NO":"DS_004","NEW_TAG":"","MODELSTYLE":"Loafers","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"12","MAIN_COLORFRP":"4","SIDE_CATEGORY":"12","SIDE_COLORGRP":"4","BACK_CATEGORY":"12","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"12","ACCESSORY_COLORGRP":"4","PRICE":"159","SALE_STATUS":"Y","SERIES":"","SALE":"149"},{"ID":"57","ROW":"20","NO":"DS_014","NEW_TAG":"","MODELSTYLE":"Loafers","FRONT_CATEGORY":"11","FRONT_COLORGRP":"10","MAIN_CATEGORY":"11","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"11","ACCESSORY_COLORGRP":"10","PRICE":"269","SALE_STATUS":"N","SERIES":"Black_Black_SheepSkin","SALE":"179"}],"sign":"&euro;"}';
         }
+        
+        $ENV_PAGECOUNT = setting('site.display_itemscount_perpage');
+        //$ENV_PAGECOUNT = env('ITEMS_COUNT_PER_PAGE');
+        //dd($ENV_PAGECOUNT);
+
 
         $designObject = [];
         foreach($models as $item)
         {
-            if(count($designObject)>=setting('site.display_itemscount_perpage')-0)    break;
+            if(count($designObject)>=$ENV_PAGECOUNT-0)    break;
             $designObject[] = [
                 "ID"=>$item->id,
                 "ROW"=>$item->id,
@@ -190,7 +200,7 @@ class DesignerIdeaController extends Controller
         $data['designObject'] = $designObject;
         //dd($designObject);
         $json = json_encode($data);
-        //dd($json);
+        
         return view('designidea.designidea')
                     ->with('dataObject', $json)
                     ->with('category',  $categories)
@@ -329,5 +339,4 @@ class DesignerIdeaController extends Controller
         return view('designidea.index')->with('gender', $this->gender)->with('data', $this->data);
     }
 
-
-}
+    }

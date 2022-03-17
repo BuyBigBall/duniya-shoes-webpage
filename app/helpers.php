@@ -11,6 +11,17 @@ use App\Models\MainCategory;
 use App\Models\Lace;
 use App\Models\Lining;
 
+function StyleFolder($style)
+{
+    if( strtolower($style)=='oxford' || strtolower($style)=='derby' )
+    {
+        return ucfirst($style) . 'Shoes';
+    }
+    else
+    {
+        return ucfirst($style);
+    }
+}
 function standardSize()
 {
     $standardSize = DB::table('size_country_name')
@@ -114,4 +125,19 @@ function getMixGroup($lthKey)
     else                     $mixgroup = 0;
     
     return $mixgroup;
+}
+
+function does_url_exists($url) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_NOBODY, true);
+    curl_exec($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    if ($code == 200) {
+        $status = true;
+    } else {
+        $status = false;
+    }
+    curl_close($ch);
+    return $status;
 }

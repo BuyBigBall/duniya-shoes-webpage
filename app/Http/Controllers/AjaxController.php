@@ -42,8 +42,8 @@ class AjaxController extends Controller
 
         if( !empty($request->remember_me ))
         {
-            Cookie::queue("cookieUserName", $this->email,   setting('site.site.cookie_expired_seconds'));
-            Cookie::queue("cookieUserPwd", $this->password, setting('site.site.cookie_expired_seconds'));
+            Cookie::queue("cookieUserName", $this->email,   setting('site.cookie_expired_seconds'));
+            Cookie::queue("cookieUserPwd", $this->password, setting('site.cookie_expired_seconds'));
             Cookie::queue( cookie()->forever("cookieSetFlag", $this->remember_me) );
         }
 
@@ -107,9 +107,11 @@ class AjaxController extends Controller
         {
             $model = $request->model;
             $modelInfo = ModelSerial::where('modelno', $model)->first();
+            $mainFolder =   StyleFolder($modelInfo->style);
+
             $description = [
                         "productType" => $request->productType
-                        ,"folderType" => $modelInfo->style . "Shoes"
+                        ,"folderType" => $mainFolder
                         ,"getShape" => $modelInfo->shape
                         ,"shoeType" => strtolower($modelInfo->style)
                         ,"currentView" => "Right"

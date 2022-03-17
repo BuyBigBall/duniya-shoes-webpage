@@ -69,7 +69,7 @@ Route::get('/designidea',                                   [DesignerIdeaControl
 Route::get('/designershoes/index',                          [DesignerIdeaController::class, 'designerShoes'])->name('designerShoes');
 
 
-Route::get('/women-shoes/designidea',                       [DesignerIdeaController::class, 'index'])->name('woman.designidea');
+Route::get('/women-shoes/designidea',                       [DesignerIdeaController::class, 'index'])->name('women.designidea');
 Route::get('/women-shoes/designershoes/index',              [DesignerIdeaController::class, 'designerShoes'])->name('women.designershoes');
 
 Route::post('/designshoes/elements/cart/addDesignerShoes',          [AjaxController::class, 'addDesignerShoes'])->name('addcart.parameters');
@@ -92,3 +92,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/designshoes/elements/acc/logout',         [AjaxController::class, 'logout'])->name('logout.getjson');
     
 });
+
+
+Route::get('/savedesign',[DesignerIdeaController::class, 'savePreDesign'])->name('checkSessionPreDesign.save.test');
