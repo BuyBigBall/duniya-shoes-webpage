@@ -78,9 +78,11 @@
                                                         </div>
                                                         <div style="float: left; width:140px;" id="productDetail">
                                                             <p class="sp-orange">No. {{$item->MODELNO}}</p>
-                                                            <p>Style {{$item->shoeType}}</p>
+                                                            <p>Style {{ $item->shoeType ?? $item->productType }}</p>
                                                             @if( !empty($item->getLeatherName))
                                                             <p>Leather {{ $item->getLeatherName }}</p>
+                                                            @else
+                                                            <p>{{ $item->productLabel ?? '' }} {{ $item->productName ?? '' }}</p>
                                                             @endif
                                                             @if( !empty($item->getSizeTypeName) ) 
                                                             <p> {{ $item->getSizeTypeName}}  {{ $item->getSizeType ?? ''}} </p>

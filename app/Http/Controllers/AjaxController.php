@@ -42,8 +42,8 @@ class AjaxController extends Controller
 
         if( !empty($request->remember_me ))
         {
-            Cookie::queue("cookieUserName", $this->email, env('COOKIE_EXPIRE_SECONDS'));
-            Cookie::queue("cookieUserPwd", $this->password, env('COOKIE_EXPIRE_SECONDS'));
+            Cookie::queue("cookieUserName", $this->email,   setting('site.site.cookie_expired_seconds'));
+            Cookie::queue("cookieUserPwd", $this->password, setting('site.site.cookie_expired_seconds'));
             Cookie::queue( cookie()->forever("cookieSetFlag", $this->remember_me) );
         }
 

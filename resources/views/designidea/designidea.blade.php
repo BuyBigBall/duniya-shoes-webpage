@@ -27,8 +27,10 @@
                 processDesignIdea.defaults.path = '/';
                 processDesignIdea.defaults.linkProject = '/designershoes/';
             @endif
-
             
+            //processDesignIdea.defaults.itemSize = {!! env('ITEMS_COUNT_PER_PAGE') !!};
+            processDesignIdea.defaults.itemSize = {!! setting('site.display_itemscount_perpage') !!};
+
             processDesignIdea.config(dataObject);
             $('.menuMain .menuMain-box').mCustomScrollbar({
                 scrollInertia: 100,

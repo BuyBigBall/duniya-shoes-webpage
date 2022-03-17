@@ -162,6 +162,7 @@ class DesignerIdeaController extends Controller
         $designObject = [];
         foreach($models as $item)
         {
+            if(count($designObject)>=setting('site.display_itemscount_perpage')-0)    break;
             $designObject[] = [
                 "ID"=>$item->id,
                 "ROW"=>$item->id,
@@ -187,7 +188,7 @@ class DesignerIdeaController extends Controller
 
         }
         $data['designObject'] = $designObject;
-
+        //dd($designObject);
         $json = json_encode($data);
         //dd($json);
         return view('designidea.designidea')

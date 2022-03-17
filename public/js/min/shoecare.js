@@ -121,7 +121,9 @@ $(function () {
         }, $.Sz.isFalse($.Sz.isObject(e.Cart[i.id])) && (e.Cart[i.id] = {}), n.row.el.length > 0 ? ($.Sz.isFalse($.Sz.isObject(e.Cart[i.id][n.row.device])) && (e.Cart[i.id][n.row.device] = {}), $.Sz.isUndefined(e.Cart[i.id][n.row.device][n.row.index]) ? e.Cart[i.id][n.row.device][n.row.index] = a : $.Sz.extend(e.Cart[i.id][n.row.device][n.row.index], a)) : $.Sz.extend(e.Cart[i.id], a), t()
     }), $("#shoe-care-products").on("click", ".btn-cart", function () {
         var i = t();
-        $.Sz.isFalse($.Sz.isEmpty(i)) && $.Sz.isFalse(e.Checkout.send) && $.ajax({
+        $.Sz.isFalse($.Sz.isEmpty(i)) && 
+        $.Sz.isFalse(e.Checkout.send) && 
+        $.ajax({
             type: "POST",
             url: e.Checkout.url,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },

@@ -68,19 +68,59 @@ class CheckoutController extends Controller
         $cart_id = $request->id;
         $cartItem = Cart::find($cart_id);
         $token = $cartItem->token;
-        if(!empty($cartItem))
+        if(!empty($cartItem) && $cartItem->shape=='shoe')
         {
             $shoeInfo = json_decode(base64_decode($cartItem->desc));
+
+            if($shoeInfo)
+            {
+                $modelno[] = $cartItem->key ?? '';
+                $shoeInfo->gender   = $cartItem->gender;
+                $shoeInfo->shape    = $cartItem->shape;
+                $shoeInfo->style    = $cartItem->style;
+                $shoeInfo->quantity = $cartItem->quantity;
+                $shoeInfo->length   = $cartItem->length;
+                $shoeInfo->width    = $cartItem->width;
+                $shoeInfo->unit     = $cartItem->unit;
+                $shoeInfo->sizeType = $cartItem->sizeType;
+                $shoeInfo->DESIGN_TYPE = $cartItem->style;
+            }
+        }
+        elseif($cartItem->shape!='shoe')
+        {
             $modelno[] = $cartItem->key ?? '';
-            $shoeInfo->gender   = $cartItem->gender;
-            $shoeInfo->shape    = $cartItem->shape;
-            $shoeInfo->style    = $cartItem->style;
-            $shoeInfo->quantity = $cartItem->quantity;
-            $shoeInfo->length   = $cartItem->length;
-            $shoeInfo->width    = $cartItem->width;
-            $shoeInfo->unit     = $cartItem->unit;
-            $shoeInfo->sizeType = $cartItem->sizeType;
-            $shoeInfo->DESIGN_TYPE = $cartItem->style;
+
+            $careObj = 
+                        [
+                            "id" => $cartItem->id,
+                            "COUPON_STATUS" => $cartItem->coupon_status,
+                            "SEX" => $cartItem->gender,
+                            "DESIGN_TYPE" => "designer",
+                            "MODELNO" => $cartItem->key,
+                            "productType" => $cartItem->style,
+                            "productLabel" => $cartItem->shape,
+                            "productName" => $cartItem->name,
+                            "getQty" => $cartItem->quantity,
+                            "countSession" => 1,
+                            "PRICE" => 25.5,
+                            "SHIPPING" => 9.99,
+                            "MIX_PRICE" => 0,
+                            "SUMPRICE" => 25.5,
+                            "PRICE_SOLEMIX" => 0,
+                            "PRICE_SYMBOLIC" => 0,
+
+                            'productType'=>$cartItem->style,
+                            'gender'   => $cartItem->gender,
+                            'shape'    => $cartItem->shape,
+                            'style'    => $cartItem->style,
+                            'quantity' => $cartItem->quantity,
+                            'length'   => $cartItem->length,
+                            'width'    => $cartItem->width,
+                            'unit'     => $cartItem->unit,
+                            'sizeType' => $cartItem->sizeType,
+                            'DESIGN_TYPE' => 'designer',
+                        ];
+            $shoeInfo = json_decode(json_encode($careObj));
         }
         $cart_items = [$shoeInfo];
         
@@ -92,20 +132,61 @@ class CheckoutController extends Controller
         foreach($cartItemCollection as $cartItem)
         {
             $shoeInfo = json_decode(base64_decode($cartItem->desc));
-            if(!!empty($cartItem->desc) || !!empty($shoeInfo)) continue;
+            if(!empty($cartItem) && $cartItem->shape=='shoe')
+            {
+                if(!!empty($cartItem->desc) || !!empty($shoeInfo)) continue;
 
-            $modelno[] = $cartItem->key ?? '';
-            $shoeInfo->gender   = $cartItem->gender;
-            $shoeInfo->shape    = $cartItem->shape;
-            $shoeInfo->style    = $cartItem->style;
-            $shoeInfo->quantity = $cartItem->quantity;
-            $shoeInfo->length   = $cartItem->length;
-            $shoeInfo->width    = $cartItem->width;
-            $shoeInfo->unit     = $cartItem->unit;
-            $shoeInfo->sizeType = $cartItem->sizeType;
-            $shoeInfo->DESIGN_TYPE = $cartItem->style;
+                $modelno[] = $cartItem->key ?? '';
+                $shoeInfo->gender   = $cartItem->gender;
+                $shoeInfo->shape    = $cartItem->shape;
+                $shoeInfo->style    = $cartItem->style;
+                $shoeInfo->quantity = $cartItem->quantity;
+                $shoeInfo->length   = $cartItem->length;
+                $shoeInfo->width    = $cartItem->width;
+                $shoeInfo->unit     = $cartItem->unit;
+                $shoeInfo->sizeType = $cartItem->sizeType;
+                $shoeInfo->DESIGN_TYPE = $cartItem->style;
+                
+            }
+            elseif($cartItem->shape!='shoe')
+            {
+                $modelno[] = $cartItem->key ?? '';
+    
+                $careObj = 
+                            [
+                                "id" => $cartItem->id,
+                                "COUPON_STATUS" => $cartItem->coupon_status,
+                                "SEX" => $cartItem->gender,
+                                "DESIGN_TYPE" => "designer",
+                                "MODELNO" => $cartItem->key,
+                                "productType" => $cartItem->style,
+                                "productLabel" => $cartItem->shape,
+                                "productName" => $cartItem->name,
+                                "getQty" => $cartItem->quantity,
+                                "countSession" => 1,
+                                "PRICE" => 25.5,
+                                "SHIPPING" => 9.99,
+                                "MIX_PRICE" => 0,
+                                "SUMPRICE" => 25.5,
+                                "PRICE_SOLEMIX" => 0,
+                                "PRICE_SYMBOLIC" => 0,
+
+                                'productType'=>$cartItem->style,
+                                'gender'   => $cartItem->gender,
+                                'shape'    => $cartItem->shape,
+                                'style'    => $cartItem->style,
+                                'quantity' => $cartItem->quantity,
+                                'length'   => $cartItem->length,
+                                'width'    => $cartItem->width,
+                                'unit'     => $cartItem->unit,
+                                'sizeType' => $cartItem->sizeType,
+                                'DESIGN_TYPE' => 'designer',
+                            ];
+                $shoeInfo = json_decode(json_encode($careObj));
+            }
             $cart_items[] = $shoeInfo;
         }
+
         $imageArray = [];
         foreach($cart_items as $item)
         {

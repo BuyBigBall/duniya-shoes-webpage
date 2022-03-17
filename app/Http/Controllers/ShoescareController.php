@@ -66,6 +66,11 @@ class ShoescareController extends Controller
             $cart->shape = $item['shape'];
             $cart->style = $item['style'];
             $cart->quantity = $item['quantity'];
+            if( !empty(auth()->user() ) )
+                $cart->session = auth()->user()->id;
+            else
+                $cart->token = session()->get('_token');
+            //dd($cart);
             $cart->save();
         }
     }
