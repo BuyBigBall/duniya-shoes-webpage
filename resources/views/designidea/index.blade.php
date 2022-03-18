@@ -359,7 +359,7 @@
         </div>
                             <div id="control">
                                 <div id="backstep" class="disable hide" data-lang="backstep">BACK STEP</div>
-                                <!--<div id="chooseLeather">CHANGE LEATHER</div>-->
+                                <!-- <div id="chooseLeather">CHANGE LEATHER</div> -->
                                 <div id="nextstep" data-lang="nextstep" class="slide">NEXT STEP</div>
                                 <div id="addcart" class="disable hide" data-lang="add-to-card">ADD TO CART</div>
                             </div>

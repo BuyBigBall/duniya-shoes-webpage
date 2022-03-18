@@ -284,8 +284,18 @@ class DesignerIdeaController extends Controller
         #######################  sole ################
         $resultInfo['sole']         = [];
         $item = []; //where('shape', $modelInfo->shape)->
-        $soles = ColorSole::where('shape', $modelInfo->shape)->distinct()->groupBy('pkey')->get();
-        foreach($soles as $sole)
+        $shoeInfo = ColorSole::find($modelInfo->sole_color);
+        
+        
+        if( !empty($shoeInfo) && $shoeInfo->mixgroup==8) $sole_items = ColorSole::where('mixgroup', $shoeInfo->mixgroup);
+        else                   $sole_items = ColorSole::where('shape', $modelInfo->shape);
+        
+        //dd($sole_items->toSql());
+        // var_dump($modelInfo->shape);
+        // var_dump($shoeInfo->mixgroup);
+        $sole_items = $sole_items->distinct()->groupBy('pkey')->get();
+//        dd($sole_items);
+        foreach($sole_items as $sole)
         {
             $item[] = [ 'pid'   => $sole->id,
                         'id'    => $sole->pkey,
@@ -295,6 +305,7 @@ class DesignerIdeaController extends Controller
         }
         $resultInfo['sole']['type'] = 'leather';
         $resultInfo['sole']['item'] = $item;
+
         #######################  leathers ################
         $resultInfo['leather']         = [];
         $resultInfo['leather']['type'] = 'leather';
