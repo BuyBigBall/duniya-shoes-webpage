@@ -46,7 +46,8 @@ class elementsController extends Controller
     {
         //$shoeType = DB::table('types')->select('id')->where('type', $request->get("type"))->first();
 
-        if ($request->get("type") == "loafers") {
+        if ($request->get("type") == "loafers") 
+        {
             $accessories = DB::table('style_accessories')->select(
                 [
                     'pkey as id', 'name', 'path', 'status'
@@ -129,7 +130,7 @@ class elementsController extends Controller
 
     public function addCart(Request $request)
     {
-        // dd(base64_decode($request->sobj));
+        //dd(base64_decode($request->sobj));
         setcookie("_token", $request->_token, time() + 2 * 24 * 60 * 60);
         $cart = new Cart();
         

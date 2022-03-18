@@ -44,29 +44,45 @@ class ModelSerial extends Model
         return $this->hasOne(\App\Models\MenuCategory::class, 'model_id', 'id');
     }
    
-    public function maintbl() {
-        return $this->belongsTo(\App\Models\Main::class, 'main_color');
+    public function maintyp() {
+        return $this->belongsTo(\App\Models\MainCategory::class, 'main');
     }
-    public function backtbl() {
-        return $this->belongsTo(\App\Models\Back::class,  'back_color');
+    public function backtyp() {
+        return $this->belongsTo(\App\Models\StyleBack::class,  'back');
     }
-    public function soletbl() {
-        return $this->belongsTo(\App\Models\Sole::class,  'sole_color');
+    public function soletyp() {
+        return $this->belongsTo(\App\Models\StyleSole::class,  'sole');
     }
-    public function fronttbl() {
-        return $this->belongsTo(\App\Models\Front::class,  'front_color');
+    public function fronttyp() {
+        return $this->belongsTo(\App\Models\StyleFront::class,  'front');
     }
-    public function sidetbl() {
-        return $this->belongsTo(\App\Models\Side::class,  'side_color');
+    public function sidetyp() {
+        return $this->belongsTo(\App\Models\StyleSide::class,  'side');
     }
-    public function accessorytbl() {
-        return $this->belongsTo(\App\Models\Accessory::class,  'accessory_color');
+
+    public function mainclr() {
+        return $this->belongsTo(\App\Models\ColorMain::class, 'main_color');
     }
-    public function lacetbl() {
-        return $this->belongsTo(\App\Models\Lace::class,  'laces');
+    public function backclr() {
+        return $this->belongsTo(\App\Models\ColorBack::class,  'back_color');
     }
-    public function liningtbl() {
-        return $this->belongsTo(\App\Models\Lining::class,  'lining');
+    public function soleclr() {
+        return $this->belongsTo(\App\Models\ColorSole::class,  'sole_color');
+    }
+    public function frontclr() {
+        return $this->belongsTo(\App\Models\ColorFront::class,  'front_color');
+    }
+    public function sideclr() {
+        return $this->belongsTo(\App\Models\ColorSide::class,  'side_color');
+    }
+    public function accessoryclr() {
+        return $this->belongsTo(\App\Models\ColorAccessory::class,  'accessory_color');
+    }
+    public function laceclr() {
+        return $this->belongsTo(\App\Models\ColorLace::class,  'laces');
+    }
+    public function liningclr() {
+        return $this->belongsTo(\App\Models\ColorLining::class,  'lining');
     }
    
 }

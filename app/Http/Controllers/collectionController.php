@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\MainCategory;
-use App\Models\Main;
 
 class collectionController extends Controller
 {
@@ -135,12 +134,12 @@ class collectionController extends Controller
 
 
         $lTH['Leather'] = $arrLeathers;
-        $fronts     = DB::table('fronts')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
-        $backs      = DB::table('backs')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
-        $sides      = DB::table('sides')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
-        $linings    = DB::table('linings')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
-        $laces      = DB::table('laces')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
-        $accessories= DB::table('accessories')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
+        $fronts     = DB::table('color_fronts')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
+        $sides      = DB::table('color_sides')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
+        $backs      = DB::table('color_backs')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
+        $linings    = DB::table('color_linings')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
+        $laces      = DB::table('color_laces')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
+        $accessories= DB::table('color_accessories')->select('key as KEY', 'name as NAME', 'path as PATH')->get();
 
         $data = [
             'shoesType' => $shoesType,

@@ -3,13 +3,19 @@
 use Illuminate\Support\Facades\DB;
 
 use function PHPUnit\Framework\isNull;
-use App\Models\Main;
-use App\Models\Front;
-use App\Models\Sole;
-use App\Models\Accessory;
+use App\Models\ColorMain;
+use App\Models\ColorFront;
+use App\Models\ColorBack;
+use App\Models\ColorSole;
+use App\Models\StyleFront;
+use App\Models\StyleBack;
+use App\Models\StyleSide;
+use App\Models\ColorAccessory;
 use App\Models\MainCategory;
-use App\Models\Lace;
-use App\Models\Lining;
+use App\Models\StyleSole;
+use App\Models\StyleAccessory;
+use App\Models\ColorLining;
+use App\Models\ColorLace;
 
 function StyleFolder($style)
 {
@@ -26,7 +32,7 @@ function standardSize()
 {
     $standardSize = DB::table('size_country_name')
         ->select('name', 'size')
-        ->leftJoin('size_shoes', 'size_country_name.id', '=', 'size_shoes.size_country')
+        ->leftJoin('size_shoes', 'size_country_name.id', '=', 'size_shoes.country_no')
         ->get();
     $result = array();
     foreach ($standardSize as $key => $item) {
@@ -55,72 +61,98 @@ function getLanguage($param = null)
 
 function getLaces($lthKey)
 {
-     $lth_color = Lace::where('name', $lthKey)->first();
+     $lth_color = ColorLace::where('name', $lthKey)->first();
     if( !empty($lth_color) )  $lth_color = $lth_color->id;
     else                      $lth_color = 0;
-    
     return $lth_color;
 }
 function getLining($lthKey)
 {
-     $lth_color = Lining::where('name', $lthKey)->first();
+     $lth_color = ColorLining::where('name', $lthKey)->first();
+    if( !empty($lth_color) )  $lth_color = $lth_color->id;
+    else                      $lth_color = 0;
+    return $lth_color;
+}
+
+function getLeather($lthKey)
+{
+
+    $lth_color = ColorMain::where('pkey', $lthKey)->first();
     if( !empty($lth_color) )  $lth_color = $lth_color->id;
     else                      $lth_color = 0;
     
     return $lth_color;
 }
 
-function getAccessory($lthKey)
+function getAccessory($lthCategoryName, $lthKey)
 {
-    $lth_color = Accessory::where('name', $lthKey)->first();
+    $lth_type = StyleAccessory::where('pkey', $lthCategoryName)->first();
+    if( !empty($lth_type) )  $lth_type = $lth_type->id;
+    else                     $lth_type = 0;
+
+    $lth_color = ColorAccessory::where('name', $lthKey)->first();
     if( !empty($lth_color) )  $lth_color = $lth_color->id;
     else                      $lth_color = 0;
     
-    return [$lth_color , $lth_color];
+    return [$lth_type , $lth_color];
 }
 
-
-function getSole($lthKey)
-{
-    $lth_color = Sole::where('pkey', $lthKey)->first();
-    if( !empty($lth_color) )  $lth_color = $lth_color->id;
-    else                      $lth_color = 0;
-    
-    return [$lth_color , $lth_color];
-}
-function getFront($lthCategoryName, $lthKey)
-{
-    return getLeather($lthCategoryName, $lthKey);
-}
-function getSide($lthCategoryName, $lthKey)
-{
-    return getLeather($lthCategoryName, $lthKey);
-}
 function getBack($lthCategoryName, $lthKey)
 {
-    return getLeather($lthCategoryName, $lthKey);
+    $lth_type = StyleBack::where('pkey', $lthCategoryName)->first();
+    if( !empty($lth_type) )  $lth_type = $lth_type->id;
+    else                     $lth_type = 0;
+
+    $lth_color = ColorBack::where('name', $lthKey)->first();
+    if( !empty($lth_color) )  $lth_color = $lth_color->id;
+    else                      $lth_color = 0;
+
+    return [$lth_type, $lth_color];
 }
 
-function getLeather($lthCategoryName, $lthKey)
+
+function getSole($lthCategoryName, $lthKey)
 {
-    $lth = 0;
-    $lth_color = 0;
-    $lth = MainCategory::where('key', $lthCategoryName)->first();
+    $lth_type = StyleSole::where('pkey', $lthCategoryName)->first();
+    if( !empty($lth_type) )  $lth_type = $lth_type->id;
+    else                     $lth_type = 0;
 
-    if( !empty($lth) )  $lth = $lth->id;
-    else                $lth = 0;
-
-    $lth_color = Main::where('pkey', $lthKey)->first();
+    $lth_color = ColorSole::where('pkey', $lthKey)->first();
     if( !empty($lth_color) )  $lth_color = $lth_color->id;
     else                      $lth_color = 0;
     
-    if( !!empty($lth_color)) $lth = 0;
-    return [$lth , $lth_color];
+    return [$lth_type , $lth_color];
+}
+
+function getFront($lthCategoryName, $lthKey)
+{
+    $lth_type = StyleFront::where('pkey', $lthCategoryName)->first();
+    if( !empty($lth_type) )  $lth_type = $lth_type->id;
+    else                     $lth_type = 0;
+
+    $lth_color = ColorFront::where('name', $lthKey)->first();
+    if( !empty($lth_color) )  $lth_color = $lth_color->id;
+    else                      $lth_color = 0;
+
+    return [$lth_type, $lth_color];
+}
+
+function getSide($lthCategoryName, $lthKey)
+{
+    $lth_type = StyleSide::where('pkey', $lthCategoryName)->first();
+    if( !empty($lth_type) )  $lth_type = $lth_type->id;
+    else                     $lth_type = 0;
+
+    $lth_color = ColorFront::where('name', $lthKey)->first();
+    if( !empty($lth_color) )  $lth_color = $lth_color->id;
+    else                      $lth_color = 0;
+
+    return [$lth_type, $lth_color];
 }
 
 function getMixGroup($lthKey)
 {
-    $mixgroup = Main::where('pkey', $lthKey)->first();
+    $mixgroup = ColorMain::where('pkey', $lthKey)->first();
     if( !empty($mixgroup) )  $mixgroup = $mixgroup->mixgroup;
     else                     $mixgroup = 0;
     

@@ -115,64 +115,75 @@ class AjaxController extends Controller
                         ,"getShape" => $modelInfo->shape
                         ,"shoeType" => strtolower($modelInfo->style)
                         ,"currentView" => "Right"
-                        ,"getLeatherNo" => $modelInfo->maintbl->pkey   //"LT-001"
-                        ,"getLeather" => $modelInfo->maintbl->name  ?? 'none'// "premium"
-                        ,"getLeatherGroup" => "1"
+
                         ,"getStyle" => "shape"
-                        ,"getFront" => $modelInfo->fronttbl->name ?? 'none'         //"none"
-                        ,"getSide" => $modelInfo->sidetbl->name  ?? 'none'          //"SD1"
-                        ,"getBack" => $modelInfo->backtbl->name  ?? 'none'          //"BK1"
-                        ,"getSole" => $modelInfo->soletbl->name  ?? 'none'          //"LT-N007"
-                        ,"getAccessory" => $modelInfo->accessorytbl->name ?? 'none' //"none"
+
+                        ,"getLeatherGroup"  => $modelInfo->maintyp->id
+                        ,"getLeather"       => $modelInfo->maintyp->key  ?? 'none'// "premium"
+                        ,"getLeatherName"   => $request->main_name         //"the premium"
+                        ,"getLeatherNo"     => $modelInfo->mainclr->pkey   //"LT-001"
+                        ,"getLeatherNoName" => $modelInfo->mainclr->name
+
+                        ,"front"            => $request->front             //"none"
+                        ,"getFront"         => $modelInfo->fronttyp->pkey ?? 'none'         //"none"
+                        ,"getFrontNo"       => !empty($request->frontclr) ? $request->frontclr->key : 'none'        //"none"
+                        ,"getFrontName"     => $request->front_name       //"none"
+                        ,"getFrontNoName"   => "none"
+
+                        ,"side"         => $request->side              //"SD1"
+                        ,"getSide"      => $modelInfo->sidetyp->pkey  ?? 'none'          //"SD1"
+                        ,"getSideName"  => $modelInfo->sidetyp->name       //"SD1"
+                        ,"getSideNo"    => $modelInfo->sideclr->key ?? 'none'          //"none"
+                        ,"getSideNoName"=> $modelInfo->sideclr->name
+
+                        ,"back"         => $request->back               // "BK1"
+                        ,"getBack"      => $modelInfo->backtyp->pkey  ?? 'none'          //"BK1"
+                        ,"getBackName"  => $modelInfo->backtyp->name       //"BK1"
+                        ,"getBackNo"    => !empty($request->backclr) ? $request->backclr->key : 'none'              //"none"
+                        ,"getBackNoName"=> !empty($request->backclr) ? $request->backclr->name : 'none'              //"none"
+
+                        ,"sole"         => $modelInfo->soletyp->pkey  ?? 'none'               // "Sole-1L"
+                        ,"getSole"      => $modelInfo->soletyp->pkey  ?? 'none'          //"LT-N007"
+                        ,"getSoleName"  => $modelInfo->soletyp->name  ?? 'none'
+                        ,"getSoleBorder"=> $modelInfo->soleclr->pkey  ?? 'none'
+                        ,"mixSolePriceStatus" => "no"
+
+                        ,"getLacesNo"   => !empty($request->laceclr) ? $request->laceclr->key : 'none'            //"HT-Black"
+                        ,"getLacesName" => $request->laces             //"HT-Black"
+
+                        ,"getLiningNo"  => !empty($request->liningclr) ? $request->liningclr->key : 'none'        //"SH-SW08"
+                        ,"getLiningName"=> $request->lining_name       //"Dark Brown"
+                        
+                        ,"getAccessory"     => 'none' //"none"
+                        ,"getAccessoryNo"   => 'none'         //"none"
+                        ,"getAccessoryName" => "none"
+
                         ,"getSpeci"     => "mix-match"
-                        ,"getSideNo"    => $modelInfo->sidetbl->key ?? 'none'          //"none"
-                        ,"getFrontNo"   => !empty($request->fronttbl) ? $request->fronttbl->key : 'none'        //"none"
-                        ,"getLiningNo"  => !empty($request->liningtbl) ? $request->liningtbl->key : 'none'        //"SH-SW08"
                         ,"getStitchingNo" => $request->backstitch     //"none"
-                        ,"getLacesNo"   => !empty($request->lacetbl) ? $request->lacetbl->key : 'none'            //"HT-Black"
                         ,"getBrogueNo"  => "none"
-                        ,"getBackNo"    => !empty($request->backtbl) ? $request->backtbl->key : 'none'              //"none"
-                        ,"getAccessoryNo"   => !empty($request->accesstbl) ? $request->accesstbl->key : 'none'         //"none"
-                        ,"getSoleBorder"    => "LE2"
-                        ,"getMonoIn"        =>         $request->monogram['insideLining']  //""
-                        ,"getMonoOut"       =>        $request->monogram['outsideSole']  
-                        ,"getSizeTypeName"  =>   $request->measurement['regularSize']    //"EU"
-                        ,"getSizeType"  =>       $request->measurement['regularSize']    //"EURO"
-                        ,"getSizeNo"    =>         $request->measurement['size']           //"null"
-                        ,"getUnit"      =>           $request->measurement['unit']           //"null"
-                        ,"getLength"    =>         $request->measurement['length']         //"0"
-                        ,"getWidth"     =>          $request->measurement['width']          //"0"
-                        ,"getQty"       =>            $request->measurement['quantity']
+                        ,"getMonoIn"        =>  $request->monogram['insideLining']  //""
+                        ,"getMonoOut"       =>  $request->monogram['outsideSole']  
+                        ,"getSizeTypeName"  =>  $request->measurement['regularSize']    //"EU"
+                        ,"getSizeType"  =>      $request->measurement['regularSize']    //"EURO"
+                        ,"getSizeNo"    =>      $request->measurement['size']           //"null"
+                        ,"getUnit"      =>      $request->measurement['unit']           //"null"
+                        ,"getLength"    =>      $request->measurement['length']         //"0"
+                        ,"getWidth"     =>      $request->measurement['width']          //"0"
+                        ,"getQty"       =>      $request->measurement['quantity']
                         ,"getShoePrice" =>      $request->totalPrice
                         ,"getMixPrice"  => 0                             //"9.9"
                         ,"getShoeDiscountItem" => "0"
-                        ,"mixSolePriceStatus" => "no"
                         ,"getShoeShipping"  => "0"
                         ,"setStatusMix"     => "false"
                         ,"prevLeatherNo"    => "none"
                         ,"response"     => "false"
                         ,"shape"        => "shape-" . $request->modelShape
-                        ,"front"        => $request->front             //"none"
-                        ,"side"         => $request->side              //"SD1"
-                        ,"back"         => $request->back               // "BK1"
-                        ,"sole"         => $request->sole               // "Sole-1L"
                         ,"getShapeName" => $request->modelShape //"Sharp"
                         ,"shoeTypeName" => $request->modelStyle // "oxford"
-                        ,"getLeatherNoName" => "none"
-                        ,"getLeatherName"   => $request->main_name         //"the premium"
                         ,"getStyleName"     => "none"
-                        ,"getFrontName"     => $request->front_name       //"none"
-                        ,"getSideName" => $request->side_name       //"SD1"
-                        ,"getBackName" => $request->back_name       //"BK1"
-                        ,"getSoleName" => $request->sole_name       //"Leather"
-                        ,"getAccessoryName" => $request->accessory_name       //"none"
-                        ,"getSideNoName"    => "none"
-                        ,"getFrontNoName"   => "none"
-                        ,"getLiningName"    => $request->lining_name       //"Dark Brown"
+
                         ,"getStitchingName" => $request->backstitch       //"none"
-                        ,"getLacesName"     => $request->laces             //"HT-Black"
                         ,"getBrogueName"    => "none"
-                        ,"getBackNoName"    => "none"
                         ,"optionBorderSlim" => "N"
                         ,"setMenuLth"   => "premium"
                         ,"code64"       => "null"

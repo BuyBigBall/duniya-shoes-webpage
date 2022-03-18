@@ -31,7 +31,7 @@ class ShoescareController extends Controller
 
         $standardSize = DB::table('size_country_name')
             ->select('name', 'size')
-            ->leftJoin('size_shoes', 'size_country_name.id', '=', 'size_shoes.size_country')
+            ->leftJoin('size_shoes', 'size_country_name.id', '=', 'size_shoes.country_no')
             ->get();
         $result = array();
         $list = [];

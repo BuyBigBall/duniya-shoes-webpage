@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\ColorsGroup;
 use App\Models\Type;
-use App\Models\Back;
-use App\Models\Sole;
 use App\Models\ModelSerial;
 use App\Models\OptionSele;
 use App\Models\MainCategory;
-use App\Models\Main;
+use App\Models\ColorMain;
+use App\Models\ColorBack;
+use App\Models\ColorSole;
 use App\Models\Cart;
 use App\Models\Color;
 use App\Models\Selector;
@@ -48,9 +48,6 @@ class DesignerIdeaController extends Controller
         # save design on cart
         elseif(!empty($request->id))
         {
-            
-           
-
             if( !! empty(auth()->user() ) )
             {
                 return json_encode(['STATUS'=>'login']);
@@ -75,13 +72,15 @@ class DesignerIdeaController extends Controller
                     $new_model_no = $cart_item->key;
                 }
 
-                [$main,$main_color]     = getLeather($shoeDesignInfo->getLeather, $shoeDesignInfo->getLeatherNo );
-                $getLeatherGroup        = getMixGroup($shoeDesignInfo->getLeatherNo );
-                [$front,$front_color]   = getFront($shoeDesignInfo->getLeather,  $shoeDesignInfo->getFront );
-                [$side,$side_color]     = getSide($shoeDesignInfo->getLeather,  $shoeDesignInfo->getSide );
+                $main           = $shoeDesignInfo->getLeatherGroup;
+                $main_color     = getLeather($shoeDesignInfo->getLeatherNo );
+                $mixGroup       = getMixGroup($shoeDesignInfo->getLeatherNo );
+
+                [$front,$front_color]   = getFront($shoeDesignInfo->getFront,  $shoeDesignInfo->getFrontNo );
+                [$side,$side_color]     = getSide($shoeDesignInfo->getSide,     $shoeDesignInfo->getSideNo );
                 [$back,$back_color]     = getBack($shoeDesignInfo->getLeather,  $shoeDesignInfo->getBack );
-                [$sole,$sole_color]     = getSole($shoeDesignInfo->getSole );
-                [$accessory,$access_color]= getAccessory($shoeDesignInfo->getAccessory);
+                [$sole,$sole_color]     = getSole($shoeDesignInfo->getSoleBorder, $shoeDesignInfo->getSole );
+                [$accessory, $access_color]= getAccessory($shoeDesignInfo->getAccessory, $shoeDesignInfo->getAccessoryNo);
                 $laces                  = getLaces($shoeDesignInfo->getLacesNo);
                 $lining                 = getLining($shoeDesignInfo->getLiningNo);
                 $sale_price             = $shoeDesignInfo->getShoePrice;
@@ -92,7 +91,7 @@ class DesignerIdeaController extends Controller
                             ]
                             ,
                             [
-                                'mixgroup'  => $getLeatherGroup,      
+                                'mixgroup'  => $mixGroup,      
                                 'style'     => ucfirst($shoeDesignInfo->shoeType),       
                                 'shape'     => $shoeDesignInfo->getShape,       
                                 'sex'       => $cart_item->gender =="M" ? "man" : "women",       
@@ -240,14 +239,14 @@ class DesignerIdeaController extends Controller
 
         $resultInfo['defaults']['laces']        = $modelInfo->laces;
         $resultInfo['defaults']['backstitch']   = $modelInfo->backstitch;
-        $resultInfo['defaults']['lining']       = !!empty($modelInfo->liningtbl) ? "false" : $modelInfo->liningtbl->name;
+        $resultInfo['defaults']['lining']       = !!empty($modelInfo->liningclr) ? "false" : $modelInfo->liningclr->name;
         $resultInfo['defaults']['theme']        = $modelInfo->theme;
         $resultInfo['defaults']['model_sex']    = $modelInfo->sex;
         $resultInfo['defaults']['backstitch_price'] = $modelInfo->backstitch_price ?? 0;
-        $resultInfo['defaults']['main_name']    = !!empty($modelInfo->maintbl) ? "false" : $modelInfo->maintbl->name;
-        $resultInfo['defaults']['sole_name']    = !!empty($modelInfo->soletbl) ? "false" : $modelInfo->soletbl->path;
-        $resultInfo['defaults']['back_name']    = !!empty($modelInfo->backtbl) ? "false" : $modelInfo->backtbl->name;
-        $resultInfo['defaults']['lining_name']  = !!empty($modelInfo->liningtbl) ? "false" : $modelInfo->liningtbl->name;
+        $resultInfo['defaults']['main_name']    = !!empty($modelInfo->mainclr) ? "false" : $modelInfo->mainclr->name;
+        $resultInfo['defaults']['sole_name']    = !!empty($modelInfo->soleclr) ? "false" : $modelInfo->soleclr->path;
+        $resultInfo['defaults']['back_name']    = !!empty($modelInfo->backclr) ? "false" : $modelInfo->backclr->name;
+        $resultInfo['defaults']['lining_name']  = !!empty($modelInfo->liningclr) ? "false" : $modelInfo->liningclr->name;
 
         $resultInfo['defaults']['selector']     = "main";
         $resultInfo['defaults']['product']      = "shoe";
@@ -268,7 +267,7 @@ class DesignerIdeaController extends Controller
         #######################  back ################
         $resultInfo['back']         = [];
         $item = [];
-        $backLeathers = Back::where('mixgroup', $modelInfo->mixgroup)->distinct()->groupBy('key')->get();
+        $backLeathers = ColorBack::where('mixgroup', $modelInfo->mixgroup)->distinct()->groupBy('key')->get();
         foreach($backLeathers as $backs)
         {
             $item[] = [ 'pid'   => $backs->id,
@@ -285,7 +284,7 @@ class DesignerIdeaController extends Controller
         #######################  sole ################
         $resultInfo['sole']         = [];
         $item = []; //where('shape', $modelInfo->shape)->
-        $soles = Sole::where('shape', $modelInfo->shape)->distinct()->groupBy('pkey')->get();
+        $soles = ColorSole::where('shape', $modelInfo->shape)->distinct()->groupBy('pkey')->get();
         foreach($soles as $sole)
         {
             $item[] = [ 'pid'   => $sole->id,
@@ -302,7 +301,7 @@ class DesignerIdeaController extends Controller
         $resultInfo['leather']['item'] = $item;     
 
         $item = [];
-        $mains = Main::where('mixgroup', $modelInfo->mixgroup)->distinct()->groupBy('pkey')->get();
+        $mains = ColorMain::where('mixgroup', $modelInfo->mixgroup)->distinct()->groupBy('pkey')->get();
         foreach($mains as $main)
         {
             $item[] = [ 'pid'   => $main->id,

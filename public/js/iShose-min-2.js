@@ -584,7 +584,7 @@ function callMenu(id, menu) {
 //Main menu call option
 function callOption(ele) {
     var mode = ele;
-    load_main_model();
+    load_main_model();          // in toggle_layout()
     load_View_Menu(mode);
     load_leather_menu(mode);
     load_style_menu(mode);
