@@ -367,8 +367,8 @@
                     </div>
                     <!-- LINK -->
                     <div id="link-outside">
-                        <a href="http://itailorshoes.com/designshoes/" target="_blank">Home</a>
-                        <a href="http://itailorshoes.com/designshoes/" target="_blank">Create your Own 3D</a>
+                        <a href="/designshoes/" target="_blank">Home</a>
+                        <a href="/designshoes/" target="_blank">Create your Own 3D</a>
                     </div>
                 </div>
             </div>

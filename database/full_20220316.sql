@@ -1436,7 +1436,7 @@ DROP TABLE IF EXISTS `languages`;
 
 CREATE TABLE `languages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `texts` text DEFAULT NULL,
+  `texts` varchar(200) CHARACTER SET utf8mb4 DEFAULT NULL,
   `English` text DEFAULT NULL,
   `China` text DEFAULT NULL,
   `French` text DEFAULT NULL,

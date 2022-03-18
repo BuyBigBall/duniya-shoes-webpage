@@ -79,28 +79,29 @@ function saveDesign(i, img_src) {
 
 
     
-    //$.getJSON('/designshoes/elements/popUp/proDesign/checkSessionPreDesign?id=' + i,  function (d) {
-    //$.post('/designshoes/elements/popUp/proDesign/checkSessionPreDesign?id=' + i, {img: img_src} , function (d) {
+    $.getJSON('/designshoes/elements/popUp/proDesign/checkSessionPreDesign?id=' + i,  function (d) {
+        var status = d['STATUS'];
+        var new_model_id = d['ID'];
+        if (status === 'true') {
+            loadPopUp('PopUpCompleted', 'divPopUpCompleted');
+            $('#' + i).attr('data-lang', 'save');
+            setLanguage();
 
-    $.ajax({
-        type: 'POST',
-        headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
-        data: {img: img_src},
-        url: '/designshoes/elements/popUp/proDesign/checkSessionPreDesign?id=' + i,
-        success: function (d) {
-                d = JSON.parse(d);
-                var status = d['STATUS'];
-                var id = d['ID'];
-                if (status === 'true') {
-                    loadPopUp('PopUpCompleted', 'divPopUpCompleted');
-                    $('#' + id).attr('data-lang', 'save');
-                    setLanguage();
-                } else if (status === 'login') {
-                    $('.link-login').trigger('click');
-                } else if (status === 'count') {
-                    loadPopUp('PopUpLimitProDesign', 'divPopUpLimit');
-                }
-            }
+            $.ajax({
+                type: 'POST',
+                headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+                url: '/createDesignImages?id=' + new_model_id,
+                data: {img: img_src},
+                success: function (d) {
+                    console.log("design image created successfully.");
+                    }
+                });
+
+        } else if (status === 'login') {
+            $('.link-login').trigger('click');
+        } else if (status === 'count') {
+            loadPopUp('PopUpLimitProDesign', 'divPopUpLimit');
+        }
     });
 }
 function Scrollbar() {

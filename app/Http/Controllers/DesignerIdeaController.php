@@ -26,6 +26,19 @@ class DesignerIdeaController extends Controller
     public $colorGrp;
     public $optionSele;
 
+    public function createDesignImages(Request $request)
+    {
+         # for image creating test
+         $newModel = ModelSerial::find($request->id);
+         if(empty($newModel))
+         {
+            return json_encode(['STATUS'=>'false', 'ID'=>$request->id]);    
+         }
+         ModelCreateController::createNewModelImages($newModel, $request->img);
+         return json_encode(['STATUS'=>'true', 'ID'=>$request->id]);
+         # <--------------
+
+    }
     public function savePreDesign(Request $request)
     {
         if($request->type==='check')
@@ -36,11 +49,7 @@ class DesignerIdeaController extends Controller
         elseif(!empty($request->id))
         {
             
-            # for image creating test
-            ModelCreateController::createNewModelImages(ModelSerial::find(53), $request->img);
-            return json_encode(['STATUS'=>'false', 'ID'=>$request->id]);
-            # <--------------
-
+           
 
             if( !! empty(auth()->user() ) )
             {
@@ -49,9 +58,6 @@ class DesignerIdeaController extends Controller
             //$newModel   = new ModelSerial();
             $cart_item = Cart::find($request->id);
             
-            //  dd($request->img);
-            
-
             if( !empty($cart_item) )
             {
                 $prefix = ( $cart_item->gender=="M" ) ? "DS_" : "DSW_";
@@ -112,8 +118,6 @@ class DesignerIdeaController extends Controller
                 Cart::where('id', $request->id)
                     ->update(['key'   => $new_model_no]);
 
-                //$success = $this->createNewModelImages($newModel, $request->img); 
-                ModelCreateController::createNewModelImages($newModel, $request->img);
             }
 
         }
@@ -121,7 +125,7 @@ class DesignerIdeaController extends Controller
             return json_encode(['STATUS'=>'false', 'ID'=>$request->id]);
         }
         
-        return json_encode(['STATUS'=>'true', 'ID'=>$request->id]);
+        return json_encode(['STATUS'=>'true', 'ID'=>$newModel->id]);
     }
     
 

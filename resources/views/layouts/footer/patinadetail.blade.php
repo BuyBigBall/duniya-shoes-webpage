@@ -23,7 +23,7 @@
                         </li>
                         <li>
                             <b data-lang="website">Website</b>
-                            <!-- <span>https://www.itailorshoes.com/patina/</span> -->
+                            <!-- <span>/patina/</span> -->
                         </li>
                     </ul>
                 </div>
@@ -1288,8 +1288,8 @@
         $(document).ready(function () {
             var initData = {
                 path: {
-                    domainPath: 'https://www.itailorshoes.com/',
-                    projectPath: 'https://www.itailorshoes.com/design-patina-shoes/'
+                    domainPath: '/',
+                    projectPath: '/design-patina-shoes/'
                 },
                 global: '{"COUNTRY":"Russian Federation","CURR":"EUR","LANGUAGE":"English","SIGN":"&euro;"}',
                 profile: '',

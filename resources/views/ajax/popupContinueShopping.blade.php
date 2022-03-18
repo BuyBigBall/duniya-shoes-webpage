@@ -40,7 +40,7 @@
                 <img src="webroot/img/tab-promotion.png" class="tab-promotion"/>
             </div>
         </div>
-        <div class="list" onclick="window.location = 'https://www.itailorshoes.com/patina/'">
+        <div class="list" onclick="window.location = '/patina/'">
 
             <div class="list-box list-box-2">
                 <div style="position: absolute; top: 20px; right: 10px;">
