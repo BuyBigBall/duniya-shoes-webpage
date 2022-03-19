@@ -175,11 +175,14 @@ class elementsController extends Controller
     public function delCart(Request $request)
     {
         $cart_item = Cart::find($request->id);
-
+        $delId = 0;
+        if($cart_item)      $delId = $cart_item->id;
         if( !empty(auth()->user()))
-            $Last_Items = Cart::where('session', auth()->user()->id)->where('id', '<>',$cart_item->id)->get();
+            $Last_Items = Cart::where('session', auth()->user()->id)
+                ->where('id', '<>', $delId)->get();
         else
-            $Last_Items = Cart::where('token', $cart_item->token)->where('id', '<>',$cart_item->id)->get();
+            $Last_Items = Cart::where('token', $cart_item->token)
+                ->where('id', '<>', $delId)->get();
 
         $discount = 0;
         $price = 0;
