@@ -62,11 +62,11 @@ class DesignerIdeaController extends Controller
                 $max_model = ModelSerial::where('sex', $gender)->orderBy('modelno', 'DESC')->first();
 
                 // dd($max_model);
-
                 $max_num        = intval(substr($max_model->modelno, strlen($prefix)));
                 $new_model_no   = sprintf($prefix . "%03d", $max_num + 1 );
                 $shoeDesignInfo = json_decode(base64_decode($cart_item->desc));
                 
+                // dd($shoeDesignInfo);
                 if( !empty($cart_item->key) )
                 {
                     $new_model_no = $cart_item->key;
@@ -76,10 +76,10 @@ class DesignerIdeaController extends Controller
                 $main_color     = getLeather($shoeDesignInfo->getLeatherNo );
                 $mixGroup       = getMixGroup($shoeDesignInfo->getLeatherNo );
 
-                [$front,$front_color]   = getFront($shoeDesignInfo->getFront,  $shoeDesignInfo->getFrontNo );
+                [$front,$front_color]   = getFront($shoeDesignInfo->getFront,   $shoeDesignInfo->getFrontNo );
                 [$side,$side_color]     = getSide($shoeDesignInfo->getSide,     $shoeDesignInfo->getSideNo );
-                [$back,$back_color]     = getBack($shoeDesignInfo->getLeather,  $shoeDesignInfo->getBack );
-                [$sole,$sole_color]     = getSole($shoeDesignInfo->getSoleBorder, $shoeDesignInfo->getSole );
+                [$back,$back_color]     = getBack($shoeDesignInfo->getBack,     $shoeDesignInfo->getBackNo );
+                [$sole,$sole_color]     = getSole($shoeDesignInfo->sole,        $shoeDesignInfo->getSole );
                 [$accessory, $access_color]= getAccessory($shoeDesignInfo->getAccessory, $shoeDesignInfo->getAccessoryNo);
                 $laces                  = getLaces($shoeDesignInfo->getLacesNo);
                 $lining                 = getLining($shoeDesignInfo->getLiningNo);

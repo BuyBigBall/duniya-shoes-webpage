@@ -173,7 +173,7 @@ class AjaxController extends Controller
                         ,"getShoePrice" =>      $request->totalPrice
                         ,"getMixPrice"  => 0                             //"9.9"
                         ,"getShoeDiscountItem" => "0"
-                        ,"getShoeShipping"  => "0"
+                        ,"getShoeShipping"  => setting("site.shipping_amount")
                         ,"setStatusMix"     => "false"
                         ,"prevLeatherNo"    => "none"
                         ,"response"     => "false"

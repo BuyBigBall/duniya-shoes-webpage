@@ -87,8 +87,10 @@ function getLeather($lthKey)
 function getAccessory($lthCategoryName, $lthKey)
 {
     $lth_type = StyleAccessory::where('pkey', $lthCategoryName)->first();
-    if( !empty($lth_type) )  $lth_type = $lth_type->id;
-    else                     $lth_type = 0;
+    if($lthCategoryName=='none')    $lth_type = 0;    
+    elseif( !empty($lth_type) )     $lth_type = $lth_type->id;
+    else                            $lth_type = 0;
+    
 
     $lth_color = ColorAccessory::where('name', $lthKey)->first();
     if( !empty($lth_color) )  $lth_color = $lth_color->id;

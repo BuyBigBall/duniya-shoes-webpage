@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    let dollar_this;    //$_this
     $('#buttonCheckPayPal').live('click', function () {
         if ($('#FrmCheckout').FrmValidationEngine()) {
             checkFrmCheckout('Paypal');
@@ -183,8 +185,9 @@ $(document).ready(function () {
     $(window).resize(function () {
         var winHeight = $(document).height();
         var winWidth = $(document).width();
-        var width = ($(window).width() - $_this.find('div:eq(0)').width()) / 2;
-        var height = ($(window).height() - $_this.find('div:eq(0)').height()) / 2;
+        if(dollar_this==undefined)   return;     //added 03.19
+        var width = ($(window).width() - dollar_this.find('div:eq(0)').width()) / 2;
+        var height = ($(window).height() - dollar_this.find('div:eq(0)').height()) / 2;
         $('#PopUp').css({ width: winWidth, height: winHeight });
         $('#PopUp').find('div:eq(0)').css({
             'position': 'absolute',
@@ -204,8 +207,8 @@ function loadDataCheckout() {
 /*menu*/
 function loadPopUp($a, $b, $c) {
     $('.Popup').remove();
-    $_this = $("<div class='Popup' id='PopUp'>");
-    $($_this).appendTo('body').css({
+    dollar_this = $("<div class='Popup' id='PopUp'>");
+    $(dollar_this).appendTo('body').css({
         width: $(document).width(),
         height: $(document).height(),
         'position': 'absolute',
@@ -215,7 +218,7 @@ function loadPopUp($a, $b, $c) {
         'background-color': 'rgba(0,0,0,0.7)'
     });
     if ($a === 'PopUpPreDesign') {
-        $($_this).css({
+        $(dollar_this).css({
             'background-color': 'rgba(0,0,0,1)',
             'background-image': 'url(images/bg/bg-My-Wish.jpg)',
             'background-size': ' 100% 650px',
@@ -225,29 +228,30 @@ function loadPopUp($a, $b, $c) {
     
     // http://127.0.0.1:8000/designshoes/elements/popUp/PopUpCompleted
     console.log($a)
-    $_this.load("elements/popUp/" + $a, function (data) {
-        if ($_this.find('div:eq(0)').is('#divPreDesign') || $_this.find('div:eq(0)').is('#PopUpPreOrder')) {
-            $_this.find('div:eq(0)').css({
+    
+    dollar_this.load("elements/popUp/" + $a, function (data) {
+        if (dollar_this.find('div:eq(0)').is('#divPreDesign') || dollar_this.find('div:eq(0)').is('#PopUpPreOrder')) {
+            dollar_this.find('div:eq(0)').css({
                 'position': 'absolute',
-                left: ($(document).width() - 20 - $_this.find('div:eq(0)').width()) / 2,
+                left: ($(document).width() - 20 - dollar_this.find('div:eq(0)').width()) / 2,
                 top: 0
             });
         } else {
-            var width = ($(window).width() - $_this.find('div:eq(0)').width()) / 2;
-            var height = ($(window).height() - $_this.find('div:eq(0)').height()) / 2;
-            $_this.find('div:eq(0)').css({
+            var width = ($(window).width() - dollar_this.find('div:eq(0)').width()) / 2;
+            var height = ($(window).height() - dollar_this.find('div:eq(0)').height()) / 2;
+            dollar_this.find('div:eq(0)').css({
                 'position': 'absolute',
                 left: width < 0 ? 0 : width,
                 top: height < 0 ? 0 : height
             });
 
-            if ($_this.find('div:eq(0)').is('#divAccount')) {
-                $_this.find('#cust_inf').empty().load('elements/popUp/account/information.php');
-                $_this.find('#sizes').empty().load('elements/popUp/account/sizes.php', function () {
+            if (dollar_this.find('div:eq(0)').is('#divAccount')) {
+                dollar_this.find('#cust_inf').empty().load('elements/popUp/account/information.php');
+                dollar_this.find('#sizes').empty().load('elements/popUp/account/sizes.php', function () {
                     $("#tabs-s,#tabs-prod-male,#tabs-prod-female").tabs();
                 });
 
-                $_this.find('#ordering').empty().load('elements/popUp/account/orderHistory.php', function () {
+                dollar_this.find('#ordering').empty().load('elements/popUp/account/orderHistory.php', function () {
                     $(".main-order-list").mCustomScrollbar({
                         scrollButtons: {
                             enable: false
@@ -258,7 +262,7 @@ function loadPopUp($a, $b, $c) {
                     });
                     setLanguage();
                 });
-                $_this.find('#gift_card').empty().load('elements/popUp/account/giftcard.php', function () {
+                dollar_this.find('#gift_card').empty().load('elements/popUp/account/giftcard.php', function () {
                     setLanguage();
                 });
             }

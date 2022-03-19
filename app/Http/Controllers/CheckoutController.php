@@ -50,7 +50,7 @@ class CheckoutController extends Controller
                 $goodsLists[$i . '']->MODELNO = $item->key;
                 $goodsLists[$i . '']->productName = $item->name;
                 $goodsLists[$i . '']->getQty = $item->quantity;
-                //dd($goodsLists[$i . '']->getLeatherName);               
+                // dd($goodsLists[$i . '']);  
             }
         }
         $data = [

@@ -96,4 +96,4 @@ Route::middleware('auth')->group(function () {
 
 
 # this is  for test
-Route::get('/savedesign',[DesignerIdeaController::class, 'createDesignImages'])->name('checkSessionPreDesign.save.test');
+Route::get('/savedesignimage',[DesignerIdeaController::class, 'createDesignImages'])->name('checkSessionPreDesign.save.test');
