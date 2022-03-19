@@ -83,6 +83,13 @@ class elementsController extends Controller
         $fasionTypeArr = [];
         foreach ($sides as $side) {
             if ($side->fasion_type == $fasionType) {
+                # this is the only sides for last fashion_type.
+                // "pid"	"id"	"name"	"path"	"fasion_type"	"side_type"
+                // "46"	"SD1"	"SIDE SD1"	"SD1"	"FT12"	"SD1"
+                // "47"	"SD2"	"SIDE SD2"	"SD2"	"FT12"	"SD2"
+                // "48"	"SD3"	"SIDE SD3"	"SD3"	"FT12"	"SD3"
+                // "49"	"SD4"	"SIDE SD4"	"SD4"	"FT12"	"SD4"
+                // "50"	"SD5"	"SIDE SD5"	"SD5"	"FT12"	"SD5"                
                 $sideType[$side->side_type] = $side;
             } else {
                 $fasionTypeArr[$fasionType] = $sideType;
