@@ -274,7 +274,7 @@ initial = (function (fn) {
                 // CHEN VIEW CHANGE.
                 var source_chen, view_chen, image_chen, id_chen;
 
-                view_chen = current_view > 0 ? 0 : 1;
+                view_chen = current_view > 0 ? 0 : 1;        //other view replace
                 id_chen = "#" + step[view_chen] + "-" + current_target;
 
                 source_chen = route + parameter["model"] + "/" + view[view_chen]
@@ -1176,7 +1176,7 @@ initial = (function (fn) {
                         checkImage.src = "/images/misc/check2.png";
                         checkImage.className = "leather-active";
 
-                        if (choosing === value.id)
+                        if (choosing === value.pid)
                         {
                             list.appendChild(checkImage);
                         }

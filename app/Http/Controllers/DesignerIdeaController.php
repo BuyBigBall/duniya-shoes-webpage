@@ -12,8 +12,10 @@ use App\Models\MainCategory;
 use App\Models\ColorMain;
 use App\Models\ColorBack;
 use App\Models\ColorSole;
+use App\Models\ColorSide;
+use App\Models\ColorFront;
 use App\Models\Cart;
-use App\Models\Color;
+use App\Models\ColorAccessory;
 use App\Models\Selector;
 use File;
 
@@ -158,12 +160,12 @@ class DesignerIdeaController extends Controller
 
         if(stripos(Route::currentRouteName(), 'women')!==false) 
         {
-            $models = ModelSerial::where('sex', 'women')->get();$this->gender = 'female';
+            $models = ModelSerial::where('sale_status', 'Y')->where('sex', 'women')->get();$this->gender = 'female';
             //$json = '{"category":"","style":"","colorGrp":"","optionSele":"","menuObject":{"CATEGORY":[{"ID":"9","NAME":"PREMIUM LEATHER"},{"ID":"10","NAME":"FASHION LEATHER"},{"ID":"11","NAME":"SHEEPSKIN LEATHER"},{"ID":"12","NAME":"BURNISHED LEATHER"},{"ID":"13","NAME":"FABRIC"},{"ID":"14","NAME":"Suede Leather"},{"ID":"15","NAME":"Thread Accessory"},{"ID":"16","NAME":"Leather Chamois"},{"ID":"17","NAME":"SEAM EDGE"},{"ID":"18","NAME":"Leather Dye"},{"ID":"19","NAME":"Laces"}],"STYLE":[{"ID":"Boot","NAME":"Boot"},{"ID":"Derby","NAME":"Derby"},{"ID":"Loafers","NAME":"Loafers"},{"ID":"Monk","NAME":"Monk"},{"ID":"Oxford","NAME":"Oxford"}],"COLORGRP":[{"ID":"4","NAME":"TAN BROWN                     "},{"ID":"5","NAME":"WARM TONE                     "},{"ID":"6","NAME":"Red-Pink TONE                 "},{"ID":"7","NAME":"NAVY Violet TONE              "},{"ID":"8","NAME":"GREEN TONE                    "},{"ID":"9","NAME":"ORANGE-Y TONE                 "},{"ID":"10","NAME":"BLACK-GREY TONE               "},{"ID":"11","NAME":"YELLOW TONE                   "},{"ID":"12","NAME":"BLUE TONE                     "}]},"designObject":[{"ID":"452","ROW":"1","NO":"DSW_006","NEW_TAG":"Y","MODELSTYLE":"Oxford","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"12","MAIN_COLORFRP":"6","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"","SALE":"149"},{"ID":"404","ROW":"2","NO":"DSW_004","NEW_TAG":"Y","MODELSTYLE":"Monk","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"9","MAIN_COLORFRP":"5","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"9","BACK_COLORGRP":"9","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"","SALE":"89"},{"ID":"457","ROW":"3","NO":"DSW_007","NEW_TAG":"Y","MODELSTYLE":"Loafers","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"12","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"Black","SALE":"149"},{"ID":"410","ROW":"4","NO":"DSW_005","NEW_TAG":"Y","MODELSTYLE":"Boot","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"18","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"259","SALE_STATUS":"N","SERIES":"red","SALE":"159"},{"ID":"408","ROW":"5","NO":"DSW_005","NEW_TAG":"Y","MODELSTYLE":"Boot","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"18","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"259","SALE_STATUS":"N","SERIES":"","SALE":"159"},{"ID":"453","ROW":"6","NO":"DSW_007","NEW_TAG":"Y","MODELSTYLE":"Loafers","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"12","MAIN_COLORFRP":"6","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"","SALE":"149"},{"ID":"455","ROW":"7","NO":"DSW_009","NEW_TAG":"Y","MODELSTYLE":"Boot","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"10","MAIN_COLORFRP":"4","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"N","SERIES":"","SALE":"149"},{"ID":"456","ROW":"8","NO":"DSW_010","NEW_TAG":"Y","MODELSTYLE":"Derby","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"10","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"15","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"N","SERIES":"","SALE":"149"},{"ID":"409","ROW":"9","NO":"DSW_005","NEW_TAG":"Y","MODELSTYLE":"Boot","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"18","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"259","SALE_STATUS":"N","SERIES":"purple","SALE":"159"},{"ID":"407","ROW":"10","NO":"DSW_004","NEW_TAG":"N","MODELSTYLE":"Monk","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"9","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"9","BACK_COLORGRP":"5","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"Greay_Cream","SALE":"89"},{"ID":"400","ROW":"11","NO":"DSW_003","NEW_TAG":"N","MODELSTYLE":"Boot","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"9","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"129","SALE_STATUS":"N","SERIES":"","SALE":"0"},{"ID":"401","ROW":"12","NO":"DSW_003","NEW_TAG":"N","MODELSTYLE":"Boot","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"9","MAIN_COLORFRP":"4","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"129","SALE_STATUS":"N","SERIES":"brown","SALE":"0"},{"ID":"394","ROW":"13","NO":"DSW_002","NEW_TAG":"N","MODELSTYLE":"Loafers","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"16","MAIN_COLORFRP":"6","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"16","ACCESSORY_COLORGRP":"6","PRICE":"129","SALE_STATUS":"N","SERIES":"","SALE":"0"},{"ID":"396","ROW":"14","NO":"DSW_002","NEW_TAG":"N","MODELSTYLE":"Loafers","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"16","MAIN_COLORFRP":"5","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"16","ACCESSORY_COLORGRP":"4","PRICE":"129","SALE_STATUS":"N","SERIES":"purple","SALE":"0"},{"ID":"397","ROW":"15","NO":"DSW_002","NEW_TAG":"N","MODELSTYLE":"Loafers","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"16","MAIN_COLORFRP":"6","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"16","ACCESSORY_COLORGRP":"6","PRICE":"129","SALE_STATUS":"N","SERIES":"pink","SALE":"0"},{"ID":"398","ROW":"16","NO":"DSW_002","NEW_TAG":"N","MODELSTYLE":"Loafers","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"16","MAIN_COLORFRP":"8","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"16","ACCESSORY_COLORGRP":"8","PRICE":"129","SALE_STATUS":"N","SERIES":"Green","SALE":"0"},{"ID":"399","ROW":"17","NO":"DSW_001","NEW_TAG":"N","MODELSTYLE":"Oxford","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"10","MAIN_COLORFRP":"5","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"Cream","SALE":"89"},{"ID":"395","ROW":"18","NO":"DSW_002","NEW_TAG":"N","MODELSTYLE":"Loafers","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"16","MAIN_COLORFRP":"11","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"16","ACCESSORY_COLORGRP":"11","PRICE":"129","SALE_STATUS":"N","SERIES":"Yellow_green","SALE":"0"}],"sign":"&euro;"}';
         }
         else
         {
-            $models = ModelSerial::where('sex', 'man')->get();  $this->gender = 'male';
+            $models = ModelSerial::where('sale_status', 'Y')->where('sex', 'man')->get();  $this->gender = 'male';
             //$json = '{"category":"","style":"","colorGrp":"","optionSele":"","menuObject":{"CATEGORY":[{"ID":"9","NAME":"PREMIUMLEATHER"},{"ID":"10","NAME":"FASHIONLEATHER"},{"ID":"11","NAME":"SHEEPSKINLEATHER"},{"ID":"12","NAME":"BURNISHEDLEATHER"},{"ID":"13","NAME":"FABRIC"},{"ID":"14","NAME":"SuedeLeather"},{"ID":"15","NAME":"ThreadAccessory"},{"ID":"16","NAME":"LeatherChamois"},{"ID":"17","NAME":"SEAMEDGE"},{"ID":"18","NAME":"LeatherDye"},{"ID":"19","NAME":"Laces"}],"STYLE":[{"ID":"Boot","NAME":"Boot"},{"ID":"Derby","NAME":"Derby"},{"ID":"Fashion","NAME":"Fashion"},{"ID":"Loafers","NAME":"Loafers"},{"ID":"Monk","NAME":"Monk"},{"ID":"Oxford","NAME":"Oxford"},{"ID":"Sneaker","NAME":"Sneaker"}],"COLORGRP":[{"ID":"4","NAME":"TANBROWN"},{"ID":"5","NAME":"WARMTONE"},{"ID":"6","NAME":"Red-PinkTONE"},{"ID":"7","NAME":"NAVYVioletTONE"},{"ID":"8","NAME":"GREENTONE"},{"ID":"9","NAME":"ORANGE-YTONE"},{"ID":"10","NAME":"BLACK-GREYTONE"},{"ID":"11","NAME":"YELLOWTONE"},{"ID":"12","NAME":"BLUETONE"}]},"designObject":[{"ID":"440","ROW":"1","NO":"DS_107","NEW_TAG":"Y","MODELSTYLE":"Oxford","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"18","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"259","SALE_STATUS":"N","SERIES":"","SALE":"159"},{"ID":"464","ROW":"2","NO":"DS_114","NEW_TAG":"Y","MODELSTYLE":"Monk","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"12","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"black","SALE":"149"},{"ID":"196","ROW":"3","NO":"DS_042","NEW_TAG":"Y","MODELSTYLE":"Derby","FRONT_CATEGORY":"11","FRONT_COLORGRP":"10","MAIN_CATEGORY":"","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"N","SERIES":"","SALE":"179"},{"ID":"80","ROW":"4","NO":"DS_018","NEW_TAG":"N","MODELSTYLE":"Oxford","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"13","MAIN_COLORFRP":"","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"219","SALE_STATUS":"Y","SERIES":"","SALE":"149"},{"ID":"188","ROW":"5","NO":"DS_038","NEW_TAG":"N","MODELSTYLE":"Derby","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"12","MAIN_COLORFRP":"4","SIDE_CATEGORY":"12","SIDE_COLORGRP":"4","BACK_CATEGORY":"12","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"Y","SERIES":"","SALE":"179"},{"ID":"7","ROW":"6","NO":"DS_002","NEW_TAG":"N","MODELSTYLE":"Oxford","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"10","MAIN_COLORFRP":"5","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"Y","SERIES":"","SALE":"179"},{"ID":"201","ROW":"7","NO":"DS_046","NEW_TAG":"N","MODELSTYLE":"Oxford","FRONT_CATEGORY":"9","FRONT_COLORGRP":"10","MAIN_CATEGORY":"9","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"9","BACK_COLORGRP":"10","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"129","SALE_STATUS":"N","SERIES":"","SALE":"0"},{"ID":"170","ROW":"8","NO":"DS_030","NEW_TAG":"N","MODELSTYLE":"Derby","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"14","MAIN_COLORFRP":"10","SIDE_CATEGORY":"9","SIDE_COLORGRP":"5","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"grey_suede","SALE":"149"},{"ID":"23","ROW":"9","NO":"DS_011","NEW_TAG":"N","MODELSTYLE":"Derby","FRONT_CATEGORY":"9","FRONT_COLORGRP":"4","MAIN_CATEGORY":"9","MAIN_COLORFRP":"4","SIDE_CATEGORY":"9","SIDE_COLORGRP":"4","BACK_CATEGORY":"9","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"169","SALE_STATUS":"N","SERIES":"","SALE":"0"},{"ID":"177","ROW":"10","NO":"DS_032","NEW_TAG":"N","MODELSTYLE":"Derby","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"9","MAIN_COLORFRP":"10","SIDE_CATEGORY":"11","SIDE_COLORGRP":"10","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"N","SERIES":"","SALE":"149"},{"ID":"16","ROW":"11","NO":"DS_007","NEW_TAG":"N","MODELSTYLE":"Fashion","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"12","MAIN_COLORFRP":"4","SIDE_CATEGORY":"12","SIDE_COLORGRP":"4","BACK_CATEGORY":"12","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"12","ACCESSORY_COLORGRP":"4","PRICE":"169","SALE_STATUS":"Y","SERIES":"","SALE":"149"},{"ID":"29","ROW":"12","NO":"DS_002","NEW_TAG":"","MODELSTYLE":"Oxford","FRONT_CATEGORY":"12","FRONT_COLORGRP":"6","MAIN_CATEGORY":"10","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"Y","SERIES":"ItalyBlack-Red","SALE":"179"},{"ID":"18","ROW":"13","NO":"DS_008","NEW_TAG":"N","MODELSTYLE":"Monk","FRONT_CATEGORY":"12","FRONT_COLORGRP":"10","MAIN_CATEGORY":"12","MAIN_COLORFRP":"10","SIDE_CATEGORY":"12","SIDE_COLORGRP":"10","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"","SALE":"79"},{"ID":"152","ROW":"14","NO":"DS_024","NEW_TAG":"N","MODELSTYLE":"Oxford","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"9","MAIN_COLORFRP":"10","SIDE_CATEGORY":"9","SIDE_COLORGRP":"10","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"159","SALE_STATUS":"Y","SERIES":"BlackShoes","SALE":"89"},{"ID":"31","ROW":"15","NO":"DS_012","NEW_TAG":"","MODELSTYLE":"Loafers","FRONT_CATEGORY":"9","FRONT_COLORGRP":"4","MAIN_CATEGORY":"9","MAIN_COLORFRP":"4","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"9","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"9","ACCESSORY_COLORGRP":"4","PRICE":"129","SALE_STATUS":"N","SERIES":"","SALE":"0"},{"ID":"228","ROW":"16","NO":"DS_055","NEW_TAG":"N","MODELSTYLE":"Boot","FRONT_CATEGORY":"9","FRONT_COLORGRP":"4","MAIN_CATEGORY":"9","MAIN_COLORFRP":"4","SIDE_CATEGORY":"9","SIDE_COLORGRP":"4","BACK_CATEGORY":"9","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"269","SALE_STATUS":"N","SERIES":"","SALE":"179"},{"ID":"24","ROW":"17","NO":"DS_008","NEW_TAG":"","MODELSTYLE":"Monk","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"12","MAIN_COLORFRP":"4","SIDE_CATEGORY":"12","SIDE_COLORGRP":"6","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"","ACCESSORY_COLORGRP":"","PRICE":"169","SALE_STATUS":"Y","SERIES":"Red","SALE":"149"},{"ID":"81","ROW":"18","NO":"DS_019","NEW_TAG":"N","MODELSTYLE":"Loafers","FRONT_CATEGORY":"","FRONT_COLORGRP":"","MAIN_CATEGORY":"13","MAIN_COLORFRP":"12","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"9","ACCESSORY_COLORGRP":"4","PRICE":"159","SALE_STATUS":"Y","SERIES":"","SALE":"79"},{"ID":"9","ROW":"19","NO":"DS_004","NEW_TAG":"","MODELSTYLE":"Loafers","FRONT_CATEGORY":"12","FRONT_COLORGRP":"4","MAIN_CATEGORY":"12","MAIN_COLORFRP":"4","SIDE_CATEGORY":"12","SIDE_COLORGRP":"4","BACK_CATEGORY":"12","BACK_COLORGRP":"4","ACCESSORY_CATEGORY":"12","ACCESSORY_COLORGRP":"4","PRICE":"159","SALE_STATUS":"Y","SERIES":"","SALE":"149"},{"ID":"57","ROW":"20","NO":"DS_014","NEW_TAG":"","MODELSTYLE":"Loafers","FRONT_CATEGORY":"11","FRONT_COLORGRP":"10","MAIN_CATEGORY":"11","MAIN_COLORFRP":"10","SIDE_CATEGORY":"","SIDE_COLORGRP":"","BACK_CATEGORY":"","BACK_COLORGRP":"","ACCESSORY_CATEGORY":"11","ACCESSORY_COLORGRP":"10","PRICE":"269","SALE_STATUS":"N","SERIES":"Black_Black_SheepSkin","SALE":"179"}],"sign":"&euro;"}';
         }
         
@@ -216,8 +218,23 @@ class DesignerIdeaController extends Controller
     public function designerShoes(Request $request)
     {
         $modelno = $request->model;
-        $modelInfo = ModelSerial::where('modelno', $modelno)->first();
-        if( !!empty($modelInfo) )   redirect( route('/') );
+        $modelInfo = ModelSerial::where('modelno', $modelno);
+        if( !empty($request->series) )
+        {
+            $modelInfo->where('serials', $request->series);
+        }
+        else
+        {
+            $modelInfo->whereRaw("length(serials)=0");
+        }
+
+        
+        $modelInfo = $modelInfo->first();
+        
+        if( $modelInfo==null )
+        {
+            return redirect( route('designidea') );
+        }   
 
         $resultInfo = [];
         $resultInfo['modelpkey']    = $modelInfo->id;
@@ -243,10 +260,14 @@ class DesignerIdeaController extends Controller
         $resultInfo['defaults']['theme']        = $modelInfo->theme;
         $resultInfo['defaults']['model_sex']    = $modelInfo->sex;
         $resultInfo['defaults']['backstitch_price'] = $modelInfo->backstitch_price ?? 0;
+        
         $resultInfo['defaults']['main_name']    = !!empty($modelInfo->mainclr) ? "false" : $modelInfo->mainclr->name;
         $resultInfo['defaults']['sole_name']    = !!empty($modelInfo->soleclr) ? "false" : $modelInfo->soleclr->path;
         $resultInfo['defaults']['back_name']    = !!empty($modelInfo->backclr) ? "false" : $modelInfo->backclr->name;
         $resultInfo['defaults']['lining_name']  = !!empty($modelInfo->liningclr) ? "false" : $modelInfo->liningclr->name;
+        $resultInfo['defaults']['accessory_name']= !!empty($modelInfo->accessoryclr) ? "false" : $modelInfo->accessoryclr->name;
+        $resultInfo['defaults']['front_name']    = !!empty($modelInfo->frontclr) ? "false" : $modelInfo->frontclr->name;
+        $resultInfo['defaults']['side_name']    = !!empty($modelInfo->sideclr) ? "false" : $modelInfo->sideclr->name;
 
         $resultInfo['defaults']['selector']     = "main";
         $resultInfo['defaults']['product']      = "shoe";
@@ -265,54 +286,124 @@ class DesignerIdeaController extends Controller
         }
 
         #######################  back ################
-        $resultInfo['back']         = [];
-        $item = [];
-        $backLeathers = ColorBack::where('mixgroup', $modelInfo->mixgroup)->distinct()->groupBy('key')->get();
-        foreach($backLeathers as $backs)
-        {
-            $item[] = [ 'pid'   => $backs->id,
-                        'id'    => $backs->key,
-                        'name'  => $backs->name,
-                        'path'  => $backs->path,
-                        'price' => $backs->price ?? 0
-                    ];
+        if(!empty($modelInfo->back)){
+            $resultInfo['back']         = [];
+            $item = [];
+            $mixgroup = $modelInfo->backclr ? $modelInfo->backclr->mixgroup : $modelInfo->mixgroup;
+            $backLeathers = ColorBack::where('mixgroup', '>',0)->
+                            where('mixgroup', $mixgroup)->distinct()->groupBy('key')->get();
+            foreach($backLeathers as $backs)
+            {
+                $item[] = [ 'pid'   => $backs->id,
+                            'id'    => $backs->path,
+                            'name'  => $backs->name,
+                            'path'  => $backs->path,
+                            'price' => $backs->price ?? 0
+                        ];
+            }
+            $resultInfo['back']['type'] = 'leather';
+            $resultInfo['back']['item'] = $item;
         }
-        $resultInfo['back']['type'] = 'leather';
-        $resultInfo['back']['item'] = $item;
 
-        
-        #######################  sole ################
-        $resultInfo['sole']         = [];
-        $item = []; //where('shape', $modelInfo->shape)->
-        $shoeInfo = ColorSole::find($modelInfo->sole_color);
-        
-        
-        if( !empty($shoeInfo) && $shoeInfo->mixgroup==8) $sole_items = ColorSole::where('mixgroup', $shoeInfo->mixgroup);
-        else                   $sole_items = ColorSole::where('shape', $modelInfo->shape);
-        
-        //dd($sole_items->toSql());
-        // var_dump($modelInfo->shape);
-        // var_dump($shoeInfo->mixgroup);
-        $sole_items = $sole_items->distinct()->groupBy('pkey')->get();
-//        dd($sole_items);
-        foreach($sole_items as $sole)
-        {
-            $item[] = [ 'pid'   => $sole->id,
-                        'id'    => $sole->pkey,
-                        'name'  => $sole->name,
-                        'path'  => $sole->path,
-                        'price' => $sole->price ?? 0];
+        #######################  side ################
+        if(!empty($modelInfo->side)){
+            $resultInfo['side']         = [];
+            $item = [];
+            $mixgroup = $modelInfo->sideclr ? $modelInfo->sideclr->mixgroup : $modelInfo->mixgroup;
+            $backLeathers = ColorSide::where('mixgroup', '>', 0)
+                            ->where('mixgroup', $mixgroup)
+                            ->distinct()->groupBy('key')->get();
+            foreach($backLeathers as $backs)
+            {
+                $item[] = [ 'pid'   => $backs->id,
+                            'id'    => $backs->path,
+                            'name'  => $backs->name,
+                            'path'  => $backs->path,
+                            'price' => $backs->price ?? 0
+                        ];
+            }
+            //dd($mixgroup);
+            $resultInfo['side']['type'] = 'leather';
+            $resultInfo['side']['item'] = $item;
         }
-        $resultInfo['sole']['type'] = 'leather';
-        $resultInfo['sole']['item'] = $item;
+
+        #######################  accessory ################
+        if(!empty($modelInfo->accessory)){
+            $resultInfo['accessory']         = [];
+            $item = [];
+            $mixgroup = $modelInfo->accessoryclr ? $modelInfo->accessoryclr->mixgroup : $modelInfo->mixgroup;
+            $accessLeathers = ColorAccessory::
+                        where('mixgroup', '>', 0)
+                        ->where('mixgroup', $mixgroup)
+                        ->distinct()->groupBy('key')->get();
+            //dd($mixgroup);
+            foreach($accessLeathers as $backs)
+            {
+                $item[] = [ 'pid'   => $backs->id,
+                            'id'    => $backs->path,
+                            'name'  => $backs->name,
+                            'path'  => $backs->path,
+                            'price' => $backs->price ?? 0
+                        ];
+            }
+            $resultInfo['accessory']['type'] = 'leather';
+            $resultInfo['accessory']['item'] = $item;
+        }
+
+        #######################  front ################
+        if(!empty($modelInfo->front)){
+            $resultInfo['front']         = [];
+            $item = [];
+            $mixgroup = $modelInfo->frontclr ? $modelInfo->frontclr->mixgroup : $modelInfo->mixgroup;
+            $frontLeathers = ColorFront::
+                        where('mixgroup', '>', 0)
+                        ->where('mixgroup', $mixgroup)
+                        ->distinct()->groupBy('key')->get();
+            foreach($frontLeathers as $backs)
+            {
+                $item[] = [ 'pid'   => $backs->id,
+                            'id'    => $backs->path,
+                            'name'  => $backs->name,
+                            'path'  => $backs->path,
+                            'price' => $backs->price ?? 0
+                        ];
+            }
+            $resultInfo['front']['type'] = 'leather';
+            $resultInfo['front']['item'] = $item;
+            // dd($resultInfo['front']);
+        }
+
+
+        #######################  sole ################
+        if(!empty($modelInfo->sole)){
+            $resultInfo['sole']         = [];
+            $item = []; //where('shape', $modelInfo->shape)->
+            $shoeInfo = ColorSole::find($modelInfo->sole_color);
+            // dd($shoeInfo);
+            if( !empty($shoeInfo) || $shoeInfo->mixgroup==8) 
+                    $sole_items = ColorSole::where('mixgroup', $shoeInfo->mixgroup)
+                                            ->where('mixgroup', '>',0);
+            else                   
+                    $sole_items = ColorSole::where('shape', $modelInfo->shape)
+                        ->where('mixgroup', '>',0);
+            
+            $sole_items = $sole_items->distinct()->groupBy('pkey')->get();
+            foreach($sole_items as $sole)
+            {
+                $item[] = [ 'pid'   => $sole->id,
+                            'id'    => $sole->pkey,
+                            'name'  => $sole->name,
+                            'path'  => $sole->path,
+                            'price' => $sole->price ?? 0];
+            }
+            $resultInfo['sole']['type'] = 'leather';
+            $resultInfo['sole']['item'] = $item;
+        }
 
         #######################  leathers ################
-        $resultInfo['leather']         = [];
-        $resultInfo['leather']['type'] = 'leather';
-        $resultInfo['leather']['item'] = $item;     
-
         $item = [];
-        $mains = ColorMain::where('mixgroup', $modelInfo->mixgroup)->distinct()->groupBy('pkey')->get();
+        $mixgroup = $modelInfo->mainclr ? $modelInfo->mainclr->mixgroup : $modelInfo->mixgroup;
+        $mains = ColorMain::where('mixgroup', $mixgroup)->distinct()->groupBy('pkey')->get();
         foreach($mains as $main)
         {
             $item[] = [ 'pid'   => $main->id,
@@ -328,11 +419,12 @@ class DesignerIdeaController extends Controller
         $resultInfo['leather']['type'] = 'leather';
         $resultInfo['leather']['item'] = $item;     
 
-        #######################  monogram,selector  ################
+
+        #######################  monogram  ################
         $resultInfo['monogram']     = ["inside"=>"Y", "outside"=>"Y"];
 
-        
-        $selectors = Selector::where('model_id', $modelInfo->id)->orderBy('pageno', 'ASC')->orderBy('id', 'ASC')->get();
+        #######################  selector  ################
+        $selectors = Selector::where('modelno', $modelInfo->modelno)->orderBy('pageno', 'ASC')->orderBy('id', 'ASC')->get();
         $idx = 0;$last = -1;
         foreach($selectors as $item)
         {
@@ -347,6 +439,7 @@ class DesignerIdeaController extends Controller
                     "pos"       => $item->labelpos,
                 ];
         }
+        //dd($resultInfo);
 
         $this->data = json_encode($resultInfo);
         //print_r(json_decode($this->data));exit;

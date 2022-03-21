@@ -10,6 +10,7 @@ $(document).ready(function () {
         //        if ($('#FrmCheckout').FrmValidationEngine()) {
         //            loadPopUp('PopUpCreditCheckout', 'divUpCreditCheckout');
         //        }
+        alert('The checkout payment have not ready.'); return;
         checkFrmCheckout('Credit Card Paypal');
     });
     $('#div_image a').live('click', function (e) {

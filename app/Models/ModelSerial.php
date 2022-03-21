@@ -76,7 +76,7 @@ class ModelSerial extends Model
         return $this->belongsTo(\App\Models\ColorSide::class,  'side_color');
     }
     public function accessoryclr() {
-        return $this->belongsTo(\App\Models\ColorAccessory::class,  'accessory_color');
+        return $this->belongsTo(\App\Models\ColorAccessory::class,  'access_color');
     }
     public function laceclr() {
         return $this->belongsTo(\App\Models\ColorLace::class,  'laces');

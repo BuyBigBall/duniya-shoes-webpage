@@ -123,22 +123,41 @@
     <div id="first-view">
         <!-- VIEW 1 -->
         <div class="first view active">
-                @if($gender=='male')
+                <div id="first-main" class="max-width-center anim">
+                    <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/main/{!! $shoes_data->defaults->main_name .'.png' !!}" alt="">
+                </div>
+            
+                @if( !empty($shoes_data->sole) )
                 <div id="first-sole" class="max-width-center">
                     <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/sole/{!! $shoes_data->defaults->sole_name .'.png' !!}" alt="">
                 </div>
                 @endif
             
-                <div id="first-main" class="max-width-center anim">
-                    <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/main/{!! $shoes_data->defaults->main_name .'.png' !!}" alt="">
-                </div>
             
-                @if($gender=='female')
+                @if( !empty($shoes_data->back) )
                 <div id="first-back" class="max-width-center">
                     <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/back/{!! $shoes_data->defaults->back_name .'.png' !!}" alt="">
                 </div>
                 @endif
             
+                @if( !empty($shoes_data->side) )
+                <div id="first-side" class="max-width-center">
+                    <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/Side/{!! $shoes_data->defaults->side_name .'.png' !!}" alt="">
+                </div>
+                @endif
+            
+                @if( !empty($shoes_data->front) )
+                <div id="first-front" class="max-width-center">
+                    <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/Front/{!! $shoes_data->defaults->front_name .'.png' !!}" alt="">
+                </div>
+                @endif
+            
+                @if( !empty($shoes_data->accessory) )
+                <div id="first-accessory" class="max-width-center">
+                    <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/Accessory/{!! $shoes_data->defaults->accessory_name .'.png' !!}" alt="">
+                </div>
+                @endif
+
                 <div id="first-body" class="max-width-center">
                     <img src="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view1/Body.png" alt="">
                 </div>
@@ -147,19 +166,19 @@
                         @foreach($shoes_data->selector[0] as $key=>$selector)
                             <?php $sel_bg = ''; ?>
                             @if($key=='side') <!-- SIDE SELECTOR --> 
-                                <?php $sel_bg = $shoes_data->defaults->side; ?>
+                                <?php $sel_bg = $shoes_data->defaults->side_name; ?>
                                     @endif
                             @if($key=='main') <!-- MAIN SELECTOR --> 
-                                <?php $sel_bg = $shoes_data->defaults->main; ?>
+                                <?php $sel_bg = $shoes_data->defaults->main_name; ?>
                                     @endif
                             @if($key=='front') <!-- FRONT SELECTOR --> 
-                                <?php $sel_bg = $shoes_data->defaults->front; ?>
+                                <?php $sel_bg = $shoes_data->defaults->front_name; ?>
                                     @endif
                             @if($key=='back') <!-- BACK SELECTOR --> 
-                                <?php $sel_bg = $shoes_data->defaults->back; ?>
+                                <?php $sel_bg = $shoes_data->defaults->back_name; ?>
                                     @endif
                             @if($key=='accessory') <!-- ACCESSORY SELECTOR --> 
-                                <?php $sel_bg = $shoes_data->defaults->accessory; ?>
+                                <?php $sel_bg = $shoes_data->defaults->accessory_name; ?>
                                     @endif
 
 
@@ -173,14 +192,40 @@
             </div>
         <!-- VIEW 2 -->
         <div class="second view">
-            <div id="second-sole" class="max-width-center">
-                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/sole/Sole-1BN.png" src="/images/misc/empty.png" alt="">
-            </div>
-        
             <div id="second-main" class="max-width-center anim">
-                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/main/Leather-Dye-LightBrown.png" src="/images/misc/empty.png" alt="">
+                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/main/{!! $shoes_data->defaults->main_name .'.png' !!}" src="/images/misc/empty.png" alt="">
             </div>
-        
+
+            @if( !empty($shoes_data->sole) )
+            <div id="second-sole" class="max-width-center">
+                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/sole/{!! $shoes_data->defaults->sole_name .'.png' !!}" src="/images/misc/empty.png" alt="">
+            </div>
+            @endif
+
+            @if( !empty($shoes_data->side) )
+            <div id="second-side" class="max-width-center">
+                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/side/{!! $shoes_data->defaults->side_name .'.png' !!}" src="/images/misc/empty.png" alt="">
+            </div>
+            @endif
+
+            @if( !empty($shoes_data->back) )
+            <div id="second-back" class="max-width-center">
+                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/back/{!! $shoes_data->defaults->back_name .'.png' !!}" src="/images/misc/empty.png" alt="">
+            </div>
+            @endif
+
+            @if( !empty($shoes_data->front) )
+            <div id="second-front" class="max-width-center">
+                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/front/{!! $shoes_data->defaults->front_name .'.png' !!}" src="/images/misc/empty.png" alt="">
+            </div>
+            @endif
+
+            @if( !empty($shoes_data->accessory) )
+            <div id="second-accessory" class="max-width-center">
+                <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/Accessory/{!! $shoes_data->defaults->accessory_name .'.png' !!}" src="/images/misc/empty.png" alt="">
+            </div>
+            @endif
+
             <div id="second-body" class="max-width-center">
                 <img data-source="/images/models/iShoes/designershoes/{!! $shoes_data->model !!}/view2/Body.png" src="/images/misc/empty.png" alt="">
             </div>
@@ -188,13 +233,26 @@
             <div id="selector-view2" class="show">
                 @if( !empty($shoes_data->selector[1] ) )
                     @foreach($shoes_data->selector[1] as $key=>$selector)
-                        @if($key=='side')       <!-- SIDE SELECTOR --> @endif
-                        @if($key=='main')       <!-- MAIN SELECTOR --> @endif
-                        @if($key=='front')      <!-- FRONT SELECTOR --> @endif
-                        @if($key=='back')       <!-- BACK SELECTOR --> @endif
-                        @if($key=='accessory')  <!-- ACCESSORY SELECTOR --> @endif
+                        <?php $sel_bg = ''; ?>
+                        @if($key=='side') <!-- SIDE SELECTOR --> 
+                            <?php $sel_bg = $shoes_data->defaults->side_name; ?>
+                                @endif
+                        @if($key=='main') <!-- MAIN SELECTOR --> 
+                            <?php $sel_bg = $shoes_data->defaults->main_name; ?>
+                                @endif
+                        @if($key=='front') <!-- FRONT SELECTOR --> 
+                            <?php $sel_bg = $shoes_data->defaults->front_name; ?>
+                                @endif
+                        @if($key=='back') <!-- BACK SELECTOR --> 
+                            <?php $sel_bg = $shoes_data->defaults->back_name; ?>
+                                @endif
+                        @if($key=='accessory') <!-- ACCESSORY SELECTOR --> 
+                            <?php $sel_bg = $shoes_data->defaults->accessory_name; ?>
+                                @endif
+
+
                         <div class="selector-{!! $selector->style !!} selector-target" data-target="{!! $key !!}" style="top:{!! $selector->y !!}px; left:{!! $selector->x !!}px;">
-                            <div class="selector" style="background-image:url(/images/models/iShoes/Menu/Leather/M/Leather-Dye-LightBrown.png);"></div>
+                            <div class="selector" style="background-image:url(/images/models/iShoes/Menu/Leather/M/{!! $sel_bg !!});"></div>
                             <span data-lang="click-change-leather" class="text-{!! $selector->pos !!}">CLICK TO CHANGE LEATHER</span>
                         </div>
                     @endforeach
@@ -345,6 +403,7 @@
 </section>                           
  </div> 
         <div id="choose">
+            <!-- this is default leathers and will be replaced by js -->
             <p id="choose-text" data-lang="choose-your-leather">CHOOSE YOUR LEATHER</p>
                 <ul id="choose-items" >
                     @foreach( $shoes_data->leather->item as $leather )
