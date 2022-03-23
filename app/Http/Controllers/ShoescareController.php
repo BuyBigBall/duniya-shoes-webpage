@@ -60,12 +60,12 @@ class ShoescareController extends Controller
     public function addShoeCare(Request $request)
     {
         foreach ($request->request as $key => $item) {
-            $cart = new Cart();
-            $cart->key = $item['id'];
-            $cart->name = $item['name'];
-            $cart->shape = $item['shape'];
-            $cart->style = $item['style'];
-            $cart->quantity = $item['quantity'];
+            $cart               = new Cart();
+            $cart->key          = $item['id'];
+            $cart->name         = $item['name'];
+            $cart->shape        = $item['shape'];
+            $cart->style        = $item['style'];
+            $cart->quantity     = $item['quantity'];
             if( !empty(auth()->user() ) )
                 $cart->session = auth()->user()->id;
             else

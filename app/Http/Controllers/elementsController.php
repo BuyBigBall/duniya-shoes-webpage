@@ -141,20 +141,22 @@ class elementsController extends Controller
         setcookie("_token", $request->_token, time() + 2 * 24 * 60 * 60);
         $cart = new Cart();
         
-        $cart->monoIn = $request->monoIn;
-        $cart->monoOut = $request->monoOut;
-        $cart->statusPreDesign = $request->statusPreDesign;
-        $cart->unit = $request->unit;
-        $cart->length = $request->length;
-        $cart->width = $request->width;
-        $cart->size_type = $request->size_type;
-        $cart->size = $request->size_no;
-        $cart->size_type_name = $request->size_name;
-        $cart->quantity = $request->qty;
-        $cart->lastitem = $request->lastitem;
-        $cart->desc = $request->sobj;
-        $cart->shape = "shoe";
-        $cart->style = "custom";
+        $cart->monoIn           = $request->monoIn;
+        $cart->monoOut          = $request->monoOut;
+        $cart->statusPreDesign  = $request->statusPreDesign;
+        $cart->unit             = $request->unit;
+        $cart->length           = $request->length;
+        $cart->width            = $request->width;
+        $cart->size_type        = $request->size_type;
+        $cart->size             = $request->size_no;
+        $cart->size_type_name   = $request->size_name;
+        $obj_description    = json_decode(base64_decode($request->sobj));
+        $cart->quantity         = $request->qty;
+        $cart->price            = $obj_description->getShoePrice;
+        $cart->lastitem         = $request->lastitem;
+        $cart->desc             = $request->sobj;
+        $cart->shape            = "shoe";
+        $cart->style            = "custom";
 
         if( !empty(auth()->user()))
         {

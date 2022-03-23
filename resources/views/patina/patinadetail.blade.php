@@ -31,7 +31,7 @@
                         <h2 style="text-transform: uppercase;">{{$shoes->title}}</h2>
                         <p id="price" class="emphasize">
                             <span>
-                                <span id="set-price">{{$shoes->price}}</span> <span id="set-currency">{{setting('site.sign')}}</span>
+                                <span id="set-price">{{$shoes->price}}</span> <span id="set-currency">{!! setting('site.sign') !!}</span>
                             </span>
                         </p>
                         <p id="item-code"><span>Style No.</span><span>{{$shoes->key}}</span></p>
@@ -116,7 +116,7 @@
                                         <div id="use-symbolic">
                                             <span class="text" data-lang="art-symbol">Art Symbol</span>
                                             <span class="price emphasize">+ <span id="symbolic-price">19</span> <span
-                                                    id="symbolic-currency">{{setting('site.sign')}}</span></span>
+                                                    id="symbolic-currency">{!! setting('site.sign') !!}</span></span>
                                         </div>
                                         <div id="second-symbolic" class="max-width-center anim">
                                             <img src="../images/misc/empty.png" alt="">
@@ -161,7 +161,7 @@
                                             <span class="text" data-lang="blake-stitch">BLAKE STITCH</span>
                                         </label>
                                         <span class="price emphasize">+ <span id="backstitch-price">0</span> <span
-                                                id="backstitch-currency">{{setting('site.sign')}}</span></span>
+                                                id="backstitch-currency">{!! setting('site.sign') !!}</span></span>
                                     </div>
                                     <div id="snds-sndv-main" class="max-width-center">
                                         <img src="/images/models/iShoes/designershoes/PT031/view3/sole/LT-N007.png"

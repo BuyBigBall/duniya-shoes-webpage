@@ -41,7 +41,7 @@
                     <div class="clt-figcaption">
                         <span title="Model Title">{{$shoes->title}}</span>
                         <span class="clt-item-price">
-                            <span>{{$shoes->price.setting('site.sign')}}</span>
+                            <span>{{$shoes->price}} {!! setting('site.sign') !!}</span>
                         </span>
                     </div>
                 </div>

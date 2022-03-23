@@ -204,6 +204,7 @@ class AjaxController extends Controller
                 'monoOut'   => $request->monogram['outsideSole'] ?? 'false',
                 'desc'      => $description_json,
                 'quantity'  => $request->measurement['quantity'],
+                'price'     => $request->price,
                 'length'    => $request->measurement['length'],
                 'width'     => $request->measurement['width'],
                 'unit'      => $request->measurement['unit'],

@@ -1512,9 +1512,9 @@ initial = (function (fn) {
             {
                 parameter["modelSeries"] = "defaults";
             }
-            parameter["productType"] = "shoe";
-            parameter["price"] = Spz("#set-price").val();
-            parameter["_token"] = $('input[name=_token]').val();
+            parameter["productType"]    = "shoe";
+            parameter["price"]          = Spz("#set-price").val();
+            parameter["_token"]         = $('input[name=_token]').val();
             // SEND PARAMETER HERE
             $.ajax({
                 type: "POST",

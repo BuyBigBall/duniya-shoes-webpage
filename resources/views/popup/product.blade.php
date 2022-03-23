@@ -308,28 +308,28 @@
                             <a target="_blank" href="/designshirts/">
                                 <img src="../images/PopUpProductV2/TailoredShirt.jpg">
                                 <span class="prod-promos-name prod-eff" data-lang="product-custom">CUSTOM SHIRT</span>
-                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">39.95</span> <span data-lang="product-currency">{{setting('site.sign')}}</span></span>
+                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">39.95</span> <span data-lang="product-currency">{!! setting('site.sign') !!}</span></span>
                             </a>
                         </li>
                         <li>
                             <a target="_blank" href="/designsuits/" title="CUSTOM SUIT">
                                 <img src="../images/PopUpProductV2/TailoredSuit.jpg">
                                 <span class="prod-promos-name prod-eff" data-lang="product-custom">CUSTOM SUIT</span>
-                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">139</span> <span data-lang="product-currency">{{setting('site.sign')}}</span></span>
+                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">139</span> <span data-lang="product-currency">{!! setting('site.sign') !!}</span></span>
                             </a>
                         </li>
                         <li>
                             <a target="_blank" href="/design3pcsuits/" title="CUSTOM SUIT3PCS">
                                 <img src="../images/PopUpProductV2/Tailored3Piece.jpg">
                                 <span class="prod-promos-name prod-eff" data-lang="product-custom">CUSTOM SUIT3PCS</span>
-                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">199</span> <span data-lang="product-currency">{{setting('site.sign')}}</span></span>
+                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">199</span> <span data-lang="product-currency">{!! setting('site.sign') !!}</span></span>
                             </a>
                         </li>
                         <li>
                             <a target="_blank" href="/designjackets/" title="CUSTOM JACKET">
                                 <img src="../images/PopUpProductV2/TailoredJacket.jpg">
                                 <span class="prod-promos-name prod-eff" data-lang="product-custom">CUSTOM JACKET</span>
-                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">99</span> <span data-lang="product-currency">{{setting('site.sign')}}</span></span>
+                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">99</span> <span data-lang="product-currency">{!! setting('site.sign') !!}</span></span>
                             </a>
                         </li>
                     </ul>
@@ -342,28 +342,28 @@
                                 <img src="../images/PopUpProductV2/TailoredVest.jpg">
                                 <span class="prod-promos-name prod-eff" data-lang="product-custom">CUSTOM VEST</span>
                                 <span class="prod-promos-price prod-eff">
-                                    <span data-lang="product-price">59</span> <span data-lang="product-currency">{{setting('site.sign')}}</span></span>
+                                    <span data-lang="product-price">59</span> <span data-lang="product-currency">{!! setting('site.sign') !!}</span></span>
                             </a>
                         </li>
                         <li>
                             <a target="_blank" href="/designpants/" title="CUSTOM PANT">
                                 <img src="../images/PopUpProductV2/TailoredPant.jpg">
                                 <span class="prod-promos-name prod-eff" data-lang="product-custom">CUSTOM PANT</span>
-                                <span class="prod-promos-price prod-eff" style="left: 0"><span data-lang="product-price">49</span> <span data-lang="product-currency">{{setting('site.sign')}}</span></span>
+                                <span class="prod-promos-price prod-eff" style="left: 0"><span data-lang="product-price">49</span> <span data-lang="product-currency">{!! setting('site.sign') !!}</span></span>
                             </a>
                         </li>
                         <li>
                             <a target="_blank" href="/designtuxedos/" title="CUSTOM TUXEDO">
                                 <img src="../images/PopUpProductV2/TailoredTuxedo.jpg">
                                 <span class="prod-promos-name prod-eff" data-lang="product-custom">CUSTOM TUXEDO</span>
-                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">179</span> <span data-lang="product-currency">{{setting('site.sign')}}</span></span>
+                                <span class="prod-promos-price prod-eff"><span data-lang="product-price">179</span> <span data-lang="product-currency">{!! setting('site.sign') !!}</span></span>
                             </a>
                         </li>
                         <li>
                             <a target="_blank" href="/designjeans/" title="CUSTOM JEAN">
                                 <img src="../images/PopUpProductV2/TailoredJeans.jpg">
                                 <span class="ppn2 prod-eff" data-lang="product-custom">CUSTOM JEAN</span>
-                                <span class="ppp2 prod-eff"><span data-lang="product-price">79</span> <span data-lang="product-currency">{{setting('site.sign')}}</span></span>
+                                <span class="ppp2 prod-eff"><span data-lang="product-price">79</span> <span data-lang="product-currency">{!! setting('site.sign') !!}</span></span>
                             </a>
                         </li>
                     </ul>
@@ -380,7 +380,7 @@
                             <a target="_blank" href="/designties/" title="CUSTOM TIE">
                                 <img src="../images/PopUpProductV2/TailoredTie.jpg">
                                 <span class="ppn3 prod-eff" data-lang="product-custom">CUSTOM TIE</span>
-                                <span class="ppp3 prod-eff"><span data-lang="product-price">8.99</span> <span data-lang="product-currency">{{setting('site.sign')}}</span></span>
+                                <span class="ppp3 prod-eff"><span data-lang="product-price">8.99</span> <span data-lang="product-currency">{!! setting('site.sign') !!}</span></span>
                             </a>
                         </li>
                         <li>
@@ -394,7 +394,7 @@
                 <div class="prod-avail">
                     <div>
                         <a target="_blank" href="/designcoats/" title="OVERCOAT"><span class="prod-eff" data-lang="overcoat">OVERCOAT</span></a>
-                        <a target="_blank" href="/designcoats/" title="OVERCOAT" class="prod-eff2"><span class="avail-price" data-lang="product-price">169</span><span class="avail-curr" data-lang="product-currency">{{setting('site.sign')}}</span></a>
+                        <a target="_blank" href="/designcoats/" title="OVERCOAT" class="prod-eff2"><span class="avail-price" data-lang="product-price">169</span><span class="avail-curr" data-lang="product-currency">{!! setting('site.sign') !!}</span></a>
                     </div>
                     <div><a href="/designcoats/" title="OVERCOAT"><span class="prod-eff" data-lang="available">AVAILABLE NOW !!</span></a></div>
                 </div>

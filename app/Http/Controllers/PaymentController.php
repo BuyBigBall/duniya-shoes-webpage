@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Session;
-use Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -25,12 +26,8 @@ class PaymentController extends Controller
      */
     public function postPaymentWithpaypal(Request $request)
     {
-		
 		$cartsess=Session::get('carts');
-		
-		
-		
-		$cartdata = Cart::select('*')->where('cart_sessionid' ,'=' , $cartsess)->get();
+		$cartdata = Cart::select('*')->where('session' ,'=' , Auth::id())->get();
 		
 		$pi=1;
 		$total=0;
@@ -58,7 +55,7 @@ class PaymentController extends Controller
 	$subtotal=$total+$shiptotal;
 
 	
-	
+	$grtotal = 0;
 	
 	
 	// $coucount = CartCoupon::select('*')->where('cart_sessionid' ,'=' , $cartsess)->count();
