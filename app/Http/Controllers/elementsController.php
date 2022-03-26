@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use App\models\Type;
 
 class elementsController extends Controller
 {
@@ -137,39 +140,131 @@ class elementsController extends Controller
 
     public function addCart(Request $request)
     {
-        //dd(base64_decode($request->sobj));
-        setcookie("_token", $request->_token, time() + 2 * 24 * 60 * 60);
-        $cart = new Cart();
+        if(Session::has('carts')) {
+			$cartsess=Session::get('carts');						
+		}else{
+			$carts=md5(microtime().rand());
+			$cartsess=Session::put('carts', $carts);							
+		}		
+        // $cart = new Cart();
         
-        $cart->monoIn           = $request->monoIn;
-        $cart->monoOut          = $request->monoOut;
-        $cart->statusPreDesign  = $request->statusPreDesign;
-        $cart->unit             = $request->unit;
-        $cart->length           = $request->length;
-        $cart->width            = $request->width;
-        $cart->size_type        = $request->size_type;
-        $cart->size             = $request->size_no;
-        $cart->size_type_name   = $request->size_name;
-        $obj_description    = json_decode(base64_decode($request->sobj));
-        $cart->quantity         = $request->qty;
-        $cart->price            = $obj_description->getShoePrice;
-        $cart->lastitem         = $request->lastitem;
-        $cart->desc             = $request->sobj;
-        $cart->shape            = "shoe";
-        $cart->style            = "custom";
+        // $cart->monoIn           = $request->monoIn;
+        // $cart->monoOut          = $request->monoOut;
+        // $cart->statusPreDesign  = $request->statusPreDesign;
+        // $cart->unit             = $request->unit;
+        // $cart->length           = $request->length;
+        // $cart->width            = $request->width;
+        // $cart->size_type        = $request->size_type;
+        // $cart->size             = $request->size_no;
+        // $cart->size_type_name   = $request->size_name;
+        // $obj_description    = json_decode(base64_decode($request->sobj));
+        // $cart->quantity         = $request->qty;
+        // $cart->price            = $obj_description->getShoePrice;
+        // $cart->lastitem         = $request->lastitem;
+        // $cart->item_description             = $request->sobj;
+        // $cart->shape            = "shoe";
+        // $cart->style            = "custom";
 
-        if( !empty(auth()->user()))
-        {
-            $cart->session = auth()->user()->id;
-        }
-        else
-        {
-            $cart->token = $request->_token;
-        }
-        $cart->save();
+        // if( !empty(auth()->user()))
+        // {
+        //     $cart->session = auth()->user()->id;
+        // }
+        // else
+        // {
+        //     $cart->token = $request->_token;
+        // }
+        // $cart->save();
 
+        if (Auth::check())
+        {
+            $userid=Auth::user()->id;
+            
+            $cartuser = Cart::select('id')->where('user_id' ,'=' , $userid)->count();
+            if($cartuser>0){
+                    DB::table('carts')
+                    ->where('user_id', $userid)
+                    ->update(['cart_sessionid' => $cartsess]);					
+            }
+        }else{
+            $userid=Null;
+        }
+		  
+        $eTailorObj = $json_description = json_decode(base64_decode($request->sobj));  #//json_decode($_POST['setarr'], true);  
+        $finalarr   = base64_decode($request->sobj);
+
+	    if( true )
+        {
+			// $finalarr['osizeStyle']= $_POST['fitstyle'];
+			// $finalarr['osizeType']= $_POST['bsizetyp'];
+			// $finalarr['osizeNeck']= $_POST['bsizeNeck'];
+			// $finalarr['osizeChest']= $_POST['bsizeChest'];
+			// $finalarr['osizeWaist']= $_POST['bsizeWaist'];
+			// $finalarr['osizeHip']= $_POST['bsizeHip'];
+			// $finalarr['osizeLength']= $_POST['bsizeLength'];
+			// $finalarr['osizeShoulder']= $_POST['bsizeShoulder'];
+			// $finalarr['osizeSleeve']= $_POST['bsizeSleeve'];
+			// $finalarr['oqty']= 1;			
+			// $finalarr['ofrontView']= '';
+			// $finalarr['obackView']= '';
+			// $finalarr['osizeFit']='';
+			
+			// if( !! empty($eTailorObj->ocartID)){
+			// 	$bodyqty=$_POST['selbodyqty'];
+			// }else
+            {
+				$bodyqty=1;
+			}
+			
+			for($i=0;$i<$bodyqty;$i++){
+				
+				// $ppt=$finalarr;												
+				 $cartSet = [
+					'cart_sessionid'    => $cartsess,
+					'cat_id'            => CONST_CATEGORY_ID_SHOES,
+					'user_id'           => $userid,
+                    # because there no model, it is no need
+					// 'group_id'          => $group_type_id,
+					// 'fabric_name'       => $modelInfo->style . ' ' . strtolower($modelInfo->shape) . ' ' .$model,
+					// 'fabric_id'         => $modelInfo->main,
+                    'fabric_image'          => '/images/Menu/Leather/M/' . $json_description->getLeatherNo . '.png',
+					'canvas_front_img'      => $request->shoes_image_base64 ?? '',
+                    # <------------------
+					'item_description'  => serialize($finalarr),
+					'price'             => $json_description->getShoePrice,
+					'qty'               => $request->qty,
+					'total'             => $request->qty * $json_description->getShoePrice,
+				];
+				
+				if( !! empty($eTailorObj->ocartID)){
+			 		
+				 	$ids = DB::table('carts')->insert($cartSet);
+					$cartId = DB::getPdo()->lastInsertId();	
+			
+				 }else{	 				 
+					 DB::table('carts')
+						->where('id', $eTailorObj->ocartID)
+						->update($cartSet);
+						
+					$cartId=$eTailorObj->ocartID;	
+					
+					// $cartimg = Cart::select('canvas_front_img','canvas_back_img')->where('id', '=',  $cartId)->first();					
+					
+				
+				 }
+				 
+				// $fabidd=$eTailorObj['ofabric'];
+				// $attid=$eTailorObj['osleeve'];
+				// $fabric_sty = Stylefabimglist::select('list_img')->where('fab_id', '=', $fabidd)->where('style_id', '=', $attid)->first();
+				// $fablist=$fabric_sty->list_img;
+				// $cartimgSet = [					
+				// 	'canvas_front_img' => $fablist,									 
+				// ];
+				// DB::table('carts')->where('id', $cartId)->update($cartimgSet);
+			}
+	   }	
         return redirect('/designshoes/checkout');
     }
+
     public function delModel(Request $request)
     {
         return view('popup.PopUpQuestionDeleteItem');
@@ -179,11 +274,8 @@ class elementsController extends Controller
         $cart_item = Cart::find($request->id);
         $delId = 0;
         if($cart_item)      $delId = $cart_item->id;
-        if( !empty(auth()->user()))
-            $Last_Items = Cart::where('session', auth()->user()->id)
-                ->where('id', '<>', $delId)->get();
-        else
-            $Last_Items = Cart::where('token', $cart_item->token)
+
+        $Last_Items = Cart::where('cart_sessionid', $cart_item->cart_sessionid)
                 ->where('id', '<>', $delId)->get();
 
         $discount = 0;
@@ -196,8 +288,8 @@ class elementsController extends Controller
         $items = [];
         foreach($Last_Items as $leaved_item)
         {
-            $json_description = $leaved_item->desc;
-            $obj_description = json_decode(base64_decode($json_description));
+            $json_description = $leaved_item->item_description;
+            $obj_description = json_decode(unserialize($json_description));
             $discount += $obj_description->getShoeDiscountItem;
             $price += $obj_description->getShoePrice;
             $qty += $obj_description->getQty;

@@ -424,6 +424,7 @@
                             </div>
                         </div>
                     </div>
+                   
                     <!-- LINK -->
                     <div id="link-outside">
                         <a href="/designshoes/" target="_blank">Home</a>
@@ -450,7 +451,31 @@
                 <li><a data-traffic="link-collection" title="iTailor Collection" target="_blank" href="https://www.facebook.com/iTailorShirts" data-lang="collection">Collection</a></li>
             </ul>
         </div>
-        
+<div style="width:100%; height:100px; background-color:blanchedalmond;">
+    <iframe id="iframe_shoes_image_html" style="width:100%; height:100px;" src="{{ url('/shoes-viewdesignimage') }}">Your browser isn't compatible</iframe>
+</div>                    
+<script>
+    function setDesignImageInformations(encoded_shoes_information)
+    {
+        $.ajax({
+                type: 'POST',
+                headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+                url: '/createDesignImagesInformation',
+                data: {shoes_info: encoded_shoes_information},
+                success: function (d) {
+                        console.log("design image created successfully.");
+                        d = JSON.parse(d);
+
+                        frameWindow = $("#iframe_shoes_image_html").contents()[0].defaultView;
+                        if(JSON.parse(d.goods) && frameWindow.make_design_Image)
+                        {
+                            frameWindow.make_design_Image( JSON.parse(d.goods) );
+                        }
+
+                    }
+                });
+    }
+</script>
         <div id="canvasloader-container" class="wrapper"></div>
         @include('news.corona')
         @csrf

@@ -351,9 +351,10 @@
                         <form id="measure-form" method="post" action="designshoes/elements/cart/add">
                             @csrf
                             <!-- <input type='hidden' id='page_token' name="page_token" value='{{ csrf_token() }}' /> -->
-                            <input type="hidden" name="monoIn" id="frm-monoIn">
-                            <input type="hidden" name="monoOut" id="frm-monoOut">
-                            <input type="hidden" name="statusPreDesign" id="frm-statusPreDesign" value="false">
+                            <input type="hidden" name="monoIn" id="frm-monoIn" />
+                            <input type="hidden" name="monoOut" id="frm-monoOut" />
+                            <input type="hidden" name="statusPreDesign" id="frm-statusPreDesign" value="false" />
+                            <input type="hidden" name="shoes_image_base64" id="shoes_image_base64" />
                             <div id="measure-sample" class="media-layout">
                                 <img id="img-length" src="{{asset('images/Length.jpg')}}">
                                 <img id="img-width" src="{{asset('images/Width.jpg')}}" style="display: none">
@@ -502,5 +503,31 @@
             <div onclick="window.open('/designidea', '_blank');" title="Weekly Promotions">Promotions</div>
         </div>
     </div>
+<div style="width:100%; height:100px; background-color:blanchedalmond;">
+    <iframe id="iframe_shoes_image_html" style="width:100%; height:100px;" src="{{ url('/shoes-viewdesignimage') }}">Your browser isn't compatible</iframe>
+</div>                    
+<script>
+    function setDesignImageInformations(encoded_shoes_information)
+    {
+        $.ajax({
+                type: 'POST',
+                headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+                url: '/createDesignImagesInformation',
+                data: {shoes_info: encoded_shoes_information},
+                success: function (d) {
+                        console.log("design image created successfully.");
+                        //alert("design image created successfully.");
+                        d = JSON.parse(d);
 
+                        frameWindow = $("#iframe_shoes_image_html").contents()[0].defaultView;
+                        if(JSON.parse(d.goods) && frameWindow.make_design_Image)
+                        {
+                            frameWindow.make_design_Image( JSON.parse(d.goods) );
+                            //console.log(frameWindow.$('.imgs1 img').attr('src'));
+                        }
+
+                    }
+                });
+    }
+</script>
     @endsection

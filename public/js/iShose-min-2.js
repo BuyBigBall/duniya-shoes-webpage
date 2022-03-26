@@ -319,6 +319,13 @@ $('#btn-cart').live('click', function (e) {
 
         if ($('#size_no').val() !== '--') {
             $('#btn-cart').prop('disabled', true);
+
+            frameWindow = $("#iframe_shoes_image_html").contents()[0].defaultView;
+            if(frameWindow)
+            {
+                $("#shoes_image_base64").val(frameWindow.$('.imgs1 img').attr('src'));
+            }
+
             $('#measure-form').submit();
         }
     }

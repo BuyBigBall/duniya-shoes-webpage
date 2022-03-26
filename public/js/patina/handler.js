@@ -1612,7 +1612,7 @@ initial = (function (fn) {
             // SEND PARAMETER HERE
             $.ajax({
                 type: "POST",
-                url: "../designshoes/elements/cart/addDesignerShoes.php",
+                url: "../designshoes/elements/cart/addModelshoesToImage.php",
                 data: parameter,
                 contentType: "application/x-www-form-urlencoded;charset=UTF-8",
                 success: function (response) {

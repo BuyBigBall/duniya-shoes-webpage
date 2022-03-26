@@ -714,9 +714,85 @@ initial = (function (fn) {
             setTimeout(function () {
                 step_ready = true;
             }, 600);
+
+             // prepare the hidden image source base64 in the iframe
+             if (callStep === 3)
+             {
+                readyMade.RefreshShoesImageRequest();
+             }
         }
     };
+    
+    readyMade.RefreshShoesImageRequest = function() 
+    {
+        var length, min, max;
 
+        length = window.parseFloat(Spz("#measure-length").val()) || 0;
+
+        // UPDATE PARAMETER
+        parameter.measurement.regularSize = Spz("#select-type").val();
+        parameter.measurement.size = parseFloat(Spz("#select-size").val());
+        parameter.measurement.quantity = parseFloat(Spz("#select-qty").val());
+
+        if (!parameter.monogram.insideLining && !parameter.monogram.outsideSole)
+        {
+            parameter.monogram.designBy = "";
+        }
+
+        var style, i;
+
+        style = [];
+        i = 0;
+
+        style[i++] = data.defaults.accessory ? "accessory" : "";
+        style[i++] = data.defaults.back ? "back" : "";
+        style[i++] = data.defaults.front ? "front" : "";
+        style[i++] = data.defaults.main ? "main" : "";
+        style[i++] = data.defaults.side ? "side" : "";
+        style[i++] = data.defaults.sole ? "sole" : "";
+        style = style.clean("");
+
+        Spz.each(style, function (i, v) {
+
+            /* 
+            // data.defaults['main'] !== parameter['main']
+            // data.defaults['main'] = 33;
+            // parameter['main']     = 'Leather-Dye-Black'
+            // //////// */
+            if (data.defaults[v] !== parameter[v])
+            {
+                parameter["modelSeries"] = "customize";
+            }
+        });
+
+        if (parameter["modelSeries"] === "")
+        {
+            parameter["modelSeries"] = "defaults";
+        }
+        parameter["productType"]    = "shoe";
+        parameter["price"]          = Spz("#set-price").val();
+        parameter["_token"]         = $('input[name=_token]').val();
+        // SEND PARAMETER HERE
+        $.ajax({
+            type: "POST",
+            url: "/designshoes/elements/cart/addModelshoesToImage",
+            data: parameter,
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+            success: function (response) {
+                var json_goods       = response.goods;
+                
+                frameWindow = $("#iframe_shoes_image_html").contents()[0].defaultView;
+                if( frameWindow )
+                {
+                    frameWindow.make_design_Image( json_goods );
+                    //parameter["image_source"]       = frameWindow.$('.imgs1 img').attr('src');
+                }                
+                // var json_description = response.description;
+                // var json_goods       = response.goods;
+            } 
+        });
+    };
+    
     readyMade.stepValidation = function (callStep)
     {
         if (callStep === 3)
@@ -1516,12 +1592,20 @@ initial = (function (fn) {
             parameter["price"]          = Spz("#set-price").val();
             parameter["_token"]         = $('input[name=_token]').val();
             // SEND PARAMETER HERE
+            frameWindow = $("#iframe_shoes_image_html").contents()[0].defaultView;
+            if( frameWindow )
+            {
+                //frameWindow.make_design_Image( json_goods );
+                parameter["image_source"]       = frameWindow.$('.imgs1 img').attr('src');
+            }
+            
             $.ajax({
                 type: "POST",
-                url: "/designshoes/elements/cart/addDesignerShoes",
+                url: "/designshoes/elements/cart/addModelShoesToCart",
                 data: parameter,
                 contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-                success: function (response) {
+                success: function (response) 
+                {
                     window.location.href = "/designshoes/checkout";
                 }
             });

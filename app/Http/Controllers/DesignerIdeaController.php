@@ -66,7 +66,7 @@ class DesignerIdeaController extends Controller
                 // dd($max_model);
                 $max_num        = intval(substr($max_model->modelno, strlen($prefix)));
                 $new_model_no   = sprintf($prefix . "%03d", $max_num + 1 );
-                $shoeDesignInfo = json_decode(base64_decode($cart_item->desc));
+                $shoeDesignInfo = json_decode($cart_item->item_description);
                 
                 // dd($shoeDesignInfo);
                 if( !empty($cart_item->key) )
@@ -446,4 +446,8 @@ class DesignerIdeaController extends Controller
         return view('designidea.index')->with('gender', $this->gender)->with('data', $this->data);
     }
 
+    public function design_image(Request $request)
+    {
+        return view('designidea.designimg');
     }
+}

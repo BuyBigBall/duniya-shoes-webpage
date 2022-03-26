@@ -46,8 +46,11 @@ Route::get('/elements/popUp/PopUpRecommend',        [elementsController::class, 
 Route::get('/elements/popUp/PopUpproduct',          [elementsController::class, 'PopUpproduct']);
 Route::get('/elements/layout-option-color',         [elementsController::class, 'layoutOptionColor']);
 
-Route::post('/designshoes/elements/cart/add',       [elementsController::class, 'addCart']);
-Route::get('/designshoes/elements/popUp/PopUpQuestionDeleteItem', [elementsController::class, 'delModel']);
+Route::post('/designshoes/elements/cart/addShoeCare',               [ShoescareController::class, 'addShoeCare']);
+Route::post('/designshoes/elements/cart/addModelshoesToImage',      [AjaxController::class,      'addModelshoesToImage'])->name('modelimages.parameters');
+Route::post('/designshoes/elements/cart/addModelShoesToCart',       [AjaxController::class,      'addModelShoesToCart'])->name('addcart.parameters');
+Route::post('/designshoes/elements/cart/add',                       [elementsController::class,  'addCart']);
+Route::get('/designshoes/elements/popUp/PopUpQuestionDeleteItem',   [elementsController::class,  'delModel']);
 Route::get('/designshoes/elements/cart/del',        [elementsController::class, 'delCart']);
 Route::get('/designshoes/elements/loadDataLang',    [elementsController::class, 'loadDataLang']);
 
@@ -62,17 +65,16 @@ Route::get('/patina',                                   [PatinaController::class
 Route::get('/design-patina-shoes',                      [PatinaController::class, 'detail'])->name('patinadetail');
 Route::get('/patina/shoescare',                         [ShoescareController::class, 'index'])->name('shoescare');
 Route::get('/custom-shoes-care',                        [ShoescareController::class, 'detail'])->name('shoescaredetail');
-Route::post('/designshoes/elements/cart/addShoeCare',   [ShoescareController::class, 'addShoeCare']);
 
 
 Route::get('/designidea',                                   [DesignerIdeaController::class, 'index'])->name('designidea');
 Route::get('/designershoes/index',                          [DesignerIdeaController::class, 'designerShoes'])->name('designerShoes');
-
+Route::get('/shoes-viewdesignimage',                        [DesignerIdeaController::class, 'design_image'])->name('shoes.iframe.design.image');
+Route::post('/createDesignImagesInformation',               [AjaxController::class,         'createDesignImagesInformation'])->name('shoes.ajax.shoesinfo');
 
 Route::get('/women-shoes/designidea',                       [DesignerIdeaController::class, 'index'])->name('women.designidea');
 Route::get('/women-shoes/designershoes/index',              [DesignerIdeaController::class, 'designerShoes'])->name('women.designershoes');
 
-Route::post('/designshoes/elements/cart/addDesignerShoes',          [AjaxController::class, 'addDesignerShoes'])->name('addcart.parameters');
 Route::post('/women-shoes/Designidea/json/json',                    [AjaxController::class, 'getJson'])->name('filter.women.getjson');
 Route::post('/designershoes/Designidea/json/json',                  [AjaxController::class, 'getJson'])->name('filter.man.getjson');
 //Route::post('/Designidea/json/json',                                [AjaxController::class, 'getJson'])->name('filter.man.getjson');
@@ -94,6 +96,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::get('/cart',                                         [CheckoutController::class, 'cart'])->name('cart');
 
 # this is  for test
 Route::get('/savedesignimage',[DesignerIdeaController::class, 'createDesignImages'])->name('checkSessionPreDesign.save.test');

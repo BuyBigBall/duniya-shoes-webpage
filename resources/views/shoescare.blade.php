@@ -178,7 +178,7 @@
                             <figure> <img class="sz-lazyload" data-szlazy="../images/patina/shoecare/{{Str::upper($goods->id)}}/View{{$goods->view}}/{{strtolower($goods->id)}}.jpg" data-level="1" alt=""> </figure>
                         </div>
                         <div class="clt-item-content">
-                            {!!str_replace('\/', '/', $goods->desc)!!}
+                            {!!str_replace('\/', '/', $goods->item_description)!!}
                         </div>
                     </a>
                     <div class="clt-item-opt"> <label class="clt-item-opt-more button lang" for="h62ec357b">Choose Size</label>

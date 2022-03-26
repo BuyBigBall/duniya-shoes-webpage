@@ -175,3 +175,6 @@ function does_url_exists($url) {
     curl_close($ch);
     return $status;
 }
+
+
+const CONST_CATEGORY_ID_SHOES = 99;

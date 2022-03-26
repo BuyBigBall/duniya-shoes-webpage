@@ -5,24 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
+    public function cart(Request $request)
+    {
+        echo("<pre>
+                <h1>
+                    this is temprory url.
+                    the frontend module must be integrated into tailor suit module.
+                </h1>
+                </pre>");
+    }
+
     public function index(Request $request)
     {
-        $tokenId = session()->get('_token');
-        // dd(session()->get('_token'));
+        if(Session::has('carts')) {
+			$tokenId    = Session::get('carts');						
+		}else{
+			$carts      = md5(microtime().rand());
+			$tokenId    = Session::put('carts', $carts);
+		}	
+
         $lang = getLanguage();
-        if( !empty(auth()->user()))
-            $goods = DB::table('carts')->where('checkout', 0)->where('session', auth()->user()->id)->get();
-        else
-            $goods = DB::table('carts')->where('checkout', 0)->where('token', $tokenId)->get();
+        $goods = DB::table('carts')->where('cart_sessionid', $tokenId)->get();
         // 
         $goodsLists = [];
         $i = 0;
         foreach ($goods as $item) {
             $i++;
-            if ($item->shape == "ShoeCare") {
+            
+            $descriotion = json_decode(unserialize($item->item_description));
+            
+            //if ($item->shape == "ShoeCare") {
+            if($descriotion->productType=='ShoeCare') {
                 $goodsLists[$i . ''] = json_decode(json_encode(
                     [
                         "id" => $item->id,
@@ -43,20 +60,22 @@ class CheckoutController extends Controller
                         "PRICE_SYMBOLIC" => 0
                     ]
                 ));
-            } else {
-                $goodsLists[$i . ''] = empty($item->desc) ? "" : json_decode(base64_decode($item->desc));
-                $goodsLists[$i . '']->id = $item->id;
-                $goodsLists[$i . '']->DESIGN_TYPE = 'custom';           //<===  from designer page to carts for new model designing
-                $goodsLists[$i . '']->MODELNO = $item->key;
-                $goodsLists[$i . '']->productName = $item->name;
-                $goodsLists[$i . '']->getQty = $item->quantity;
-                // dd($goodsLists[$i . '']);  
+            } 
+            elseif($descriotion->productType=='shoe')
+            {
+                $goodsLists[$i . '']                = empty($item->item_description) ? "" : json_decode( unserialize($item->item_description) );
+
+                $goodsLists[$i . '']->id            = $item->id;
+                $goodsLists[$i . '']->DESIGN_TYPE   = 'custom';             //<==             =  from designer page to carts for new model designing
+                $goodsLists[$i . '']->getQty        = $item->qty;
+                $goodsLists[$i . '']->MODELNO       = '';                   //$item->key;
+                $goodsLists[$i . '']->productName   = '';                   //$item->name;
             }
         }
         $data = [
-            'language' => $lang,
-            'goods' => json_encode($goodsLists),
-            'goodsLists' => $goodsLists
+            'language'      => $lang,
+            'goods'         => json_encode($goodsLists),
+            'goodsLists'    => $goodsLists
         ];
         //dd($goodsLists);
         return view("checkout.checkout", $data);
@@ -70,7 +89,8 @@ class CheckoutController extends Controller
         $token = $cartItem->token;
         if(!empty($cartItem) && $cartItem->shape=='shoe')
         {
-            $shoeInfo = json_decode(base64_decode($cartItem->desc));
+            //$shoeInfo = json_decode(base64_decode($cartItem->item_description));
+            $shoeInfo = json_decode($cartItem->item_description);
 
             if($shoeInfo)
             {
@@ -131,10 +151,12 @@ class CheckoutController extends Controller
             
         foreach($cartItemCollection as $cartItem)
         {
-            $shoeInfo = json_decode(base64_decode($cartItem->desc));
+            //$shoeInfo = json_decode(base64_decode($cartItem->item_description));
+            $shoeInfo = json_decode($cartItem->item_description);
+
             if(!empty($cartItem) && $cartItem->shape=='shoe')
             {
-                if(!!empty($cartItem->desc) || !!empty($shoeInfo)) continue;
+                if(!!empty($cartItem->item_description) || !!empty($shoeInfo)) continue;
 
                 $modelno[] = $cartItem->key ?? '';
                 $shoeInfo->gender   = $cartItem->gender;

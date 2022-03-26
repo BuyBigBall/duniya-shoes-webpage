@@ -8,6 +8,18 @@ use App\Models\ModelSerial;
 use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\models\Type;
+use App\models\ColorMain;
+use App\models\ColorFront;
+use App\models\ColorSide;
+use App\models\ColorBack;
+use App\models\ColorSole;
+use App\models\ColorAccessory;
+use App\models\ColorLining;
+use App\models\ColorLace;
 
 class AjaxController extends Controller
 {
@@ -56,17 +68,17 @@ class AjaxController extends Controller
         $total = 0;
         
         $auth_id = auth()->user()->id;
-        $Cart_Items = Cart::where('token', $now_token)->get();
-        Cart::where('token', $now_token)
-            ->update([
-                    'token'     => '', 
-                    'session'   => $auth_id, 
-                        ]);
+        $Cart_Items = Cart::where('cart_sessionid', $now_token)->get();
+        // Cart::where('token', $now_token)
+        //     ->update([
+        //             'token'     => '', 
+        //             'session'   => $auth_id, 
+        //                 ]);
         $items = [];
         foreach($Cart_Items as $leaved_item)
         {
-            $json_description = $leaved_item->desc;
-            $obj_description = json_decode(base64_decode($json_description));
+            $json_description = $leaved_item->item_description;
+            $obj_description = json_decode($json_description);
             $discount += $obj_description->getShoeDiscountItem;
             $price += $obj_description->getShoePrice;
             $qty += $obj_description->getQty;
@@ -100,127 +112,375 @@ class AjaxController extends Controller
         return json_encode($returnData);
     }
     
-    public function addDesignerShoes(Request $request)
+    public function addModelShoesToCart(Request $request)
     {
-       // dd($request);
-        if( $request->productType=='shoe' )
+        $img_source = $request->image_source;
+        $model      = $request->model;
+        $modelInfo  = ModelSerial::where('modelno', $model)->first();
+        $mainFolder = StyleFolder($modelInfo->style);
+        $group_type = Type::where('type', strtolower($modelInfo->style))->first();
+        if($group_type!=null)
+            $group_type_id = $group_type->id;
+        else
+        $group_type_id = null;
+
+        //$description_json = json_encode( $request->description );
+        $description = [
+            "productType"       => $request->productType
+            ,"folderType"       => $mainFolder
+            ,"getShape"         => $modelInfo->shape
+            ,"shoeType"         => strtolower($modelInfo->style)
+            ,"currentView"      => "Right"
+
+            ,"getStyle"         => "shape"
+
+            ,"getLeatherGroup"  => $modelInfo->maintyp->id
+            ,"getLeather"       => $modelInfo->maintyp->key  ?? 'none'// "premium"
+            ,"getLeatherName"   => $request->main_name         //"the premium"
+            ,"getLeatherNo"     => $modelInfo->mainclr->pkey   //"LT-001"
+            ,"getLeatherNoName" => $modelInfo->mainclr->name
+
+            ,"front"            => $request->front             //"none"
+            ,"getFront"         => $modelInfo->fronttyp->pkey ?? 'none'         //"none"
+            ,"getFrontNo"       => !empty($request->frontclr) ? $request->frontclr->key : 'none'        //"none"
+            ,"getFrontName"     => $request->front_name       //"none"
+            ,"getFrontNoName"   => "none"
+
+            ,"side"         => $request->side              //"SD1"
+            ,"getSide"      => $modelInfo->sidetyp->pkey  ?? 'none'          //"SD1"
+            ,"getSideName"  => $modelInfo->sidetyp->name  ?? ''       //"SD1"
+            ,"getSideNo"    => $modelInfo->sideclr->key ?? 'none'          //"none"
+            ,"getSideNoName"=> $modelInfo->sideclr->name ?? ''
+
+            ,"back"         => $request->back               // "BK1"
+            ,"getBack"      => $modelInfo->backtyp->pkey  ?? 'none'          //"BK1"
+            ,"getBackName"  => $modelInfo->backtyp->name  ?? ''      //"BK1"
+            ,"getBackNo"    => !empty($request->backclr) ? $request->backclr->key : 'none'              //"none"
+            ,"getBackNoName"=> !empty($request->backclr) ? $request->backclr->name : 'none'              //"none"
+
+            ,"sole"         => $modelInfo->soletyp->pkey  ?? 'none'               // "Sole-1L"
+            ,"getSole"      => $modelInfo->soletyp->pkey  ?? 'none'          //"LT-N007"
+            ,"getSoleName"  => $modelInfo->soletyp->name  ?? 'none'
+            ,"getSoleBorder"=> $modelInfo->soleclr->pkey  ?? 'none'
+            ,"mixSolePriceStatus" => "no"
+
+            ,"getLacesNo"   => !empty($request->laceclr) ? $request->laceclr->key : 'none'            //"HT-Black"
+            ,"getLacesName" => $request->laces             //"HT-Black"
+
+            ,"getLiningNo"  => !empty($request->liningclr) ? $request->liningclr->key : 'none'        //"SH-SW08"
+            ,"getLiningName"=> $request->lining_name       //"Dark Brown"
+            
+            ,"getAccessory"     => 'none' //"none"
+            ,"getAccessoryNo"   => 'none'         //"none"
+            ,"getAccessoryName" => 'none'
+
+            // must none, because it is not view from bottom
+            ,"getStitchingNo"   => 'none'
+            ,"getStitchingName" => 'none'
+
+            ,"getSpeci"         => "mix-match"
+            ,"getBrogueNo"      => "none"
+            ,"getMonoIn"        =>  $request->monogram['insideLining']  //""
+            ,"getMonoOut"       =>  $request->monogram['outsideSole']  
+            ,"getSizeTypeName"  =>  $request->measurement['regularSize']    //"EU"
+            ,"getSizeType"  =>      $request->measurement['regularSize']    //"EURO"
+            ,"getSizeNo"    =>      $request->measurement['size']           //"null"
+            ,"getUnit"      =>      $request->measurement['unit']           //"null"
+            ,"getLength"    =>      $request->measurement['length']         //"0"
+            ,"getWidth"     =>      $request->measurement['width']          //"0"
+            ,"getQty"       =>      $request->measurement['quantity']
+            ,"getShoePrice" =>      $request->totalPrice
+            ,"getMixPrice"  => 0                             //"9.9"
+            ,"getShoeDiscountItem" => "0"
+            ,"getShoeShipping"  => setting("site.shipping_amount")
+            ,"setStatusMix"     => "false"
+            ,"prevLeatherNo"    => "none"
+            ,"response"     => "false"
+            ,"shape"        => "shape-" . $request->modelShape
+            ,"getShapeName" => $request->modelShape //"Sharp"
+            ,"shoeTypeName" => $request->modelStyle // "oxford"
+            ,"getStyleName"     => "none"
+
+            ,"getBrogueName"    => "none"
+            ,"optionBorderSlim" => "N"
+            ,"setMenuLth"       => "premium"
+            ,"code64"           => "null"
+            ,"img"              => "null"
+            ,"measureMenu"      => "bodySize"
+            ,"id"               => $modelInfo->id
+            ,"DESIGN_TYPE"      => "custom"     //<---#######################
+         ];
+
+        $description_json = json_encode($description);        
+            
+		if(Session::has('carts')) {
+			$cartsess=Session::get('carts');						
+		}else{
+			$carts=md5(microtime().rand());
+			$cartsess=Session::put('carts', $carts);							
+		}		
+		
+        if (Auth::check())
         {
-            $model = $request->model;
-            $modelInfo = ModelSerial::where('modelno', $model)->first();
-            $mainFolder =   StyleFolder($modelInfo->style);
-
-            $description = [
-                        "productType" => $request->productType
-                        ,"folderType" => $mainFolder
-                        ,"getShape" => $modelInfo->shape
-                        ,"shoeType" => strtolower($modelInfo->style)
-                        ,"currentView" => "Right"
-
-                        ,"getStyle" => "shape"
-
-                        ,"getLeatherGroup"  => $modelInfo->maintyp->id
-                        ,"getLeather"       => $modelInfo->maintyp->key  ?? 'none'// "premium"
-                        ,"getLeatherName"   => $request->main_name         //"the premium"
-                        ,"getLeatherNo"     => $modelInfo->mainclr->pkey   //"LT-001"
-                        ,"getLeatherNoName" => $modelInfo->mainclr->name
-
-                        ,"front"            => $request->front             //"none"
-                        ,"getFront"         => $modelInfo->fronttyp->pkey ?? 'none'         //"none"
-                        ,"getFrontNo"       => !empty($request->frontclr) ? $request->frontclr->key : 'none'        //"none"
-                        ,"getFrontName"     => $request->front_name       //"none"
-                        ,"getFrontNoName"   => "none"
-
-                        ,"side"         => $request->side              //"SD1"
-                        ,"getSide"      => $modelInfo->sidetyp->pkey  ?? 'none'          //"SD1"
-                        ,"getSideName"  => $modelInfo->sidetyp->name       //"SD1"
-                        ,"getSideNo"    => $modelInfo->sideclr->key ?? 'none'          //"none"
-                        ,"getSideNoName"=> $modelInfo->sideclr->name
-
-                        ,"back"         => $request->back               // "BK1"
-                        ,"getBack"      => $modelInfo->backtyp->pkey  ?? 'none'          //"BK1"
-                        ,"getBackName"  => $modelInfo->backtyp->name       //"BK1"
-                        ,"getBackNo"    => !empty($request->backclr) ? $request->backclr->key : 'none'              //"none"
-                        ,"getBackNoName"=> !empty($request->backclr) ? $request->backclr->name : 'none'              //"none"
-
-                        ,"sole"         => $modelInfo->soletyp->pkey  ?? 'none'               // "Sole-1L"
-                        ,"getSole"      => $modelInfo->soletyp->pkey  ?? 'none'          //"LT-N007"
-                        ,"getSoleName"  => $modelInfo->soletyp->name  ?? 'none'
-                        ,"getSoleBorder"=> $modelInfo->soleclr->pkey  ?? 'none'
-                        ,"mixSolePriceStatus" => "no"
-
-                        ,"getLacesNo"   => !empty($request->laceclr) ? $request->laceclr->key : 'none'            //"HT-Black"
-                        ,"getLacesName" => $request->laces             //"HT-Black"
-
-                        ,"getLiningNo"  => !empty($request->liningclr) ? $request->liningclr->key : 'none'        //"SH-SW08"
-                        ,"getLiningName"=> $request->lining_name       //"Dark Brown"
-                        
-                        ,"getAccessory"     => 'none' //"none"
-                        ,"getAccessoryNo"   => 'none'         //"none"
-                        ,"getAccessoryName" => "none"
-
-                        ,"getSpeci"     => "mix-match"
-                        ,"getStitchingNo" => $request->backstitch     //"none"
-                        ,"getBrogueNo"  => "none"
-                        ,"getMonoIn"        =>  $request->monogram['insideLining']  //""
-                        ,"getMonoOut"       =>  $request->monogram['outsideSole']  
-                        ,"getSizeTypeName"  =>  $request->measurement['regularSize']    //"EU"
-                        ,"getSizeType"  =>      $request->measurement['regularSize']    //"EURO"
-                        ,"getSizeNo"    =>      $request->measurement['size']           //"null"
-                        ,"getUnit"      =>      $request->measurement['unit']           //"null"
-                        ,"getLength"    =>      $request->measurement['length']         //"0"
-                        ,"getWidth"     =>      $request->measurement['width']          //"0"
-                        ,"getQty"       =>      $request->measurement['quantity']
-                        ,"getShoePrice" =>      $request->totalPrice
-                        ,"getMixPrice"  => 0                             //"9.9"
-                        ,"getShoeDiscountItem" => "0"
-                        ,"getShoeShipping"  => setting("site.shipping_amount")
-                        ,"setStatusMix"     => "false"
-                        ,"prevLeatherNo"    => "none"
-                        ,"response"     => "false"
-                        ,"shape"        => "shape-" . $request->modelShape
-                        ,"getShapeName" => $request->modelShape //"Sharp"
-                        ,"shoeTypeName" => $request->modelStyle // "oxford"
-                        ,"getStyleName"     => "none"
-
-                        ,"getStitchingName" => $request->backstitch       //"none"
-                        ,"getBrogueName"    => "none"
-                        ,"optionBorderSlim" => "N"
-                        ,"setMenuLth"   => "premium"
-                        ,"code64"       => "null"
-                        ,"img"          => "null"
-                        ,"measureMenu"  => "bodySize"
-                        ,"id"           => $modelInfo->id
-                        ,"DESIGN_TYPE"  => "custom" ];
-
-            $description_json = base64_encode(json_encode($description));
-            $cart = new Cart([
-                'key'       => $model,
-                'name'      => '',
-                'gender'    => $modelInfo->sex=='female' ? 'W' : 'M' ,
-                'type'      => strtolower($modelInfo->style),
-                'shape'     => strtolower($modelInfo->shape),
-                'style'     => strtolower($modelInfo->style),
-                'monoIn'    => $request->monogram['insideLining'] ?? 'false',
-                'monoOut'   => $request->monogram['outsideSole'] ?? 'false',
-                'desc'      => $description_json,
-                'quantity'  => $request->measurement['quantity'],
-                'price'     => $request->price,
-                'length'    => $request->measurement['length'],
-                'width'     => $request->measurement['width'],
-                'unit'      => $request->measurement['unit'],
-                'sizeType'  => $request->measurement['regularSize'],
-            ]);
-
-            if( !empty(auth()->user() ) )
-                $cart->session = auth()->user()->id;
-            else
-                $cart->token = session()->get('_token');
-
-            $cart->save();
-            // $result = [$description];
-
+            $userid=Auth::user()->id;
+            
+            $cartuser = Cart::select('id')->where('user_id' ,'=' , $userid)->count();
+            if($cartuser>0){
+                    DB::table('carts')
+                    ->where('user_id', $userid)
+                    ->update(['cart_sessionid' => $cartsess]);					
+            }
+        }else{
+            $userid=Null;
         }
-        return $description_json;
+		  
+        $eTailorObj     = $request->description;  # // json_decode($_POST['setarr'], true);  
+        $finalarr       = $description_json;
+
+        if( strtolower($request->productType)=='shoe' )
+        {
+            {
+				$bodyqty=1;
+			}
+			for($i=0;$i<$bodyqty;$i++){
+				$cartSet = [
+					'cart_sessionid'    => $cartsess,
+					'cat_id'            => CONST_CATEGORY_ID_SHOES,
+					'user_id'           => $userid,
+					'group_id'          => $group_type_id,
+					'fabric_name'       => $modelInfo->style . ' ' . strtolower($modelInfo->shape) . ' ' .$model,
+					'fabric_id'         => $modelInfo->main,
+					'fabric_image'      => $model . '/view/view1.jpg',
+                    'canvas_front_img'  => $img_source,
+					'item_description'  => serialize($finalarr),
+					'price'             => $request->totalPrice,
+					'qty'               => 1,
+					'total'             => $request->measurement['quantity'] * $request->totalPrice,
+				];
+				
+				#this is editing
+				if( !! empty($eTailorObj['ocartID'])){
+                    $ids = DB::table('carts')->insert($cartSet);
+					$cartId = DB::getPdo()->lastInsertId();	
+                }
+                else
+                {
+                    DB::table('carts')
+                       ->where('id', $eTailorObj['ocartID'])
+                       ->update($cartSet);
+                       
+                //    $cartId=$eTailorObj['ocartID'];	
+                //    $cartimg = Cart::select('canvas_front_img','canvas_back_img')->where('id', '=',  $cartId)->first();					
+                }
+				// $cartimgSet = [					
+				// 	'canvas_front_img' => $cartSet['fabric_image'] , 
+				// ];
+				// DB::table('carts')->where('id', $cartId)->update($cartimgSet);
+			}
+	   } 
+		return response()->json(array('mes'=>'sucess'));
+    }
+
+    public function addModelshoesToImage(Request $request)
+    {
+        
+        $model      = $request->model;
+        $modelInfo  = ModelSerial::where('modelno', $model)->first();
+        $mainFolder = StyleFolder($modelInfo->style);
+        $group_type = Type::where('type', strtolower($modelInfo->style))->first();
+        if($group_type!=null)
+            $group_type_id = $group_type->id;
+        else
+        $group_type_id = null;
+        
+
+        $description = [
+                    "productType"       => $request->productType
+                    ,"folderType"       => $mainFolder
+                    ,"getShape"         => $modelInfo->shape
+                    ,"shoeType"         => strtolower($modelInfo->style)
+                    ,"currentView"      => "Right"
+
+                    ,"getStyle"         => "shape"
+
+                    ,"getLeatherGroup"  => $modelInfo->maintyp->id
+                    ,"getLeather"       => $modelInfo->maintyp->key  ?? 'none'// "premium"
+                    ,"getLeatherName"   => $request->main_name         //"the premium"
+                    ,"getLeatherNo"     => $modelInfo->mainclr->pkey   //"LT-001"
+                    ,"getLeatherNoName" => $modelInfo->mainclr->name
+
+                    ,"front"            => $request->front             //"none"
+                    ,"getFront"         => $modelInfo->fronttyp->pkey ?? 'none'         //"none"
+                    ,"getFrontName"     => $request->front_name       //"none"
+                    ,"getFrontNo"       => !empty($request->frontclr) ? $request->frontclr->key : '0'        //"none"
+                    ,"getFrontNoName"   => ""
+
+                    ,"side"         => $request->side              //"SD1"
+                    ,"getSide"      => $modelInfo->sidetyp->pkey  ?? 'none'          //"SD1"
+                    ,"getSideName"  => $modelInfo->sidetyp->name  ?? ''       //"SD1"
+                    ,"getSideNo"    => $modelInfo->sideclr->key ?? 'none'          //"none"
+                    ,"getSideNoName"=> $modelInfo->sideclr->name ?? ''
+
+                    ,"back"         => $request->back               // "BK1"
+                    ,"getBack"      => $modelInfo->backtyp->pkey  ?? 'none'          //"BK1"
+                    ,"getBackName"  => $modelInfo->backtyp->name  ?? ''      //"BK1"
+                    ,"getBackNo"    => !empty($request->backclr) ? $request->backclr->key : 'none'              //"none"
+                    ,"getBackNoName"=> !empty($request->backclr) ? $request->backclr->name : ''              //"none"
+
+                    ,"sole"         => $modelInfo->soletyp->pkey  ?? 'none'          // "Sole-1L"
+                    ,"getSoleBorder"=> $modelInfo->soleclr->pkey  ?? 'none'
+                    ,"mixSolePriceStatus" => "no"
+                    ,"getSole"      => $modelInfo->soletyp->pkey  ?? 'none'          // "LT-N007"
+                    ,"getSoleName"  => $modelInfo->soletyp->name  ?? ''
+
+                    ,"getLacesNo"   => !empty($request->laceclr) ? $request->laceclr->key : 'none'            //"HT-Black"
+                    ,"getLacesName" => $request->laces ?? ''            //"HT-Black"
+
+                    ,"getLiningNo"  => !empty($request->liningclr) ? $request->liningclr->key : 'none'        //"SH-SW08"
+                    ,"getLiningName"=> $request->lining_name   ?? ''    //"Dark Brown"
+                    
+                    ,"getAccessory"     => 'none' //"none"
+                    ,"getAccessoryNo"   => 'none'         //"none"
+                    ,"getAccessoryName" => ""
+
+                    // must none, because it is not view from bottom
+                    ,"getStitchingNo"   => 'none'     //"none"
+                    ,"getStitchingName" => 'none'       //"none"
+
+
+                    ,"getSpeci"         => "mix-match"
+                    ,"getBrogueNo"      => "none"
+                    ,"getMonoIn"        =>  $request->monogram['insideLining']  //""
+                    ,"getMonoOut"       =>  $request->monogram['outsideSole']  
+                    ,"getSizeTypeName"  =>  $request->measurement['regularSize']    //"EU"
+                    ,"getSizeType"  =>      $request->measurement['regularSize']    //"EURO"
+                    ,"getSizeNo"    =>      $request->measurement['size']           //"null"
+                    ,"getUnit"      =>      $request->measurement['unit']           //"null"
+                    ,"getLength"    =>      $request->measurement['length']         //"0"
+                    ,"getWidth"     =>      $request->measurement['width']          //"0"
+                    ,"getQty"       =>      $request->measurement['quantity']
+                    ,"getShoePrice" =>      $request->totalPrice
+                    ,"getMixPrice"  => 0                             //"9.9"
+                    ,"getShoeDiscountItem" => "0"
+                    ,"getShoeShipping"  => setting("site.shipping_amount")
+                    ,"setStatusMix"     => "false"
+                    ,"prevLeatherNo"    => "none"
+                    ,"response"     => "false"
+                    ,"shape"        => "shape-" . $request->modelShape
+                    ,"getShapeName" => $request->modelShape //"Sharp"
+                    ,"shoeTypeName" => $request->modelStyle // "oxford"
+                    ,"getStyleName"     => "none"
+
+                    ,"getBrogueName"    => "none"
+                    ,"optionBorderSlim" => "N"
+                    ,"setMenuLth"       => "premium"
+                    ,"code64"           => "null"
+                    ,"img"              => "null"
+                    ,"measureMenu"      => "bodySize"
+                    ,"id"               => $modelInfo->id
+
+                    //---#######################->
+                    ,"DESIGN_TYPE"      => "designer"  # 'custom' // because this is already designed shoes
+                    //<---#######################-
+                 ];
+
+        if($request->modelSeries=='customize')
+        {
+            if( !empty($request->main) )
+            {
+                if( ($mainclr = ColorMain::where('pkey', $request->main)->first()) )
+                {
+                    $description["getLeatherNo"]     = $mainclr->pkey;   //"LT-001"
+                    $description["getLeatherNoName"] = $mainclr->name;
+                }
+            }
+
+            if( !empty($request->front) )
+            {
+                if( ($frontclr = ColorFront::where('key', $request->front)->first()) )
+                {
+                    $description["getFrontNo"]       = $frontclr->key;
+                    $description["getFrontNoName"]   = $frontclr->name;
+                }
+            }
+
+            if( !empty($request->side) )
+            {
+                if( ($sideclr = ColorSide::where('key', $request->side)->first()) )
+                {
+                    $description["getSideNo"]        = $sideclr->key;
+                    $description["getSideNoName"]    = $sideclr->name;
+                }
+            }
+
+            if( !empty($request->back) )
+            {
+                if( ($backclr = ColorBack::where('key', $request->back)->first()) )
+                {
+                    $description["getBackNo"]        = $backclr->key;
+                    $description["getBackNoName"]    = $backclr->name;
+                }
+            }
+
+            if( !empty($request->sole) )
+            {
+                if( ($soleclr = ColorSole::where('pkey', $request->sole)->first()) )
+                {
+                    $description["getSole"]          = $soleclr->pkey;
+                    $description["getSoleName"]      = $soleclr->name;
+                }    
+            }
+
+            if( !empty($request->laces) )
+            {
+                if( ($laceclr = ColorLace::where('key', $request->laces)->first()) )
+                {
+                    $description["getLacesNo"]       = $laceclr->key;
+                    $description["getLacesName"]     = $laceclr->name;
+                }
+            }
+
+            if( !empty($request->lining) )
+            {
+                if(($liningclr = ColorLining::where('key', $request->lining)->first()))
+                {
+                    $description["getLiningNo"]      = $liningclr->key;
+                    $description["getLiningName"]    = $liningclr->Name;
+                }
+            }
+
+            if( !empty($request->accessory) )
+            {
+                if(($accessclr = ColorAccessory::where('key', $request->accessory)->first()))
+                {
+                    $description["getAccessoryNo"]   = $accessclr->key;
+                    $description["getAccessoryName"] = $accessclr->name;
+                }
+            }
+        }
+            
+        //dd($description);
+        $description_json = json_encode($description);
+        
+        $goodsLists['1']                = json_decode( $description_json );
+        $goodsLists['1']->id            = $modelInfo->id;
+        $goodsLists['1']->getQty        = 1;
+
+        //---#######################->
+        $goodsLists['1']->DESIGN_TYPE   = 'designer'; # 'custom'; // because this is already designed shoes   
+        //<--########################
+
+        $goodsLists['1']->MODELNO       = $model;        
+        $goodsLists['1']->productName   = ucfirst( $modelInfo->maintyp->name ) 
+                        . ' ' . ucfirst( $modelInfo->style )
+                        . (!empty($modelInfo->serials) ? ' ' : '') 
+                        . ucfirst( $modelInfo->serials );
+
+		return response()->json([
+            'description'   => $description_json,
+            'goods'         => $goodsLists,
+        ]);
+
     }
 
     public function PopUpContinueShopping(Request $request)
@@ -305,13 +565,13 @@ class AjaxController extends Controller
                 ($idx-1)>=($itemPage)*$itemSize )    continue;
 
             $result['ITEM'][] = [
-                'ID'  => $item->id,
-                'ROW' => $idx,
-                'NO' => $item->modelno,
-                'NEW_TAG' => $item->coupons,
-                'MODELSTYLE' => $item->style,
-                'FRONT_CATEGORY' => $item->front,
-                'FRONT_COLORGRP' => $item->front_color,
+                'ID'            => $item->id,
+                'ROW'           => $idx,
+                'NO'            => $item->modelno,
+                'NEW_TAG'       => $item->coupons,
+                'MODELSTYLE'    => $item->style,
+                'FRONT_CATEGORY'=> $item->front,
+                'FRONT_COLORGRP'=> $item->front_color,
                 'MAIN_CATEGORY' => $item->main,
                 'MAIN_COLORFRP' => $item->main_color,
                 'SIDE_CATEGORY' => $item->side,
@@ -320,8 +580,8 @@ class AjaxController extends Controller
                 'BACK_COLORGRP' => $item->back_color,
                 'ACCESSORY_CATEGORY' => $item->accessory,
                 'ACCESSORY_COLORGRP' => $item->access_color,
-                'PRICE' => $item->price,
-                'SALE_STATUS' => $item->sale_status,
+                'PRICE'         => $item->price,
+                'SALE_STATUS'   => $item->sale_status,
                 'SALE'          => $item->sale_price,
             ];
         }
@@ -361,5 +621,21 @@ class AjaxController extends Controller
                 'PAGE'  => "paypal",        //'inec'
                             
                     ]);
+    }
+
+    function createDesignImagesInformation(Request $request)
+    {
+        $goodsLists['1']                = empty($request->shoes_info) ? "" : json_decode( base64_decode($request->shoes_info) );
+        $goodsLists['1']->id            = 0;                    # it's unknown
+        $goodsLists['1']->getQty        = 1;
+        $goodsLists['1']->DESIGN_TYPE   = 'custom';             # <== from designer page to carts for new model designing
+        $goodsLists['1']->MODELNO       = '';                   # $item->key;
+        $goodsLists['1']->productName   = '';                   # $item->name;
+
+        return json_encode(
+            [
+                'goods'         => json_encode($goodsLists),
+            ]
+        );
     }
 }

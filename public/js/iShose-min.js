@@ -1075,7 +1075,10 @@ function CreateValurFrm() {
     shoeObject.img = null;
     var a = get_base64_encode(shoeObject);
     $('input[name=sobj]').val(a);
-    $('#frm-statusPreDesign').val(menuObject.statusPreDesign)
+    $('#frm-statusPreDesign').val(menuObject.statusPreDesign);
+
+    if(setDesignImageInformations!=undefined)
+        setDesignImageInformations(a);
 }
 function OptionSideBorder() {
     if (shoeObject.getStyle === 'side' && shoeObject.shoeType === 'loafers' && menuObject.currentMenu === 'menu-main-style') {
