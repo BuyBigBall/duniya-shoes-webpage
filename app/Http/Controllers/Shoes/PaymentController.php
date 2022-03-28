@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shoes;
 
+use App\Http\Controllers\ShoesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -10,7 +11,7 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\models\Cart;
 use Illuminate\Support\Facades\Auth;
 
-class PaymentController extends Controller
+class PaymentController extends ShoesController
 {
     public function paypal(Request $request)
     {

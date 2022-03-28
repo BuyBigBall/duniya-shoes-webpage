@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shoes;
 
+use App\Http\Controllers\ShoesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Session;
 
-class CheckoutController extends Controller
+class CheckoutController extends ShoesController
 {
     public function cart(Request $request)
     {

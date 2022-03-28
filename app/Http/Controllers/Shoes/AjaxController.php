@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shoes;
 
+use App\Http\Controllers\ShoesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\ModelSerial;
@@ -21,7 +22,7 @@ use App\models\ColorAccessory;
 use App\models\ColorLining;
 use App\models\ColorLace;
 
-class AjaxController extends Controller
+class AjaxController extends ShoesController
 {
     public $gender = 'male';
     public $data  = '';

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shoes;
 
+use App\Http\Controllers\ShoesController;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ShoescareController extends Controller
+class ShoescareController extends ShoesController
 {
     public function index()
     {

@@ -176,5 +176,7 @@ function does_url_exists($url) {
     return $status;
 }
 
-
-const CONST_CATEGORY_ID_SHOES = 99;
+const CONST_CATEGORY_3PIECE_SUIT    = 18;
+const CONST_CATEGORY_2PIECE_SUIT    = 19;
+const CONST_CATEGORY_ID_SHOES       = 99;
+const CONST_CATEGORY_SHOESCRE       = 98;

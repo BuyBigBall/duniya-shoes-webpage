@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shoes;
 
+use App\Http\Controllers\ShoesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Cart;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\models\Type;
 
-class elementsController extends Controller
+class elementsController extends ShoesController
 {
     public function __construct()
     {

@@ -1,21 +1,17 @@
 <?php
 
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\collectionController;
-use App\Http\Controllers\DesignerIdeaController;
-use App\Http\Controllers\elementsController;
-use App\Http\Controllers\libController;
-use App\Http\Controllers\PatinaController;
-use App\Http\Controllers\PatinaDetailController;
-use App\Http\Controllers\ShoescareController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AjaxController;
-use App\Http\Controllers\PaymentController;
 
-// use App\Http\Livewire\Auth\SignUp;
-// use App\Http\Livewire\Auth\Login;
-// use App\Http\Livewire\Auth\ForgotPassword;
-// use App\Http\Livewire\Auth\ResetPassword;
+use App\Http\Controllers\Shoes\collectionController;
+use App\Http\Controllers\Shoes\AjaxController;
+use App\Http\Controllers\Shoes\CheckoutController;
+use App\Http\Controllers\Shoes\DesignerIdeaController;
+use App\Http\Controllers\Shoes\elementsController;
+use App\Http\Controllers\Shoes\libController;
+use App\Http\Controllers\Shoes\PatinaController;
+use App\Http\Controllers\Shoes\PatinaDetailController;
+use App\Http\Controllers\Shoes\ShoescareController;
+use App\Http\Controllers\Shoes\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,35 +24,29 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('designshoes');
-// });
-Route::get('/', [collectionController::class, 'index'])->name('designershoes');
-// Route::get('/designershoes', [collectionController::class, 'index'])->name('designershoes');
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});
+Route::group(['prefix' => 'admin'], function () {    Voyager::routes();});
+Route::get('/',                                                     [collectionController::class, 'index'])->name('shoes.collection');
 
-Route::get('/elements',                             [elementsController::class, 'index']);
-Route::get('/elements/loadPrice',                   [elementsController::class, 'loadPrice']);
-Route::get('/elements/LoadPreDesignArr',            [elementsController::class, 'LoadPreDesignArr']);
-Route::get('/elements/loadXmlStyle_2',              [elementsController::class, 'loadXmlStyle_2']);
-Route::get('/elements/popUp/PopUpDesignDetail',     [elementsController::class, 'PopUpPreDesign']);
-Route::get('/elements/popUp/PopUpRecommend',        [elementsController::class, 'PopUpRecommend']);
-Route::get('/elements/popUp/PopUpproduct',          [elementsController::class, 'PopUpproduct']);
-Route::get('/elements/layout-option-color',         [elementsController::class, 'layoutOptionColor']);
+Route::get('/elements',                                             [elementsController::class, 'index']);
+Route::get('/elements/loadPrice',                                   [elementsController::class, 'loadPrice']);
+Route::get('/elements/LoadPreDesignArr',                            [elementsController::class, 'LoadPreDesignArr']);
+Route::get('/elements/loadXmlStyle_2',                              [elementsController::class, 'loadXmlStyle_2']);
+Route::get('/elements/popUp/PopUpDesignDetail',                     [elementsController::class, 'PopUpPreDesign']);
+Route::get('/elements/popUp/PopUpRecommend',                        [elementsController::class, 'PopUpRecommend']);
+Route::get('/elements/popUp/PopUpproduct',                          [elementsController::class, 'PopUpproduct']);
+Route::get('/elements/layout-option-color',                         [elementsController::class, 'layoutOptionColor']);
 
 Route::post('/designshoes/elements/cart/addShoeCare',               [ShoescareController::class, 'addShoeCare']);
 Route::post('/designshoes/elements/cart/addModelshoesToImage',      [AjaxController::class,      'addModelshoesToImage'])->name('modelimages.parameters');
 Route::post('/designshoes/elements/cart/addModelShoesToCart',       [AjaxController::class,      'addModelShoesToCart'])->name('addcart.parameters');
 Route::post('/designshoes/elements/cart/add',                       [elementsController::class,  'addCart']);
 Route::get('/designshoes/elements/popUp/PopUpQuestionDeleteItem',   [elementsController::class,  'delModel']);
-Route::get('/designshoes/elements/cart/del',        [elementsController::class, 'delCart']);
-Route::get('/designshoes/elements/loadDataLang',    [elementsController::class, 'loadDataLang']);
+Route::get('/designshoes/elements/cart/del',                        [elementsController::class, 'delCart']);
+Route::get('/designshoes/elements/loadDataLang',                    [elementsController::class, 'loadDataLang']);
 
 // check out
-Route::get('/designshoes/checkout',                 [CheckoutController::class, 'index'])->name('checkout.main');
-Route::get('/designshoes/detail',                   [CheckoutController::class, 'detail'])->name('checkout.detail');
+Route::get('/designshoes/checkout',                                 [CheckoutController::class, 'index'])->name('checkout.main');
+Route::get('/designshoes/detail',                                   [CheckoutController::class, 'detail'])->name('checkout.detail');
 
 Route::post('/lib/canvasImg',                           [libController::class, 'canvasImg']);
 
@@ -69,7 +59,7 @@ Route::get('/custom-shoes-care',                        [ShoescareController::cl
 
 Route::get('/designidea',                                   [DesignerIdeaController::class, 'index'])->name('designidea');
 Route::get('/designershoes/index',                          [DesignerIdeaController::class, 'designerShoes'])->name('designerShoes');
-Route::get('/shoes-viewdesignimage',                        [DesignerIdeaController::class, 'design_image'])->name('shoes.iframe.design.image');
+
 Route::post('/createDesignImagesInformation',               [AjaxController::class,         'createDesignImagesInformation'])->name('shoes.ajax.shoesinfo');
 
 Route::get('/women-shoes/designidea',                       [DesignerIdeaController::class, 'index'])->name('women.designidea');

@@ -42,7 +42,7 @@ return [
     */
 
     'models' => [
-        'namespace' => 'App\\Models\\',
+        //'namespace' => 'App\\Models\\',
     ],
 
     /*
@@ -143,7 +143,11 @@ return [
             ],
         ],
 
-        'widgets' => [],
+        'widgets' => [
+            'TCG\\Voyager\\Widgets\\UserDimmer',
+            'TCG\\Voyager\\Widgets\\PostDimmer',
+            'TCG\\Voyager\\Widgets\\PageDimmer',
+        ],
 
     ],
 
@@ -201,21 +205,6 @@ return [
         'zoom' => env('GOOGLE_MAPS_DEFAULT_ZOOM', 11),
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Model specific settings
-    |--------------------------------------------------------------------------
-    |
-    | Here you change some model specific settings
-    |
-    */
-
-    'settings' => [
-        // Enables Laravel cache method for
-        // storing cache values between requests
-        'cache' => false,
-    ],
-
     // Activate compass when environment is NOT local
     'compass_in_production' => false,
 
@@ -223,11 +212,11 @@ return [
         // The allowed mimetypes to be uploaded through the media-manager.
         // 'allowed_mimetypes' => '*', //All types can be uploaded
         'allowed_mimetypes' => [
-            'image/jpeg',
-            'image/png',
-            'image/gif',
-            'image/bmp',
-            'video/mp4',
+          'image/jpeg',
+          'image/png',
+          'image/gif',
+          'image/bmp',
+          'video/mp4',
         ],
         //Path for media-manager. Relative to the filesystem.
         'path'                => '/',

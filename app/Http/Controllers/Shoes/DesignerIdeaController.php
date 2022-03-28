@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shoes;
 
+use App\Http\Controllers\ShoesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\ColorsGroup;
@@ -19,7 +20,7 @@ use App\Models\ColorAccessory;
 use App\Models\Selector;
 use File;
 
-class DesignerIdeaController extends Controller
+class DesignerIdeaController extends ShoesController
 {
     public $gender = 'male';
     public $data  = '';

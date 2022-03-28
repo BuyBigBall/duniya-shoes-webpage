@@ -165,7 +165,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        // Barryvdh\DomPDF\ServiceProvider::class,
+        // Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class, # composer update error
         /*
          * Application Service Providers...
          */
@@ -229,7 +230,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        //'PDF' => Barryvdh\DomPDF\Facade::class,
+        //'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
     ],
 
 ];
