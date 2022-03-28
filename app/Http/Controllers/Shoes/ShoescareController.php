@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Shoes;
 
 use App\Http\Controllers\ShoesController;
-use App\Models\Cart;
+use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Shoescare;
+
 
 class ShoescareController extends ShoesController
 {
     public function index()
     {
-        $shoeCare = DB::table('shoescare')
+        $shoeCare = DB::table('shoescares')
             ->select('id as resid', 'key as id', 'name', 'desc', 'shape', 'style', 'price', 'sale', 'arrival', 'closeout', 'view')
             ->where('closeout', 'N')
             ->where('shape', 'ShoeCare')
@@ -43,11 +47,12 @@ class ShoescareController extends ShoesController
                 "size" => array_map('doubleval', explode(',', $item->size))
             ];
         }
+        //dd($shoeCareArr);
         $data = [
             "collection"  => $shoeCareArr,
             "shoesize"    => [
-                "list"  => $list,
-                "chart" => $result
+            "list"  => $list,
+            "chart" => $result
             ]
         ];
         // dd(json_decode(json_encode($data)));
@@ -60,19 +65,49 @@ class ShoescareController extends ShoesController
 
     public function addShoeCare(Request $request)
     {
+        if(Session::has('carts')) {
+			$cartsess=Session::get('carts');
+		}else{
+			$cartsession_id=md5(microtime().rand());
+			$cartsess=Session::put('carts', $cartsession_id);
+		}		
+        if (Auth::check())
+        {
+            $userid=Auth::user()->id;
+            
+            $cartuser = Cart::select('id')->where('user_id' ,'=' , $userid)->count();
+            if($cartuser>0){
+                    DB::table('carts')
+                    ->where('user_id', $userid)
+                    ->update(['cart_sessionid' => $cartsess]);					
+            }
+        }else{
+            $userid=Null;
+        }
+
+        //dd($request);
         foreach ($request->request as $key => $item) {
-            $cart               = new Cart();
-            $cart->key          = $item['id'];
-            $cart->name         = $item['name'];
-            $cart->shape        = $item['shape'];
-            $cart->style        = $item['style'];
-            $cart->quantity     = $item['quantity'];
-            if( !empty(auth()->user() ) )
-                $cart->session = auth()->user()->id;
-            else
-                $cart->token = session()->get('_token');
-            //dd($cart);
-            $cart->save();
+            $care = Shoescare::where('key', $item['id'])->first();
+            if( $care!=null )
+            {
+                $cart               = new Cart();
+                $cart->cart_sessionid    = $cartsess;
+                $cart->cat_id            = CONST_CATEGORY_SHOESCRE;
+                $cart->user_id           = $userid;
+                // $cart->key          = $item['id'];
+                // $cart->name         = $item['name'];
+                // $cart->shape        = $item['shape'];
+                // $cart->style        = $item['style'];
+                // $cart->quantity     = $item['quantity'];
+                $cart->fabric_image      = '';
+                $cart->canvas_front_img  = '/images/patina/shoecare/' . $care->key . '/View1/' . strtolower($care->key) . '.jpg';
+                $cart->item_description  = $care->desc;
+                $cart->price             = $care->price;
+                $cart->qty               = $item['quantity'];
+                $cart->total             = $care->price * $item['quantity'];
+    
+                $cart->save();
+            }
         }
     }
 }

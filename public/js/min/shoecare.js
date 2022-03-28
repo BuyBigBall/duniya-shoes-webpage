@@ -4,7 +4,8 @@ $(function () {
         Cart: {},
         Checkout: {
             url: "/designshoes/elements/cart/addShoeCare",
-            redirect: "/designshoes/checkout",
+            //redirect: "/designshoes/checkout",
+            redirect: "/cart",
             send: !1
         }
     };

@@ -1612,12 +1612,13 @@ initial = (function (fn) {
             // SEND PARAMETER HERE
             $.ajax({
                 type: "POST",
-                url: "../designshoes/elements/cart/addModelshoesToImage.php",
+                url: "/designshoes/elements/cart/addModelShoesToCart",
                 data: parameter,
                 contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-                success: function (response) {
-
+                success: function (response) 
+                {
                     window.location.href = "../designshoes/checkout";
+                    //window.location.href = "/cart";
                 }
             });
         }

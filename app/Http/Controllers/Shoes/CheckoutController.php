@@ -36,11 +36,8 @@ class CheckoutController extends ShoesController
         $i = 0;
         foreach ($goods as $item) {
             $i++;
-            
-            $descriotion = json_decode(unserialize($item->item_description));
-            
-            //if ($item->shape == "ShoeCare") {
-            if($descriotion->productType=='ShoeCare') {
+            if( $item->cat_id == CONST_CATEGORY_SHOESCRE )
+            {
                 $goodsLists[$i . ''] = json_decode(json_encode(
                     [
                         "id" => $item->id,
@@ -61,17 +58,27 @@ class CheckoutController extends ShoesController
                         "PRICE_SYMBOLIC" => 0
                     ]
                 ));
-            } 
-            elseif($descriotion->productType=='shoe')
-            {
-                $goodsLists[$i . '']                = empty($item->item_description) ? "" : json_decode( unserialize($item->item_description) );
-
-                $goodsLists[$i . '']->id            = $item->id;
-                $goodsLists[$i . '']->DESIGN_TYPE   = 'custom';             //<==             =  from designer page to carts for new model designing
-                $goodsLists[$i . '']->getQty        = $item->qty;
-                $goodsLists[$i . '']->MODELNO       = '';                   //$item->key;
-                $goodsLists[$i . '']->productName   = '';                   //$item->name;
             }
+            else
+            {
+                $descriotion = json_decode(unserialize($item->item_description));
+            
+                //if ($item->shape == "ShoeCare") {
+                // if($descriotion->productType=='ShoeCare') {
+                // } 
+                // else
+                if($descriotion->productType=='shoe')
+                {
+                    $goodsLists[$i . '']                = empty($item->item_description) ? "" : json_decode( unserialize($item->item_description) );
+    
+                    $goodsLists[$i . '']->id            = $item->id;
+                    $goodsLists[$i . '']->DESIGN_TYPE   = 'custom';             //<==             =  from designer page to carts for new model designing
+                    $goodsLists[$i . '']->getQty        = $item->qty;
+                    $goodsLists[$i . '']->MODELNO       = '';                   //$item->key;
+                    $goodsLists[$i . '']->productName   = '';                   //$item->name;
+                }
+            }
+
         }
         $data = [
             'language'      => $lang,

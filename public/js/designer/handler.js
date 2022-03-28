@@ -1607,6 +1607,7 @@ initial = (function (fn) {
                 success: function (response) 
                 {
                     window.location.href = "/designshoes/checkout";
+                    //window.location.href = "/cart";
                 }
             });
         }

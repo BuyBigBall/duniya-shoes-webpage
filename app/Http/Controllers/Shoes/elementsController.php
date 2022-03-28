@@ -147,6 +147,20 @@ class elementsController extends ShoesController
 			$carts=md5(microtime().rand());
 			$cartsess=Session::put('carts', $carts);							
 		}		
+        if (Auth::check())
+        {
+            $userid=Auth::user()->id;
+            
+            $cartuser = Cart::select('id')->where('user_id' ,'=' , $userid)->count();
+            if($cartuser>0){
+                    DB::table('carts')
+                    ->where('user_id', $userid)
+                    ->update(['cart_sessionid' => $cartsess]);					
+            }
+        }else{
+            $userid=Null;
+        }
+
         // $cart = new Cart();
         
         // $cart->monoIn           = $request->monoIn;
@@ -176,20 +190,6 @@ class elementsController extends ShoesController
         // }
         // $cart->save();
 
-        if (Auth::check())
-        {
-            $userid=Auth::user()->id;
-            
-            $cartuser = Cart::select('id')->where('user_id' ,'=' , $userid)->count();
-            if($cartuser>0){
-                    DB::table('carts')
-                    ->where('user_id', $userid)
-                    ->update(['cart_sessionid' => $cartsess]);					
-            }
-        }else{
-            $userid=Null;
-        }
-		  
         $eTailorObj = $json_description = json_decode(base64_decode($request->sobj));  #//json_decode($_POST['setarr'], true);  
         $finalarr   = base64_decode($request->sobj);
 
